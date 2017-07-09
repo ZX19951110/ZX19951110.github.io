@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NGINX的常用配置 | 老战博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Nginx 常见应用技术指南======================== 正则表达式匹配： * ~ 为区分大小写匹配 * ~* 为不区分大小写匹配 * !~和!~*分别为区分大小写不匹配及不区分大小写不匹配 *^~ 如果把这个前缀用于一个常规字符串,那么告诉nginx 如果路径匹配那么不测试正则表达式。 示例location = / {  # 只匹配 / 查询。 } location / {">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NGINX的常用配置">
+<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/04/16/NGINX的常用配置/index.html">
+<meta property="og:site_name" content="老战博客">
+<meta property="og:description" content="Nginx 常见应用技术指南======================== 正则表达式匹配： * ~ 为区分大小写匹配 * ~* 为不区分大小写匹配 * !~和!~*分别为区分大小写不匹配及不区分大小写不匹配 *^~ 如果把这个前缀用于一个常规字符串,那么告诉nginx 如果路径匹配那么不测试正则表达式。 示例location = / {  # 只匹配 / 查询。 } location / {">
+<meta property="og:updated_time" content="2017-04-16T04:19:36.637Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NGINX的常用配置">
+<meta name="twitter:description" content="Nginx 常见应用技术指南======================== 正则表达式匹配： * ~ 为区分大小写匹配 * ~* 为不区分大小写匹配 * !~和!~*分别为区分大小写不匹配及不区分大小写不匹配 *^~ 如果把这个前缀用于一个常规字符串,那么告诉nginx 如果路径匹配那么不测试正则表达式。 示例location = / {  # 只匹配 / 查询。 } location / {">
+  
+    <link rel="alternate" href="/atom.xml" title="老战博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">老战博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://zx19951110.github.io/ZX.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-NGINX的常用配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/16/NGINX的常用配置/" class="article-date">
+  <time datetime="2017-04-16T03:49:11.000Z" itemprop="datePublished">2017-04-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NGINX的常用配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Nginx-常见应用技术指南"><a href="#Nginx-常见应用技术指南" class="headerlink" title="Nginx 常见应用技术指南"></a>Nginx 常见应用技术指南</h1><p>========================</p>
+<h2 id="正则表达式匹配："><a href="#正则表达式匹配：" class="headerlink" title="正则表达式匹配："></a>正则表达式匹配：</h2><ul>
+<li>* ~ 为区分大小写匹配</li>
+<li>* ~* 为不区分大小写匹配</li>
+<li>* !~和!~*分别为区分大小写不匹配及不区分大小写不匹配</li>
+<li><p>*^~ 如果把这个前缀用于一个常规字符串,那么告诉nginx 如果路径匹配那么不测试正则表达式。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code>location = / {
+ # 只匹配 / 查询。
+}
+location / {
+ # 匹配任何查询，因为所有请求都已 / 开头。但是正则表达式规则和长的块规则将被优先和查询匹配。
+}
+location ^~ /images/ {
+ # 匹配任何已 /images/ 开头的任何查询并且停止搜索。任何正则表达式将不会被测试。
+}
+location ~*.(gif|jpg|jpeg)$ {
+ # 匹配任何已 gif、jpg 或 jpeg 结尾的请求。
+}
+location ~*.(gif|jpg|swf)$ {
+  valid_referers none blocked start.igrow.cn sta.igrow.cn;
+  if ($invalid_referer) {
+  #防盗链
+  rewrite ^/ http://$host/logo.png;
+  }
+}
+</code></pre></li>
+</ul>
+<h2 id="文件目录匹配："><a href="#文件目录匹配：" class="headerlink" title="文件目录匹配："></a>文件目录匹配：</h2><ul>
+<li>* -f和!-f用来判断是否存在文件</li>
+<li>* -d和!-d用来判断是否存在目录</li>
+<li>* -e和!-e用来判断是否存在文件或目录</li>
+<li>* -x和!-x用来判断文件是否可执行<h2 id="flag标记"><a href="#flag标记" class="headerlink" title="flag标记:"></a>flag标记:</h2></li>
+<li>* last 相当于Apache里的[L]标记，表示完成rewrite</li>
+<li>* break 终止匹配, 不再匹配后面的规则</li>
+<li>* redirect 返回302临时重定向 地址栏会显示跳转后的地址</li>
+<li>* permanent 返回301永久重定向 地址栏会显示跳转后的地址<h2 id="一些可用的全局变量，可以用做条件判断-待补全"><a href="#一些可用的全局变量，可以用做条件判断-待补全" class="headerlink" title="一些可用的全局变量，可以用做条件判断(待补全):"></a>一些可用的全局变量，可以用做条件判断(待补全):</h2></li>
+<li><p>$args</p>
+</li>
+<li><p>$content_length</p>
+</li>
+<li><p>$content_type</p>
+</li>
+<li><p>$document_root</p>
+</li>
+<li><p>$document_uri</p>
+</li>
+<li><p>$host</p>
+</li>
+<li><p>$http_user_agent</p>
+</li>
+<li><p>$http_cookie</p>
+</li>
+<li><p>$limit_rate</p>
+</li>
+<li><p>$request_body_file</p>
+</li>
+<li><p>$request_method</p>
+</li>
+<li><p>$remote_addr</p>
+</li>
+<li><p>$remote_port</p>
+</li>
+<li><p>$remote_user</p>
+</li>
+<li><p>$request_filename</p>
+</li>
+<li><p>$request_uri</p>
+</li>
+<li><p>$query_string</p>
+</li>
+<li><p>$scheme</p>
+</li>
+<li><p>$server_protocol</p>
+</li>
+<li><p>$server_addr</p>
+</li>
+<li><p>$server_name</p>
+</li>
+<li><p>$server_port</p>
+</li>
+<li><p>$uri</p>
+<h3 id="结合QeePHP的例子"><a href="#结合QeePHP的例子" class="headerlink" title="结合QeePHP的例子:"></a>结合QeePHP的例子:</h3><p>  if (!-d $request_filename) {</p>
+<p>  rewrite ^/([a-z-A-Z]+)/([a-z-A-Z]+)/?(.*)$ /index.php?namespace=user&amp;controller=$1&amp;action=$2&amp;$3 last;</p>
+<p>  rewrite ^/([a-z-A-Z]+)/?$ /index.php?namespace=user&amp;controller=$1 last;</p>
+<p>  break;</p>
+<h3 id="多目录转成参数"><a href="#多目录转成参数" class="headerlink" title="多目录转成参数"></a>多目录转成参数</h3></li>
+</ul>
+<p>abc.domian.com/sort/2 =&gt; abc.domian.com/index.PHP?act=sort&amp;name=abc&amp;id=2</p>
+<pre><code>if ($host ~* (.*)/.domain/.com) {
+
+set $sub_name $1;   
+
+rewrite ^/sort//(/d+)//?$ /index.php?act=sort&amp;cid=$sub_name&amp;id=$1 last;
+
+}
+</code></pre><h3 id="目录对换"><a href="#目录对换" class="headerlink" title="目录对换"></a>目录对换</h3><p>/123456/xxxx -&gt; /xxxx?id=123456</p>
+<pre><code>rewrite ^/(/d+)/(.+)/ /$2?id=$1 last;
+</code></pre><p>例如下面设定nginx在用户使用ie的使用重定向到/nginx-ie目录下：</p>
+<pre><code>if ($http_user_agent ~ MSIE) {
+
+rewrite ^(.*)$ /nginx-ie/$1 break;
+
+}
+</code></pre><h3 id="目录自动加“-”"><a href="#目录自动加“-”" class="headerlink" title="目录自动加“/”"></a>目录自动加“/”</h3><pre><code>if (-d $request_filename){
+
+rewrite ^/(.*)([^/])$ http://$host/$1$2/ permanent;
+
+}
+</code></pre><h3 id="禁止htaccess"><a href="#禁止htaccess" class="headerlink" title="禁止htaccess"></a>禁止htaccess</h3><pre><code>ocation ~//.ht {
+
+         deny all;
+
+     }
+</code></pre><h3 id="禁止多个目录"><a href="#禁止多个目录" class="headerlink" title="禁止多个目录"></a>禁止多个目录</h3><pre><code>location ~ ^/(cron|templates)/ {
+
+    deny all;
+
+    break;
+
+}
+</code></pre><h3 id="禁止以-data开头的文件"><a href="#禁止以-data开头的文件" class="headerlink" title="禁止以/data开头的文件"></a>禁止以/data开头的文件</h3><p>可以禁止/data/下多级目录下.log.txt等请求;</p>
+<pre><code>location ~ ^/data {
+
+         deny all;
+
+     }
+</code></pre><h3 id="禁止单个文件"><a href="#禁止单个文件" class="headerlink" title="禁止单个文件"></a>禁止单个文件</h3><pre><code>location ~ /data/sql/data.sql {
+
+         deny all;
+
+     }
+</code></pre><h3 id="给favicon-ico和robots-txt设置过期时间"><a href="#给favicon-ico和robots-txt设置过期时间" class="headerlink" title="给favicon.ico和robots.txt设置过期时间:"></a>给favicon.ico和robots.txt设置过期时间:</h3><p>这里为favicon.ico为99天,robots.txt为7天并不记录404错误日志</p>
+<pre><code>location ~(favicon.ico) {
+
+log_not_found off;
+
+expires 99d;
+
+break;
+
+}
+
+
+
+location ~(robots.txt) {
+
+log_not_found off;
+
+expires 7d;
+
+break;
+
+}
+</code></pre><h3 id="设定某个文件的过期时间-这里为600秒，并不记录访问日志"><a href="#设定某个文件的过期时间-这里为600秒，并不记录访问日志" class="headerlink" title="设定某个文件的过期时间;这里为600秒，并不记录访问日志"></a>设定某个文件的过期时间;这里为600秒，并不记录访问日志</h3><pre><code>location ^~ /html/scripts/loadhead_1.js {
+
+access_log   off;
+
+root /opt/lampp/htdocs/web;
+
+expires 600;
+
+break;
+
+}
+</code></pre><h3 id="文件反盗链并设置过期时间"><a href="#文件反盗链并设置过期时间" class="headerlink" title="文件反盗链并设置过期时间"></a>文件反盗链并设置过期时间</h3><p>这里的return 412 为自定义的http状态码，默认为403，方便找出正确的盗链的请求<br>“rewrite ^/ <a href="http://leech.c1gstudio.com/leech.gif;”显示一张防盗链图片" target="_blank" rel="external">http://leech.c1gstudio.com/leech.gif;”显示一张防盗链图片</a><br>“access_log off;”不记录访问日志，减轻压力<br>“expires 3d”所有文件3天的浏览器缓存</p>
+<pre><code>location ~* ^.+/.(jpg|jpeg|gif|png|swf|rar|zip|css|js)$ {
+
+valid_referers none blocked *.c1gstudio.com *.c1gstudio.net localhost 208.97.167.194;
+
+if ($invalid_referer) {
+
+    rewrite ^/ http://leech.c1gstudio.com/leech.gif;
+
+    return 412;
+
+    break;
+
+}
+
+    access_log   off;
+
+    root /opt/lampp/htdocs/web;
+
+expires 3d;
+
+break;
+
+     }
+</code></pre><h3 id="只充许固定ip访问网站，并加上密码"><a href="#只充许固定ip访问网站，并加上密码" class="headerlink" title="只充许固定ip访问网站，并加上密码"></a>只充许固定ip访问网站，并加上密码</h3><pre><code>root  /opt/htdocs/www;
+
+allow   208.97.167.194;
+
+allow   222.33.1.2;
+
+allow   231.152.49.4;
+
+deny    all;
+
+auth_basic &quot;C1G_ADMIN&quot;;
+
+auth_basic_user_file htpasswd;
+</code></pre><h3 id="将多级目录下的文件转成一个文件，增强seo效果"><a href="#将多级目录下的文件转成一个文件，增强seo效果" class="headerlink" title="将多级目录下的文件转成一个文件，增强seo效果"></a>将多级目录下的文件转成一个文件，增强seo效果</h3><p>/job-123-456-789.html 指向/job/123/456/789.html</p>
+<pre><code>rewrite ^/job-([0-9]+)-([0-9]+)-([0-9]+)/.html$ /job/$1/$2/jobshow_$3.html last;
+</code></pre><h3 id="将根目录下某个文件夹指向2级目录"><a href="#将根目录下某个文件夹指向2级目录" class="headerlink" title="将根目录下某个文件夹指向2级目录"></a>将根目录下某个文件夹指向2级目录</h3><p>如/shanghaijob/ 指向 /area/shanghai/<br>如果你将last改成permanent，那么浏览器地址栏显是/location/shanghai/</p>
+<pre><code>rewrite ^/([0-9a-z]+)job/(.*)$ /area/$1/$2 last;
+
+上面例子有个问题是访问/shanghai 时将不会匹配
+
+ewrite ^/([0-9a-z]+)job$ /area/$1/ last;
+
+rewrite ^/([0-9a-z]+)job/(.*)$ /area/$1/$2 last;
+
+这样/shanghai 也可以访问了，但页面中的相对链接无法使用，
+如./list_1.html真实地址是/area/shanghia/list_1.html会变成/list_1.html,导至无法访问。
+
+那我加上自动跳转也是不行咯
+(-d $request_filename)它有个条件是必需为真实目录，而我的rewrite不是的，所以没有效果
+
+if (-d $request_filename){
+
+rewrite ^/(.*)([^/])$ http://$host/$1$2/ permanent;
+
+}
+
+知道原因后就好办了，让我手动跳转吧
+
+rewrite ^/([0-9a-z]+)job$ /$1job/ permanent;
+
+rewrite ^/([0-9a-z]+)job/(.*)$ /area/$1/$2 last;
+
+文件和目录不存在的时候重定向：
+
+if (!-e $request_filename) {
+
+proxy_pass http://127.0.0.1;
+
+}
+</code></pre><h3 id="域名跳转"><a href="#域名跳转" class="headerlink" title="域名跳转:"></a>域名跳转:</h3><pre><code>server
+
+     {
+
+             listen       80;
+
+             server_name  jump.c1gstudio.com;
+
+             index index.html index.htm index.php;
+
+             root  /opt/lampp/htdocs/www;
+
+             rewrite ^/ http://www.c1gstudio.com/;
+
+             access_log  off;
+
+     }
+</code></pre><h3 id="多域名转向"><a href="#多域名转向" class="headerlink" title="多域名转向:"></a>多域名转向:</h3><pre><code>server_name  www.c1gstudio.com www.c1gstudio.net;
+
+             index index.html index.htm index.php;
+
+             root  /opt/lampp/htdocs;
+
+if ($host ~ &quot;c1gstudio/.net&quot;) {
+
+rewrite ^(.*) http://www.c1gstudio.com$1 permanent;
+
+}
+</code></pre><h3 id="三级域名跳转"><a href="#三级域名跳转" class="headerlink" title="三级域名跳转"></a>三级域名跳转</h3><pre><code>if ($http_host ~* &quot;^(.*)/.i/.c1gstudio/.com$&quot;) {
+
+rewrite ^(.*) http://top.yingjiesheng.com$1;
+
+break;
+
+}
+</code></pre><h3 id="域名镜像"><a href="#域名镜像" class="headerlink" title="域名镜像"></a>域名镜像</h3><pre><code>server
+
+     {
+
+             listen       80;
+
+             server_name  mirror.c1gstudio.com;
+
+             index index.html index.htm index.php;
+
+             root  /opt/lampp/htdocs/www;
+
+             rewrite ^/(.*) http://www.c1gstudio.com/$1 last;
+
+             access_log  off;
+
+     }
+</code></pre><h3 id="某个子目录作镜向"><a href="#某个子目录作镜向" class="headerlink" title="某个子目录作镜向"></a>某个子目录作镜向</h3><pre><code>location ^~ /zhaopinhui {
+
+  rewrite ^.+ http://zph.c1gstudio.com/ last;
+
+  break;
+
+     }
+</code></pre><h3 id="jspace-rewrite"><a href="#jspace-rewrite" class="headerlink" title="jspace rewrite"></a>jspace rewrite</h3><pre><code>location ~ .*/.php?$
+
+             {
+
+                  #fastcgi_pass  unix:/tmp/php-cgi.sock;
+
+                  fastcgi_pass  127.0.0.1:9000;
+
+                  fastcgi_index index.php;
+
+                  include fcgi.conf;     
+
+             }
+</code></pre><h3 id="头像-rewrite-优化"><a href="#头像-rewrite-优化" class="headerlink" title="头像 rewrite 优化"></a>头像 rewrite 优化</h3><pre><code>location ^~ /ucenter {
+
+     location ~ .*/.php?$
+
+     {
+
+  #fastcgi_pass  unix:/tmp/php-cgi.sock;
+
+  fastcgi_pass  127.0.0.1:9000;
+
+  fastcgi_index index.php;
+
+  include fcgi.conf;     
+
+     }
+
+
+
+     location /ucenter/data/avatar {
+
+log_not_found off;
+
+access_log   off;
+
+location ~ /(.*)_big/.jpg$ {
+
+    error_page 404 /ucenter/images/noavatar_big.gif;
+
+}
+
+location ~ /(.*)_middle/.jpg$ {
+
+    error_page 404 /ucenter/images/noavatar_middle.gif;
+
+}
+
+location ~ /(.*)_small/.jpg$ {
+
+    error_page 404 /ucenter/images/noavatar_small.gif;
+
+}
+
+expires 300;
+
+break;
+
+     }
+
+                       }
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zx19951110.github.io/ZX.github.io/2017/04/16/NGINX的常用配置/" data-id="cj4w3d13i0001zsory8s3oxlh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/07/09/php下使用Redis方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/25/windows下配置nginx-mysql-php/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">windows下配置nginx+mysql+php</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/php下使用Redis方法/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/16/NGINX的常用配置/">NGINX的常用配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/25/windows下配置nginx-mysql-php/">windows下配置nginx+mysql+php</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/PHP使用Mongo/">PHP使用Mongo</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/Nginx在linux下的安装与配置/">Nginx在linux下的安装与配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 zhanxu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

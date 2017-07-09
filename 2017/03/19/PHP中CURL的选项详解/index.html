@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>PHP中CURL的option参数详解 | 老战博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="背景：学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下： 参数详情：b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP中CURL的option参数详解">
+<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/03/19/PHP中CURL的选项详解/index.html">
+<meta property="og:site_name" content="老战博客">
+<meta property="og:description" content="背景：学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下： 参数详情：b">
+<meta property="og:updated_time" content="2017-03-19T10:04:19.220Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP中CURL的option参数详解">
+<meta name="twitter:description" content="背景：学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下： 参数详情：b">
+  
+    <link rel="alternate" href="/atom.xml" title="老战博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">老战博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://zx19951110.github.io/ZX.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-PHP中CURL的选项详解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/19/PHP中CURL的选项详解/" class="article-date">
+  <time datetime="2017-03-19T09:49:44.000Z" itemprop="datePublished">2017-03-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PHP中CURL的option参数详解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h2><p>学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下：</p>
+<h2 id="参数详情："><a href="#参数详情：" class="headerlink" title="参数详情："></a>参数详情：</h2><p>bool curl_setopt (int ch, string option, mixed value)<br>curl_setopt()函数将为一个CURL会话设置选项。option参数是你想要的设置，value是这个选项给定的值。</p>
+<h3 id="下列选项的值将被作为长整形使用-在option参数中指定-："><a href="#下列选项的值将被作为长整形使用-在option参数中指定-：" class="headerlink" title="下列选项的值将被作为长整形使用(在option参数中指定)："></a>下列选项的值将被作为长整形使用(在option参数中指定)：</h3><ul>
+<li>CURLOPT_INFILESIZE : 当你上传一个文件到远程站点，这个选项告诉PHP你上传文件的大小。</li>
+<li>CURLOPT_VERBOSE : 如果你想CURL报告每一件意外的事情，设置这个选项为一个非零值。</li>
+<li>CURLOPT_HEADER : 如果你想把一个头包含在输出中，设置这个选项为一个非零值。</li>
+<li>CURLOPT_NOPROGRESS: 如果你不会PHP为CURL传输显示一个进程条，设置这个选项为一个非零值。注意：PHP自动设置这个选项为非零值，你应该仅仅为了调试的目的来改变这个选项。</li>
+<li>CURLOPT_NOBODY : 如果你不想在输出中包含body部分，设置这个选项为一个非零值。</li>
+<li>CURLOPT_FAILONERROR : 如果你想让PHP在发生错误(HTTP代码返回大于等于300)时，不显示，设置这个选项为一人非零值。默认行为是返回一个正常页，忽略代码。</li>
+<li>CURLOPT_UPLOAD: 如果你想让PHP为上传做准备，设置这个选项为一个非零值。</li>
+<li>CURLOPT_POST : 如果你想PHP去做一个正规的HTTP POST，设置这个选项为一个非零值。这个POST是普通的 application/x-www-from-urlencoded 类型，多数被HTML表单使用。</li>
+<li>CURLOPT_FTPLISTONLY : 设置这个选项为非零值，PHP将列出FTP的目录名列表。</li>
+<li>CURLOPT_FTPAPPEND : 设置这个选项为一个非零值，PHP将应用远程文件代替覆盖它。</li>
+<li>CURLOPT_NETRC : 设置这个选项为一个非零值，PHP将在你的 ~./netrc 文件中查找你要建立连接的远程站点的用户名及密码。</li>
+<li>CURLOPT_FOLLOWLOCATION : 设置这个选项为一个非零值(象 “Location: “)的头，服务器会把它当做HTTP头的一部分发送(注意这是递归的，PHP将发送形如 “Location: “的头)。</li>
+<li>CURLOPT_PUT : 设置这个选项为一个非零值去用HTTP上传一个文件。要上传这个文件必须设置CURLOPT_INFILE和CURLOPT_INFILESIZE选项.</li>
+<li>CURLOPT_MUTE : 设置这个选项为一个非零值，PHP对于CURL函数将完全沉默。</li>
+<li>CURLOPT_TIMEOUT : 设置一个长整形数，作为最大延续多少秒。</li>
+<li>CURLOPT_LOW_SPEED_LIMIT: 设置一个长整形数，控制传送多少字节。</li>
+<li>CURLOPT_LOW_SPEED_TIME : 设置一个长整形数，控制多少秒传送CURLOPT_LOW_SPEED_LIMIT规定的字节数。</li>
+<li>CURLOPT_RESUME_FROM : 传递一个包含字节偏移地址的长整形参数，(你想转移到的开始表单)。</li>
+<li>CURLOPT_SSLVERSION: 传递一个包含SSL版本的长参数。默认PHP将被它自己努力的确定，在更多的安全中你必须手工设置。</li>
+<li>CURLOPT_TIMECONDITION : 传递一个长参数，指定怎么处理CURLOPT_TIMEVALUE参数。你可以设置这个参数为TIMECOND_IFMODSINCE 或 TIMECOND_ISUNMODSINCE。这仅用于HTTP。</li>
+<li>CURLOPT_TIMEVALUE : 传递一个从1970-1-1开始到现在的秒数。这个时间将被CURLOPT_TIMEVALUE选项作为指定值使用，或被默认TIMECOND_IFMODSINCE使用。<h3 id="下列选项的值将被作为字符串："><a href="#下列选项的值将被作为字符串：" class="headerlink" title="下列选项的值将被作为字符串："></a>下列选项的值将被作为字符串：</h3></li>
+<li>CURLOPT_URL: 这是你想用PHP取回的URL地址。你也可以在用curl_init()函数初始化时设置这个选项。</li>
+<li>CURLOPT_USERPWD : 传递一个形如[username]:[password]风格的字符串,作用PHP去连接。</li>
+<li>CURLOPT_PROXYUSERPWD : 传递一个形如[username]:[password] 格式的字符串去连接HTTP代理。</li>
+<li>CURLOPT_RANGE : 传递一个你想指定的范围。它应该是”X-Y”格式，X或Y是被除外的。HTTP传送同样支持几个间隔，用逗句来分隔(X-Y,N-M)。</li>
+<li>CURLOPT_POSTFIELDS : 传递一个作为HTTP “POST”操作的所有数据的字符串。</li>
+<li>CURLOPT_REFERER: 在HTTP请求中包含一个”referer”头的字符串。</li>
+<li>CURLOPT_USERAGENT : 在HTTP请求中包含一个”user-agent”头的字符串。</li>
+<li>CURLOPT_FTPPORT: 传递一个包含被ftp “POST”指令使用的IP地址。这个POST指令告诉远程服务器去连接我们指定的IP地址。这个字符串可以是一个IP地址，一个主机名，一个网络界面名(在UNIX下)，或是‘-‘(使用系统默认IP地址)。</li>
+<li>CURLOPT_COOKIE : 传递一个包含HTTP cookie的头连接。</li>
+<li>CURLOPT_SSLCERT : 传递一个包含PEM格式证书的字符串。</li>
+<li>CURLOPT_COOKIEFILE : 传递一个包含cookie数据的文件的名字的字符串。这个cookie文件可以是Netscape格式，或是堆存在文件中的HTTP风格的头。</li>
+<li>CURLOPT_CUSTOMREQUEST : 当进行HTTP请求时，传递一个字符被GET或HEAD使用。为进行DELETE或其它操作是有益的，更Pass a string to be used instead of GET or HEAD when doing an HTTP request. This is useful for doing or another, more obscure, HTTP request. 注意: 在确认你的服务器支持命令先不要去这样做。下列的选项要求一个文件描述(通过使用fopen()函数获得)。</li>
+<li>CURLOPT_FILE: 这个文件将是你放置传送的输出文件，默认是STDOUT.</li>
+<li>CURLOPT_INFILE : 这个文件是你传送过来的输入文件。</li>
+<li>CURLOPT_WRITEHEADER : 这个文件写有你输出的头部分。</li>
+<li>CURLOPT_STDERR : 这个文件写有错误而不是stderr。用来获取需要登录的页面的例子,当前做法是每次或许都登录一次,有需要的人再做改进了.<h4 id="curl可以做到一些更有趣的事情，模拟登陆之类的，hhh-ˉ﹃ˉ-。ps：别忘了curl-close-hhhh"><a href="#curl可以做到一些更有趣的事情，模拟登陆之类的，hhh-ˉ﹃ˉ-。ps：别忘了curl-close-hhhh" class="headerlink" title="curl可以做到一些更有趣的事情，模拟登陆之类的，hhh(ˉ﹃ˉ)。ps：别忘了curl_close();hhhh"></a>curl可以做到一些更有趣的事情，模拟登陆之类的，hhh(ˉ﹃ˉ)。ps：别忘了curl_close();hhhh</h4></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zx19951110.github.io/ZX.github.io/2017/03/19/PHP中CURL的选项详解/" data-id="cj4w3d13i0000zsorer1qo0gr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/20/Nginx在linux下的安装与配置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Nginx在linux下的安装与配置
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/php下使用Redis方法/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/16/NGINX的常用配置/">NGINX的常用配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/25/windows下配置nginx-mysql-php/">windows下配置nginx+mysql+php</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/PHP使用Mongo/">PHP使用Mongo</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/Nginx在linux下的安装与配置/">Nginx在linux下的安装与配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 zhanxu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

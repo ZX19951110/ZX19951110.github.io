@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>PHP使用Mongo | 老战博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Mongo介绍MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。作为非关系型数据库，Mongo有一定趋势成为主流noSQL的DB php连接mongo具体操作mongo的连接$conn = new MongoClient(&amp;quot;mongodb://127.0.0.1:8550&amp;quot;);//创建一个mongo的连接 //可以简写为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP使用Mongo">
+<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/03/20/PHP使用Mongo/index.html">
+<meta property="og:site_name" content="老战博客">
+<meta property="og:description" content="Mongo介绍MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。作为非关系型数据库，Mongo有一定趋势成为主流noSQL的DB php连接mongo具体操作mongo的连接$conn = new MongoClient(&amp;quot;mongodb://127.0.0.1:8550&amp;quot;);//创建一个mongo的连接 //可以简写为">
+<meta property="og:updated_time" content="2017-03-20T12:41:50.991Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP使用Mongo">
+<meta name="twitter:description" content="Mongo介绍MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。作为非关系型数据库，Mongo有一定趋势成为主流noSQL的DB php连接mongo具体操作mongo的连接$conn = new MongoClient(&amp;quot;mongodb://127.0.0.1:8550&amp;quot;);//创建一个mongo的连接 //可以简写为">
+  
+    <link rel="alternate" href="/atom.xml" title="老战博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">老战博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://zx19951110.github.io/ZX.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-PHP使用Mongo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/20/PHP使用Mongo/" class="article-date">
+  <time datetime="2017-03-20T12:40:34.000Z" itemprop="datePublished">2017-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PHP使用Mongo
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Mongo介绍"><a href="#Mongo介绍" class="headerlink" title="Mongo介绍"></a>Mongo介绍</h2><p>MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。作为非关系型数据库，Mongo有一定趋势成为主流noSQL的DB</p>
+<h2 id="php连接mongo具体操作"><a href="#php连接mongo具体操作" class="headerlink" title="php连接mongo具体操作"></a>php连接mongo具体操作</h2><h3 id="mongo的连接"><a href="#mongo的连接" class="headerlink" title="mongo的连接"></a>mongo的连接</h3><pre><code>$conn = new MongoClient(&quot;mongodb://127.0.0.1:8550&quot;);//创建一个mongo的连接
+//可以简写为
+
+//$conn=new Mongo(); #连接本地主机,默认端口.
+
+//$conn=new Mongo(“172.21.15.69″); #连接远程主机
+
+//$conn=new Mongo(“xiaocai.loc:10086″); #连接指定端口远程主机
+
+//$conn=new Mongo(“xiaocai.loc”,array(“replicaSet”=&gt;true)); #负载均衡
+
+//$conn=new Mongo(“xiaocai.loc”,array(“persist”=&gt;”t”)); #持久连接
+
+//$conn=new Mongo(“mongodb://sa:123@localhost”); #带用户名密码
+
+//$conn=new Mongo(“mongodb://localhost:27017,localhost:27018″); #连接多个服务器
+
+//$conn=new Mongo(“mongodb:///tmp/mongo-27017.sock”); #域套接字
+//$conn=new Mongo(“mongodb://admin_miss:miss@localhost:27017/test”,array(‘persist’=&gt;’p&apos;,”replicaSet”=&gt;true)); #完整连接
+</code></pre><h3 id="选择数据库与表"><a href="#选择数据库与表" class="headerlink" title="选择数据库与表"></a>选择数据库与表</h3><pre><code>$db=$conn-&gt;mydb; #选择mydb数据库
+
+//$db=$conn-&gt;selectDB(“mydb”); #第二种写法
+
+$collection=$db-&gt;column; #选择集合(选择’表’)
+
+//$collection=$db-&gt;selectCollection(‘column’); #第二种写法
+
+//$collection=$conn-&gt;mydb-&gt;column; #更简洁的写法(常用且推荐)
+</code></pre><h3 id="插入文档"><a href="#插入文档" class="headerlink" title="插入文档"></a>插入文档</h3><pre><code>//**向集合中插入数据,返回bool判断是否插入成功. **/
+
+$array=array(‘column_name’=&gt;’col’.rand(100,999),’column_exp’=&gt;’xiaocai’);
+
+$result=$collection-&gt;insert($array); #简单插入
+
+echo “新记录ID:”.$array[&apos;_id&apos;]; #MongoDB会返回一个记录标识
+
+var_dump($result); #返回:bool(true)
+
+//**向集合中安全插入数据,返回插入状态(数组). **/
+
+$array=array(‘column_name’=&gt;’col’.rand(100,999),’column_exp’=&gt;’xiaocai2′);
+
+$result=$collection-&gt;insert($array,true); #用于等待MongoDB完成操作,以便确定是否成功.(当有大量记录插入时使用该参数会比较有用)
+
+echo “新记录ID:”.$array[&apos;_id&apos;]; #MongoDB会返回一个记录标识
+
+var_dump($result); #返回:array(3) { [&quot;err&quot;]=&gt; NULL [&quot;n&quot;]=&gt; int(0) [&quot;ok&quot;]=&gt; float(1) }
+
+//**完整的写法 **/
+
+#insert($array,array(‘safe’=&gt;false,’fsync’=&gt;false,’timeout’=&gt;10000))
+
+/*
+
+* *
+
+* 完整格式:insert ( array $a [, array $options = array() ] )
+
+*    insert(array(),array(‘safe’=&gt;false,’fsync’=&gt;false,’timeout’=&gt;10000))
+
+*       参数:safe:默认false,是否安全写入
+
+*   fsync:默认false,是否强制插入到同步到磁盘
+
+*     timeout:超时时间(毫秒)
+
+*
+
+* 插入结果:{ “_id” : ObjectId(“4d63552ad549a02c01000009″), “column_name” : “col770″, “column_exp” : “xiaocai” }
+
+*    ’_id’为主键字段,在插入是MongoDB自动添加.
+
+*
+
+*    注意:1.以下两次插入的为同一条记录(相同的_id),因为它们的值相同。
+
+*         $collection-&gt;insert(array(‘column_name’=&gt;’xiaocai’));
+
+*         $collection-&gt;insert(array(‘column_name’=&gt;’xiaocai’));
+
+*     避免
+
+* $collection-&gt;insert(array(‘column_name’=&gt;’xiaocai’),true);
+
+* try {
+
+*      $collection-&gt;insert(array(‘column_name’=&gt;’xiaocai’),true);
+
+* }catch(MongoCursorException $e){
+
+*      echo “Can’t save the same person twice!\n”;
+
+* }
+</code></pre><h3 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h3><pre><code>$where=array(‘column_name’=&gt;’col123′);
+
+$newdata=array(‘column_exp’=&gt;’GGGGGGG’,&apos;column_fid’=&gt;444);
+
+$result=$collection-&gt;update($where,array(‘$set’=&gt;$newdata)); #$set:让某节点等于给定值,类似的还有$pull $pullAll $pop $inc,在后面慢慢说明用法
+
+/*
+
+* 结果:
+
+* 原数据
+
+* {“_id”:ObjectId(“4d635ba2d549a02801000003″),”column_name”:”col123″,”column_exp”:”xiaocai”}
+
+* 被替换成了
+
+* {“_id”:ObjectId(“4d635ba2d549a02801000003″),”column_name”:”col123″,”column_exp”:”GGGGGGG”,”column_fid”:444}
+
+*/
+
+//** 替换更新 **/
+
+$where=array(‘column_name’=&gt;’col709′);
+
+$newdata=array(‘column_exp’=&gt;’HHHHHHHHH’,&apos;column_fid’=&gt;123);
+
+$result=$collection-&gt;update($where,$newdata);
+
+/*
+
+* 结果:
+
+* 原数据
+
+* {“_id”:ObjectId(“4d635ba2d549a02801000003″),”column_name”:”col709″,”column_exp”:”xiaocai”}
+
+* 被替换成了
+
+* {“_id”:ObjectId(“4d635ba2d549a02801000003″),”column_exp”:”HHHHHHHHH”,”column_fid”:123}
+
+*/
+
+//** 批量更新 **/
+
+$where=array(‘column_name’=&gt;’col’);
+
+$newdata=array(‘column_exp’=&gt;’multiple’,’91u’=&gt;684435);
+
+$result=$collection-&gt;update($where,array(‘$set’=&gt;$newdata),array(‘multiple’=&gt;true));
+
+/**
+
+* 所有’column_name’=&apos;col’都被修改
+
+*/
+
+//** 自动累加 **/
+
+$where=array(’91u’=&gt;684435);
+
+$newdata=array(‘column_exp’=&gt;’edit’);
+
+$result=$collection-&gt;update($where,array(‘$set’=&gt;$newdata,’$inc’=&gt;array(’91u’=&gt;-5)));
+
+/**
+
+* 更新91u=684435的数据,并且91u自减5
+
+*/
+
+/** 删除节点 **/
+
+$where=array(‘column_name’=&gt;’col685′);
+
+$result=$collection-&gt;update($where,array(‘$unset’=&gt;’column_exp’));
+
+/**
+
+* 删除节点column_exp
+
+*/
+
+/*
+
+* *
+
+* 完整格式:update(array $criteria, array $newobj [, array $options = array()  ] )
+
+*       注意:1.注意区分替换更新与修改更新
+
+*    2.注意区分数据类型如 array(’91u’=&gt;’684435′)与array(’91u’=&gt;684435)
+
+* 详细资料:http://www.mongodb.org/display/DOCS/Updating#Updating-%24bit
+
+* *
+
+*/
+</code></pre><h3 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h3><pre><code>/** 清空数据库 **/
+
+$collection-&gt;remove(array(‘column_name’=&gt;’col399′));
+
+//$collection-&gt;remove(); #清空集合
+
+/** 删除指定MongoId **/
+
+$id = new MongoId(“4d638ea1d549a02801000011″);
+
+$collection-&gt;remove(array(‘_id’=&gt;(object)$id));
+
+/*
+
+* *
+
+*  使用下面的方法来匹配{“_id”:ObjectId(“4d638ea1d549a02801000011″)},查询、更新也一样
+
+*  $id = new MongoId(“4d638ea1d549a02801000011″);
+
+*  array(‘_id’=&gt;(object)$id)
+
+* *
+
+*/
+</code></pre><h3 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h3><pre><code>/** 查询文档中的记录数 **/
+
+echo ‘count:’.$collection-&gt;count().”&lt;br&gt;”; #全部
+
+echo ‘count:’.$collection-&gt;count(array(‘type’=&gt;’user’)).”&lt;br&gt;”; #可以加上条件
+
+echo ‘count:’.$collection-&gt;count(array(‘age’=&gt;array(‘$gt’=&gt;50,’$lte’=&gt;74))).”&lt;br&gt;”; #大于50小于等于74
+
+echo ‘count:’.$collection-&gt;find()-&gt;limit(5)-&gt;skip(0)-&gt;count(true).”&lt;br&gt;”; #获得实际返回的结果数
+
+/**
+
+* 注:$gt为大于、$gte为大于等于、$lt为小于、$lte为小于等于、$ne为不等于、$exists不存在
+
+*/
+
+/** 集合中所有文档 **/
+
+$cursor = $collection-&gt;find()-&gt;snapshot();
+
+foreach ($cursor as $id =&gt; $value) {
+
+echo “$id: “; var_dump($value); echo “&lt;br&gt;”;
+
+}
+
+/**
+
+* 注意:
+
+* 在我们做了find()操作，获得$cursor游标之后，这个游标还是动态的.
+
+* 换句话说,在我find()之后,到我的游标循环完成这段时间,如果再有符合条件的记录被插入到collection,那么这些记录也会被$cursor 获得.
+
+* 如果你想在获得$cursor之后的结果集不变化,需要这样做：
+
+* $cursor = $collection-&gt;find();
+
+* $cursor-&gt;snapshot();
+
+* 详见http://www.bumao.com/index.php/2010/08/mongo_php_cursor.html
+
+*/
+
+/** 查询一条数据 **/
+
+$cursor = $collection-&gt;findOne();
+
+/**
+
+*  注意:findOne()获得结果集后不能使用snapshot(),fields()等函数;
+
+*/
+
+/** age,type 列不显示 **/
+
+$cursor = $collection-&gt;find()-&gt;fields(array(“age”=&gt;false,”type”=&gt;false));
+
+/** 只显示user 列 **/
+
+$cursor = $collection-&gt;find()-&gt;fields(array(“user”=&gt;true));
+
+/**
+
+* 我这样写会出错:$cursor-&gt;fields(array(“age”=&gt;true,”type”=&gt;false));
+
+*/
+
+/** (存在type,age节点) and age!=0 and age&lt;50 **/
+
+$where=array(‘type’=&gt;array(‘$exists’=&gt;true),’age’=&gt;array(‘$ne’=&gt;0,’$lt’=&gt;50,’$exists’=&gt;true));
+
+$cursor = $collection-&gt;find($where);
+
+/** 分页获取结果集  **/
+
+$cursor = $collection-&gt;find()-&gt;limit(5)-&gt;skip(0);
+
+/** 排序  **/
+
+$cursor = $collection-&gt;find()-&gt;sort(array(‘age’=&gt;-1,’type’=&gt;1)); ##1表示降序 -1表示升序,参数的先后影响排序顺序
+
+/** 索引  **/
+
+$collection-&gt;ensureIndex(array(‘age’ =&gt; 1,’type’=&gt;-1)); #1表示降序 -1表示升序
+
+$collection-&gt;ensureIndex(array(‘age’ =&gt; 1,’type’=&gt;-1),array(‘background’=&gt;true)); #索引的创建放在后台运行(默认是同步运行)
+
+$collection-&gt;ensureIndex(array(‘age’ =&gt; 1,’type’=&gt;-1),array(‘unique’=&gt;true)); #该索引是唯一的
+
+/**
+
+* ensureIndex (array(),array(‘name’=&gt;’索引名称’,&apos;background’=true,’unique’=true))
+
+* 详见:http://www.php.net/manual/en/mongocollection.ensureindex.php
+
+*/
+
+/** 取得查询结果 **/
+
+$cursor = $collection-&gt;find();
+
+$array=array();
+
+foreach ($cursor as $id =&gt; $value) {
+
+$array[]=$value;
+
+}
+</code></pre><h3 id="文档聚类"><a href="#文档聚类" class="headerlink" title="文档聚类"></a>文档聚类</h3><pre><code>$conn-&gt;close(); #关闭连接
+
+/*
+
+关系型数据库与MongoDB数据存储的区别
+
+MySql数据结构:
+
+CREATE TABLE IF NOT EXISTS `column`(
+
+`column_id` int(16)  NOT NULL  auto_increment  COMMENT ‘主键’,
+
+`column_name` varchar(32) NOT NULL COMMENT ‘栏目名称’,
+
+PRIMARY KEY  (`column_id`)
+
+);
+
+CREATE TABLE IF NOT EXISTS `article`(
+
+`article_id`  int(16)  NOT NULL  auto_increment  COMMENT ‘主键’,
+
+`article_caption` varchar(15) NOT NULL COMMENT ‘标题’,
+
+PRIMARY KEY(`article_id`)
+
+);
+
+CREATE TABLE IF NOT EXISTS `article_body`(
+
+`article_id` int(16) NOT NULL COMMENT ‘article.article_id’,
+
+`body` text COMMENT ‘正文’
+
+);
+
+MongoDB数据结构:
+
+$data=array(
+
+‘column_name’ =&gt;’default’,
+
+‘article’ =&gt;array(
+
+‘article_caption’ =&gt; ‘xiaocai’,
+
+‘body’   =&gt; ‘xxxxxxxxxx…’
+
+)
+
+);
+
+$inc
+
+如果记录的该节点存在，让该节点的数值加N；如果该节点不存在，让该节点值等于N
+
+设结构记录结构为 array(’a’=&gt;1,’b’=&gt;’t’),想让a加5，那么：
+
+$coll-&gt;update(
+
+array(’b’=&gt;’t’),
+
+array(’$inc’=&gt;array(’a’=&gt;5)),
+
+)
+
+$set
+
+让某节点等于给定值
+
+设结构记录结构为 array(’a’=&gt;1,’b’=&gt;’t’),b为加f，那么：
+
+$coll-&gt;update(
+
+array(’a’=&gt;1),
+
+array(’$set’=&gt;array(’b’=&gt;’f’)),
+
+)
+
+$unset
+
+删除某节点
+
+设记录结构为 array(’a’=&gt;1,’b’=&gt;’t’)，想删除b节点，那么：
+
+$coll-&gt;update(
+
+array(’a’=&gt;1),
+
+array(’$unset’=&gt;’b’),
+
+)
+
+$push
+
+如果对应节点是个数组，就附加一个新的值上去；不存在，就创建这个数组，并附加一个值在这个数组上；如果该节点不是数组，返回错误。
+
+设记录结构为array(’a’=&gt;array(0=&gt;’haha’),’b’=&amp; gt;1)，想附加新数据到节点a，那么：
+
+$coll-&gt;update(
+
+array(’b’=&gt;1),
+
+array(’$push’=&gt;array(’a’=&gt;’wow’)),
+
+)
+
+这样，该记录就会成为：array(’a’=&gt;array(0=&gt;’haha’,1=&gt;’wow’),’b’=&gt;1)
+
+$pushAll
+
+与$push类似，只是会一次附加多个数值到某节点
+
+$addToSet
+
+如果该阶段的数组中没有某值，就添加之
+
+设记录结构为array(’a’=&gt;array(0=&amp; gt;’haha’),’b’=&gt;1)，如果想附加新的数据到该节点a，那么：
+
+$coll-&gt;update(
+
+array(’b’=&gt;1),
+
+array(’$addToSet’=&gt;array(’a’=&gt;’wow’)),
+
+)
+
+如果在a节点中已经有了wow,那么就不会再添加新的，如果没有，就会为该节点添加新的item——wow。
+
+$pop
+
+设该记录为array(’a’=&gt;array(0=&gt;’haha’,1=&amp; gt;’wow’),’b’=&gt;1)
+
+删除某数组节点的最后一个元素:
+
+$coll-&gt;update(
+
+array(’b’=&gt;1),
+
+array(’$pop=&gt;array(’a’=&gt;1)),
+
+)
+
+删除某数组阶段的第一个元素
+
+$coll-&gt;update(
+
+array(’b’=&gt;1),
+
+array(’$pop=&gt;array(’a’=&gt;-1)),
+
+)
+
+$pull
+
+如果该节点是个数组，那么删除其值为value的子项，如果不是数组，会返回一个错误。
+
+设该记录为 array(’a’=&gt;array(0=&gt;’haha’,1=&gt;’wow’),’b’=&gt;1)，想要删除a中value为 haha的子项：
+
+$coll-&gt;update(
+
+array(’b’=&gt;1),
+
+array(’$pull=&gt;array(’a’=&gt;’haha’)),
+
+)
+
+结果为： array(’a’=&gt;array(0=&gt;’wow’),’b’=&gt;1)
+
+$pullAll
+
+与$pull类似，只是可以删除一组符合条件的记录。
+
+*/
+
+?&gt;
+</code></pre><h5 id="本篇文章太长估计没人会看完，当作字典去查吧233333"><a href="#本篇文章太长估计没人会看完，当作字典去查吧233333" class="headerlink" title="本篇文章太长估计没人会看完，当作字典去查吧233333"></a>本篇文章太长估计没人会看完，当作字典去查吧233333</h5>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zx19951110.github.io/ZX.github.io/2017/03/20/PHP使用Mongo/" data-id="cj4w3d13i0003zsorjqd01169" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/25/windows下配置nginx-mysql-php/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          windows下配置nginx+mysql+php
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/20/Nginx在linux下的安装与配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Nginx在linux下的安装与配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/php下使用Redis方法/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/16/NGINX的常用配置/">NGINX的常用配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/25/windows下配置nginx-mysql-php/">windows下配置nginx+mysql+php</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/PHP使用Mongo/">PHP使用Mongo</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/Nginx在linux下的安装与配置/">Nginx在linux下的安装与配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 zhanxu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>老战博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="PHP使用redis拓展前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="老战博客">
+<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/07/09/php下使用Redis方法/index.html">
+<meta property="og:site_name" content="老战博客">
+<meta property="og:description" content="PHP使用redis拓展前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进">
+<meta property="og:updated_time" content="2017-07-09T02:19:59.734Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="老战博客">
+<meta name="twitter:description" content="PHP使用redis拓展前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进">
+  
+    <link rel="alternate" href="/atom.xml" title="老战博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">老战博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://zx19951110.github.io/ZX.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-php下使用Redis方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/09/php下使用Redis方法/" class="article-date">
+  <time datetime="2017-07-09T02:18:24.306Z" itemprop="datePublished">2017-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="PHP使用redis拓展"><a href="#PHP使用redis拓展" class="headerlink" title="PHP使用redis拓展"></a>PHP使用redis拓展</h1><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，<br>必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数<br>据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。<br>目前内存数据库有很多，这里不进行列出。由于百度使用的是Redis，那我们就聊一聊redis。</p>
+<h3 id="Redis的安装："><a href="#Redis的安装：" class="headerlink" title="Redis的安装："></a>Redis的安装：</h3><p>百度良心包管理工具Jumbo直接install就可以。连接不到百度内网可以参考这篇博客<a href="http://www.cnblogs.com/codersay/p/4301677.html" target="_blank" rel="external">http://www.cnblogs.com/codersay/p/4301677.html</a><br>这里不做多说。</p>
+<h3 id="小坑注意："><a href="#小坑注意：" class="headerlink" title="小坑注意："></a>小坑注意：</h3><p>redis使用的是tcp连接，首先启动服务redis-server时后面要加配置文件路径如</p>
+<pre><code>redis-server ./.jumbo/etc/redis.conf
+</code></pre><p>然后调用命令:</p>
+<pre><code>redis-cli -h 127.0.0.1 -p 6379
+</code></pre><h2 id="正题："><a href="#正题：" class="headerlink" title="正题："></a>正题：</h2><p>phpredis是php的一个扩展，效率是相当高有链表排序功能，对创建内存级的模块业务关系<br>很有用;以下是redis官方提供的命令使用技巧:<br>下载地址如下：<br><a href="https://github.com/owlient/phpredis（支持redis" target="_blank" rel="external">https://github.com/owlient/phpredis（支持redis</a> 2.0.4）</p>
+<p>Redis::__construct构造函数</p>
+<pre><code>$redis = new Redis();
+</code></pre><p>connect, open 链接redis服务<br>参数<br>host: string，服务地址<br>port: int,端口号<br>timeout: float,链接时长 (可选, 默认为 0 ，不限链接时间)<br>注: 在redis.conf中也有时间，默认为300</p>
+<pre><code>$redis-&gt;connect(&apos;127.0.0.1&apos;,6379,0);
+</code></pre><p>pconnect, popen 不会主动关闭的链接<br>参考上面</p>
+<p>setOption 设置redis模式</p>
+<p>getOption 查看redis设置的模式</p>
+<p>ping 查看连接状态</p>
+<pre><code>// 不序列化数据!
+$redis-&gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
+// 使⽤用内置序列化/不序列化
+$redis-&gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP); 
+//使⽤用igbinary系列化/ 不序列化
+$redis-&gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY); 
+//使⽤用⾃自定义前缀的所有键!
+$redis-&gt;setOption(Redis::OPT_PREFIX, &apos;myAppName:&apos;); 
+</code></pre><p>get 得到某个key的值（string值）<br>如果该key不存在，return false</p>
+<pre><code>$redis-&gt;get(&quot;test&quot;);
+</code></pre><p>set 写入key 和 value（string值）<br>如果写入成功，return ture</p>
+<pre><code>$redis-&gt;set（&apos;test&apos;,123）;
+</code></pre><p>setex 带生存时间的写入值</p>
+<pre><code>$redis-&gt;setex(&apos;key&apos;, 3600, &apos;value&apos;); // sets key → value, with 1h TTL.
+</code></pre><p>setnx 判断是否重复的，写入值</p>
+<pre><code>$redis-&gt;setnx(&apos;key&apos;, &apos;value&apos;);
+</code></pre><p>delete  删除指定key的值<br>返回已经删除key的个数（长整数）</p>
+<pre><code>$redis-&gt;delete(&apos;key1&apos;, &apos;key2&apos;);
+$redis-&gt;delete(array(&apos;key3&apos;, &apos;key4&apos;, &apos;key5&apos;));
+</code></pre><p>ttl<br>得到一个key的生存时间</p>
+<pre><code>$redis-&gt;ttl(&apos;test&apos;);
+</code></pre><p>persist<br>移除生存时间到期的key<br>如果key到期 true 如果不到期 false</p>
+<pre><code>$redis-&gt;persist(&apos;test&apos;);
+</code></pre><p>mset （redis版本1.1以上才可以用）<br>同时给多个key赋值</p>
+<pre><code>$redis-&gt;mset(array(&apos;key0&apos; =&gt; &apos;value0&apos;, &apos;key1&apos; =&gt; &apos;value1&apos;));
+</code></pre><p>multi, exec, discard<br>进入或者退出事务模式<br>参数可选Redis::MULTI或Redis::PIPELINE. 默认是 Redis::MULTI<br>Redis::MULTI：将多个操作当成一个事务执行<br>Redis::PIPELINE:让（多条）执行命令简单的，更加快速的发送给服务器，但是没有任何原子性的保证<br>discard:删除一个事务<br>返回值<br>multi()，返回一个redis对象，并进入multi-mode模式，一旦进入multi-mode模式，以后调用的所有方法都会返回相同的对象，只到exec(）方法被调用。</p>
+<p>watch, unwatch （代码测试后，不能达到所说的效果）<br>监测一个key的值是否被其它的程序更改。如果这个key在watch 和 exec （方法）间被修改，这个 MULTI/EXEC 事务的执行将失败（return false）<br>unwatch  取消被这个程序监测的所有key<br>参数，一对key的列表</p>
+<pre><code>$redis-&gt;watch(&apos;x&apos;);
+
+$ret = $redis-&gt;multi() -&gt;incr(&apos;x&apos;) -&gt;exec();
+</code></pre><p>subscribe *<br>方法回调。注意，该方法可能在未来里发生改变</p>
+<p>publish *<br>发表内容到某一个通道。注意，该方法可能在未来里发生改变</p>
+<p>exists<br>判断key是否存在。存在 true 不在 false</p>
+<pre><code>$redis-&gt;exists(&apos;test&apos;);
+</code></pre><p>incr, incrBy<br>key中的值进行自增1，如果填写了第二个参数，者自增第二个参数所填的值</p>
+<pre><code>$redis-&gt;incr(&apos;key1&apos;);
+$redis-&gt;incrBy(&apos;key1&apos;, 10);
+</code></pre><p>decr, decrBy<br>做减法，使用方法同incr</p>
+<p>getMultiple<br>传参<br>由key组成的数组<br>返回参数<br>如果key存在返回value，不存在返回false</p>
+<pre><code>$redis-&gt;set(&apos;key1&apos;, &apos;value1&apos;); 
+$redis-&gt;set(&apos;key2&apos;, &apos;value2&apos;); 
+$redis-&gt;set(&apos;key3&apos;, &apos;value3&apos;); 
+$redis-&gt;getMultiple(array(&apos;key1&apos;, &apos;key2&apos;, &apos;key3&apos;));
+$redis-&gt;lRem(&apos;key1&apos;, &apos;A&apos;, 2);
+$redis-&gt;lRange(&apos;key1&apos;, 0, -1);
+</code></pre><h4 id="list相关操作"><a href="#list相关操作" class="headerlink" title="list相关操作"></a>list相关操作</h4><p>lPush<br>在名称为key的list左边（头）添加一个值为value的 元素</p>
+<pre><code>$redis-&gt;lPush(key, value);
+</code></pre><p>rPush<br>在名称为key的list右边（尾）添加一个值为value的 元素</p>
+<pre><code>$redis-&gt;rPush(key, value);
+</code></pre><p>lPushx/rPushx<br>在名称为key的list左边(头)/右边（尾）添加一个值为value的元素,如果value已经存在，则不添加\</p>
+<pre><code>$redis-&gt;lPushx(key, value);
+</code></pre><p>lPop/rPop<br>输出名称为key的list左(头)起/右（尾）起的第一个元素，删除该元素</p>
+<pre><code>$redis-&gt;lPop(&apos;key&apos;);
+</code></pre><p>blPop/brPop<br>lpop命令的block版本。即当timeout为0时，若遇到名称为key i的list不存在或该list为空，则命令结束。如果timeout&gt;0，则遇到上述情况时，等待timeout秒，如果问题没有解决，则对keyi+1开始的list执行pop操作</p>
+<pre><code>$redis-&gt;blPop(&apos;key1&apos;, &apos;key2&apos;, 10);
+</code></pre><p>lSize<br>返回名称为key的list有多少个元素</p>
+<pre><code>$redis-&gt;lSize(&apos;key&apos;);
+</code></pre><p>lIndex, lGet<br>返回名称为key的list中index位置的元素</p>
+<pre><code>$redis-&gt;lGet(&apos;key&apos;, 0);
+</code></pre><p>lSet<br>给名称为key的list中index位置的元素赋值为value</p>
+<pre><code>$redis-&gt;lSet(&apos;key&apos;, 0, &apos;X&apos;);
+</code></pre><p>lRange, lGetRange<br>返回名称为key的list中start至end之间的元素（end为 -1 ，返回所有）</p>
+<pre><code>$redis-&gt;lRange(&apos;key1&apos;, 0, -1);
+</code></pre><p>lTrim, listTrim<br>截取名称为key的list，保留start至end之间的元素</p>
+<pre><code>$redis-&gt;lTrim(&apos;key&apos;, start, end);
+</code></pre><p>lRem, lRemove<br>删除count个名称为key的list中值为value的元素。count为0，删除所有值为value的元素，count&gt;0从头至尾删除count个值为value的元素，count&lt;0从尾到头删除|count|个值为value的元素</p>
+<pre><code>$redis-&gt;lRem(&apos;key&apos;, &apos;A&apos;, 2);
+</code></pre><p>lInsert<br>在名称为为key的list中，找到值为pivot 的value，并根据参数Redis::BEFORE | Redis::AFTER，来确定，newvalue 是放在 pivot 的前面，或者后面。如果key不存在，不会插入，如果 pivot不存在，return -1</p>
+<pre><code>$redis-&gt;delete(&apos;key1&apos;); $redis-&gt;lInsert(&apos;key1&apos;, Redis::AFTER, &apos;A&apos;, &apos;X&apos;); $redis-&gt;lPush(&apos;key1&apos;, &apos;A&apos;); $redis-&gt;lPush(&apos;key1&apos;, &apos;B&apos;); $redis-&gt;lPush(&apos;key1&apos;, &apos;C&apos;); $redis-&gt;lInsert(&apos;key1&apos;, Redis::BEFORE, &apos;C&apos;, &apos;X&apos;);
+$redis-&gt;lRange(&apos;key1&apos;, 0, -1);
+$redis-&gt;lInsert(&apos;key1&apos;, Redis::AFTER, &apos;C&apos;, &apos;Y&apos;);
+$redis-&gt;lRange(&apos;key1&apos;, 0, -1);
+$redis-&gt;lInsert(&apos;key1&apos;, Redis::AFTER, &apos;W&apos;, &apos;value&apos;);
+</code></pre><p>rpoplpush<br>返回并删除名称为srckey的list的尾元素，并将该元素添加到名称为dstkey的list的头部</p>
+<pre><code>$redis-&gt;delete(&apos;x&apos;, &apos;y&apos;);
+$redis-&gt;lPush(&apos;x&apos;, &apos;abc&apos;); $redis-&gt;lPush(&apos;x&apos;, &apos;def&apos;); $redis-&gt;lPush(&apos;y&apos;, &apos;123&apos;); $redis-&gt;lPush(&apos;y&apos;, &apos;456&apos;); // move the last of x to the front of y. var_dump($redis-&gt;rpoplpush(&apos;x&apos;, &apos;y&apos;));
+var_dump($redis-&gt;lRange(&apos;x&apos;, 0, -1));
+var_dump($redis-&gt;lRange(&apos;y&apos;, 0, -1)); 
+
+string(3) &quot;abc&quot; 
+array(1) { [0]=&gt; string(3) &quot;def&quot; } 
+array(3) { [0]=&gt; string(3) &quot;abc&quot; [1]=&gt; string(3) &quot;456&quot; [2]=&gt; string(3) &quot;123&quot; }
+</code></pre><h4 id="SET操作相关"><a href="#SET操作相关" class="headerlink" title="SET操作相关"></a>SET操作相关</h4><p>sAdd<br>向名称为key的set中添加元素value,如果value存在，不写入，return false</p>
+<pre><code>$redis-&gt;sAdd(key , value);
+</code></pre><p>sRem, sRemove<br>删除名称为key的set中的元素value</p>
+<pre><code>$redis-&gt;sAdd(&apos;key1&apos; , &apos;set1&apos;);
+$redis-&gt;sAdd(&apos;key1&apos; , &apos;set2&apos;);
+$redis-&gt;sAdd(&apos;key1&apos; , &apos;set3&apos;);
+$redis-&gt;sRem(&apos;key1&apos;, &apos;set2&apos;);
+</code></pre><p>sMove<br>将value元素从名称为srckey的集合移到名称为dstkey的集合</p>
+<pre><code>$redis-&gt;sMove(seckey, dstkey, value);
+</code></pre><p>sIsMember, sContains<br>名称为key的集合中查找是否有value元素，有ture 没有 false</p>
+<pre><code>$redis-&gt;sIsMember(key, value);
+</code></pre><p>sCard, sSize<br>返回名称为key的set的元素个数</p>
+<p>sPop<br>随机返回并删除名称为key的set中一个元素</p>
+<p>sRandMember<br>随机返回名称为key的set中一个元素，不删除</p>
+<p>sInter<br>求交集</p>
+<p>sInterStore<br>求交集并将交集保存到output的集合<br>$redis-&gt;sInterStore(‘output’, ‘key1’, ‘key2’, ‘key3’)</p>
+<p>sUnion<br>求并集<br>$redis-&gt;sUnion(‘s0’, ‘s1’, ‘s2’);<br>s0,s1,s2 同时求并集</p>
+<p>sUnionStore<br>求并集并将并集保存到output的集合<br>$redis-&gt;sUnionStore(‘output’, ‘key1’, ‘key2’, ‘key3’)；</p>
+<p>sDiff<br>求差集</p>
+<p>sDiffStore<br>求差集并将差集保存到output的集合</p>
+<p>sMembers, sGetMembers<br>返回名称为key的set的所有元素</p>
+<h4 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h4><p>排序，分页等<br>参数</p>
+<pre><code>&apos;by&apos; =&gt; &apos;some_pattern_*&apos;,
+&apos;limit&apos; =&gt; array(0, 1),
+&apos;get&apos; =&gt; &apos;some_other_pattern_*&apos; or an array of patterns,
+&apos;sort&apos; =&gt; &apos;asc&apos; or &apos;desc&apos;,
+&apos;alpha&apos; =&gt; TRUE,
+&apos;store&apos; =&gt; &apos;external-key&apos;
+</code></pre><p>例子</p>
+<pre><code>$redis-&gt;delete(&apos;s&apos;); 
+$redis-&gt;sadd(&apos;s&apos;, 5); 
+$redis-&gt;sadd(&apos;s&apos;, 4); 
+$redis-&gt;sadd(&apos;s&apos;, 2); 
+$redis-&gt;sadd(&apos;s&apos;, 1); 
+$redis-&gt;sadd(&apos;s&apos;, 3);
+var_dump($redis-&gt;sort(&apos;s&apos;)); // 1,2,3,4,5
+var_dump($redis-&gt;sort(&apos;s&apos;, array(&apos;sort&apos; =&gt; &apos;desc&apos;))); // 5,4,3,2,1
+var_dump($redis-&gt;sort(&apos;s&apos;, array(&apos;sort&apos; =&gt; &apos;desc&apos;, &apos;store&apos; =&gt; &apos;out&apos;))); // (int)5
+</code></pre><h4 id="string命令"><a href="#string命令" class="headerlink" title="string命令"></a>string命令</h4><p>getSet<br>返回原来key中的值，并将value写入key</p>
+<pre><code>$redis-&gt;set(&apos;x&apos;, &apos;42&apos;);
+$exValue = $redis-&gt;getSet(&apos;x&apos;, &apos;lol&apos;); // return &apos;42&apos;, replaces x by &apos;lol&apos;
+$newValue = $redis-&gt;get(&apos;x&apos;)&apos; // return &apos;lol&apos;
+</code></pre><p>append<br>string，名称为key的string的值在后面加上value</p>
+<pre><code>$redis-&gt;set(&apos;key&apos;, &apos;value1&apos;);
+$redis-&gt;append(&apos;key&apos;, &apos;value2&apos;);
+$redis-&gt;get(&apos;key&apos;);
+</code></pre><p>getRange （方法不存在）<br>返回名称为key的string中start至end之间的字符</p>
+<pre><code>$redis-&gt;set(&apos;key&apos;, &apos;string value&apos;);
+$redis-&gt;getRange(&apos;key&apos;, 0, 5);
+$redis-&gt;getRange(&apos;key&apos;, -5, -1);
+</code></pre><p>setRange （方法不存在）<br>改变key的string中start至end之间的字符为value</p>
+<pre><code>$redis-&gt;set(&apos;key&apos;, &apos;Hello world&apos;);
+$redis-&gt;setRange(&apos;key&apos;, 6, &quot;redis&quot;);
+$redis-&gt;get(&apos;key&apos;);
+</code></pre><p>strlen<br>得到key的string的长度</p>
+<pre><code>$redis-&gt;strlen(&apos;key&apos;);
+</code></pre><p>getBit/setBit<br>返回2进制信息</p>
+<h4 id="zset（sorted-set）操作相关"><a href="#zset（sorted-set）操作相关" class="headerlink" title="zset（sorted set）操作相关"></a>zset（sorted set）操作相关</h4><p>zAdd(key, score, member)：向名称为key的zset中添加元素member，score用于排序。如果该元素已经存在，则根据score更新该元素的顺序。</p>
+<pre><code>$redis-&gt;zAdd(&apos;key&apos;, 1, &apos;val1&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 0, &apos;val0&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 5, &apos;val5&apos;);
+$redis-&gt;zRange(&apos;key&apos;, 0, -1); // array(val0, val1, val5)
+</code></pre><p>zRange(key, start, end,withscores)：返回名称为key的zset（元素已按score从小到大排序）中的index从start到end的所有元素</p>
+<pre><code>$redis-&gt;zAdd(&apos;key1&apos;, 0, &apos;val0&apos;);
+$redis-&gt;zAdd(&apos;key1&apos;, 2, &apos;val2&apos;);
+$redis-&gt;zAdd(&apos;key1&apos;, 10, &apos;val10&apos;);
+$redis-&gt;zRange(&apos;key1&apos;, 0, -1); // with scores $redis-&gt;zRange(&apos;key1&apos;, 0, -1, true);
+</code></pre><p>zDelete, zRem<br>zRem(key, member) ：删除名称为key的zset中的元素member</p>
+<pre><code>$redis-&gt;zAdd(&apos;key&apos;, 0, &apos;val0&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 2, &apos;val2&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 10, &apos;val10&apos;);
+$redis-&gt;zDelete(&apos;key&apos;, &apos;val2&apos;);
+$redis-&gt;zRange(&apos;key&apos;, 0, -1); 
+</code></pre><p>zRevRange(key, start, end,withscores)：返回名称为key的zset（元素已按score从大到小排序）中的index从start到end的所有元素.withscores: 是否输出socre的值，默认false，不输出</p>
+<pre><code>$redis-&gt;zAdd(&apos;key&apos;, 0, &apos;val0&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 2, &apos;val2&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 10, &apos;val10&apos;);
+$redis-&gt;zRevRange(&apos;key&apos;, 0, -1); // with scores $redis-&gt;zRevRange(&apos;key&apos;, 0, -1, true);
+</code></pre><p>zRangeByScore, zRevRangeByScore<br>返回名称为key的zset中score &gt;= star且score &lt;= end的所有元素</p>
+<pre><code>$redis-&gt;zRangeByScore(key, star, end, array(withscores， limit ));
+</code></pre><p>zCount<br>返回名称为key的zset中score &gt;= star且score &lt;= end的所有元素的个数</p>
+<pre><code>$redis-&gt;zCount(key, star, end);
+</code></pre><p>zRemRangeByScore, zDeleteRangeByScore<br>删除名称为key的zset中score &gt;= star且score &lt;= end的所有元素，返回删除个数</p>
+<pre><code>$redis-&gt;zRemRangeByScore(&apos;key&apos;, star, end);
+</code></pre><p>zSize, zCard<br>返回名称为key的zset的所有元素的个数</p>
+<p>zScore<br>返回名称为key的zset中元素val2的score</p>
+<pre><code>$redis-&gt;zScore(key, val2);
+</code></pre><p>zRank, zRevRank<br>返回名称为key的zset（元素已按score从小到大排序）中val元素的rank（即index，从0开始），若没有val元素，返回“null”。zRevRank 是从大到小排序</p>
+<pre><code>$redis-&gt;zRevRank(key, val);
+</code></pre><p>zIncrBy<br>如果在名称为key的zset中已经存在元素member，则该元素的score增加increment；否则向集合中添加该元素，其score的值为increment</p>
+<pre><code>$redis-&gt;zIncrBy(&apos;key&apos;, increment, &apos;member&apos;);
+</code></pre><p>zUnion/zInter<br>参数</p>
+<pre><code>keyOutput
+arrayZSetKeys
+arrayWeights
+aggregateFunction Either &quot;SUM&quot;, &quot;MIN&quot;, or &quot;MAX&quot;: defines the behaviour to use on duplicate entries during the zUnion.
+</code></pre><p>对N个zset求并集和交集，并将最后的集合保存在dstkeyN中。对于集合中每一个元素的score，在进行AGGREGATE运算前，都要乘以对于的WEIGHT参数。如果没有提供WEIGHT，默认为1。默认的AGGREGATE是SUM，即结果集合中元素的score是所有集合对应元素进行SUM运算的值，而MIN和MAX是指，结果集合中元素的score是所有集合对应元素中最小值和最大值。</p>
+<h4 id="Hash操作"><a href="#Hash操作" class="headerlink" title="Hash操作"></a>Hash操作</h4><p>hSet<br>向名称为h的hash中添加元素key1—&gt;hello</p>
+<pre><code>$redis-&gt;hSet(&apos;h&apos;, &apos;key1&apos;, &apos;hello&apos;);
+</code></pre><p>hGet<br>返回名称为h的hash中key1对应的value（hello）</p>
+<pre><code>$redis-&gt;hGet(&apos;h&apos;, &apos;key1&apos;);
+</code></pre><p>hLen<br>返回名称为h的hash中元素个数</p>
+<pre><code>$redis-&gt;hLen(&apos;h&apos;);
+</code></pre><p>hDel<br>删除名称为h的hash中键为key1的域</p>
+<pre><code>$redis-&gt;hDel(&apos;h&apos;, &apos;key1&apos;);
+</code></pre><p>hKeys<br>返回名称为key的hash中所有键</p>
+<pre><code>$redis-&gt;hKeys(&apos;h&apos;);
+</code></pre><p>hVals<br>返回名称为h的hash中所有键对应的value</p>
+<pre><code>$redis-&gt;hVals(&apos;h&apos;)
+</code></pre><p>hGetAll<br>返回名称为h的hash中所有的键（field）及其对应的value</p>
+<pre><code>$redis-&gt;hGetAll(&apos;h&apos;);
+</code></pre><p>hExists<br>名称为h的hash中是否存在键名字为a的域</p>
+<pre><code>$redis-&gt;hExists(&apos;h&apos;, &apos;a&apos;);
+</code></pre><p>hIncrBy<br>将名称为h的hash中x的value增加2</p>
+<pre><code>$redis-&gt;hIncrBy(&apos;h&apos;, &apos;x&apos;, 2);
+</code></pre><p>hMset<br>向名称为key的hash中批量添加元素</p>
+<pre><code>$redis-&gt;hMset(&apos;user:1&apos;, array(&apos;name&apos; =&gt; &apos;Joe&apos;, &apos;salary&apos; =&gt; 2000));
+</code></pre><p>hMGet<br>返回名称为h的hash中field1,field2对应的value</p>
+<pre><code>$redis-&gt;hmGet(&apos;h&apos;, array(&apos;field1&apos;, &apos;field2&apos;));
+</code></pre><h4 id="redis-操作相关"><a href="#redis-操作相关" class="headerlink" title="redis 操作相关"></a>redis 操作相关</h4><p>flushDB<br>清空当前数据库</p>
+<p>flushAll<br>清空所有数据库</p>
+<p>randomKey<br>$key = $redis-&gt;randomKey();<br>随机返回key空间的一个key</p>
+<p>select<br>选择一个数据库<br>move<br>转移一个key到另外一个数据库</p>
+<pre><code>$redis-&gt;select(0); // switch to DB 0
+$redis-&gt;set(&apos;x&apos;, &apos;42&apos;); // write 42 to x
+$redis-&gt;move(&apos;x&apos;, 1); // move to DB 1
+$redis-&gt;select(1); // switch to DB 1
+$redis-&gt;get(&apos;x&apos;); // will return 42
+</code></pre><p>rename, renameKey<br>给key重命名</p>
+<pre><code>$redis-&gt;set(&apos;x&apos;, &apos;42&apos;);
+$redis-&gt;rename(&apos;x&apos;, &apos;y&apos;);
+$redis-&gt;get(&apos;y&apos;); // → 42
+$redis-&gt;get(&apos;x&apos;); // → `FALSE`
+</code></pre><p>renameNx<br>与remane类似，但是，如果重新命名的名字已经存在，不会替换成功</p>
+<p>setTimeout, expire<br>设定一个key的活动时间（s）</p>
+<pre><code>$redis-&gt;setTimeout(&apos;x&apos;, 3);
+</code></pre><p>expireAt<br>key存活到一个unix时间戳时间</p>
+<pre><code>$redis-&gt;expireAt(&apos;x&apos;, time() + 3);
+</code></pre><p>keys, getKeys<br>返回满足给定pattern的所有key</p>
+<pre><code>$keyWithUserPrefix = $redis-&gt;keys(&apos;user*&apos;);
+</code></pre><p>dbSize<br>查看现在数据库有多少key</p>
+<pre><code>$count = $redis-&gt;dbSize();
+</code></pre><p>auth<br>密码认证</p>
+<pre><code>$redis-&gt;auth(&apos;foobared&apos;);
+</code></pre><p>bgrewriteaof<br>使用aof来进行数据库持久化</p>
+<pre><code>$redis-&gt;bgrewriteaof();
+</code></pre><p>slaveof<br>选择从服务器</p>
+<pre><code>$redis-&gt;slaveof(&apos;10.0.1.7&apos;, 6379);
+</code></pre><p>save<br>将数据同步保存到磁盘</p>
+<p>bgsave<br>将数据异步保存到磁盘</p>
+<p>lastSave<br>返回上次成功将数据保存到磁盘的Unix时戳</p>
+<p>info<br>返回redis的版本信息等详情</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zx19951110.github.io/ZX.github.io/2017/07/09/php下使用Redis方法/" data-id="cj4w3d13i0004zsorre8ydxch" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/16/NGINX的常用配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">NGINX的常用配置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/09/php下使用Redis方法/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/16/NGINX的常用配置/">NGINX的常用配置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/25/windows下配置nginx-mysql-php/">windows下配置nginx+mysql+php</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/PHP使用Mongo/">PHP使用Mongo</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/20/Nginx在linux下的安装与配置/">Nginx在linux下的安装与配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 zhanxu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
