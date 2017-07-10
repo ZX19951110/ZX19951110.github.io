@@ -253,6 +253,427 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/07/10/Linux常见命令-更新中/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老战博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/10/Linux常见命令-更新中/" itemprop="url">Linux常见命令(更新中)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T20:02:22+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Linux常见命令"><a href="#Linux常见命令" class="headerlink" title="Linux常见命令"></a>Linux常见命令</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>emmmmmm···作为在学校的学生能接触到Linux的机会无非就是虚拟机，而真正实战中服务器中的系统用的一般都是linux，对于程序员肯定是要熟悉的技能，而在服务器环境下，linxu可不会对用户友好到有图形化界面用鼠标键盘进行交互。所以以后通过ssh连接服务器时必然要使用linux，下面就是我这八个月中用到的linux命令，也是经常用到的命令。</p>
+<ul>
+<li><p>遍历目录： ll、ls</p>
+</li>
+<li><p>新建目录：mkdir</p>
+</li>
+<li><p>解压文件：tar </p>
+<pre><code>-zxvf -z 是配合解压.GZ的 -x 解开一个包文件 -v 显示详细信息 -f 必须，表示使用归档文件
+</code></pre></li>
+<li><p>删除目录：rm </p>
+<pre><code>-rf（全部删除） 文件名
+</code></pre></li>
+<li><p>切换目录：cd 目录</p>
+</li>
+<li><p>编辑文件：vim 文件</p>
+<p>  编辑模式 ： i</p>
+<pre><code>不保存退出：:q、:q!（强制）
+
+保存退出：:wq
+
+移动光标：hljk（左右下上）
+
+撤销：u
+
+查询某个字符：/字符
+
+可视化模式：ctrl+v
+
+复制整行：yy
+
+复制选定内容：可视化模式+y
+
+粘贴光标之后：p
+
+粘贴光标之前：P
+
+复制当前到行头的内容：y^ 
+
+复制当前到行尾的内容：y&amp;
+
+复制到文档尾：yG
+
+//剪切与之类似：d 没错 是删除 同时也剪切了 厉害吧
+</code></pre><p>   还有很多慢慢更新。。。</p>
+</li>
+<li><p>查看网络状态：netstat：</p>
+<p>  netstat 命令用于显示各种网络相关信息，</p>
+<pre><code>-a (all)显示所有选项，默认不显示LISTEN相关
+-t (tcp)仅显示tcp相关选项
+-u (udp)仅显示udp相关选项
+-n 拒绝显示别名，能显示数字的全部转化成数字。
+-l 仅列出有在 Listen (监听) 的服務状态   
+-p 显示建立相关链接的程序名
+-r 显示路由信息，路由表
+-e 显示扩展信息，例如uid等
+-s 按各个协议进行统计
+-c 每隔一个固定时间，执行该netstat命令。
+
+提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到
+
+比如查看端口占用（8001）：netstat -apn|grep 8001
+
+列出所有端口 ：netstat -a
+
+列出所有 tcp 端口 netstat -at
+
+列出所有 udp 端口 netstat -au
+
+在 netstat 输出中显示 PID 和进程名称 netstat -p
+</code></pre></li>
+<li><p>查- 找：find、locate、whereis、which、type：</p>
+<pre><code>linux下最强大的搜索命令为”find“。它的格式为”find &lt;指定目录&gt; &lt;指定条件&gt; &lt;指定动作&gt;“；比如使用find命令搜索在根目录下的所有interfaces文件所在位置，命令格式为”find / -name  &apos;interfaces&apos;“（从/目录下搜索）
+
+使用locate搜索linux系统中的文件，它比find命令快。因为它查询的是数据库(/var/lib/locatedb)，数据库包含本地所有的文件信息。使用locate命令在根目录下搜索interfaces文件的命令为”locate interfaces“
+
+使用”whereis“命令可以搜索linux系统中的所有可执行文件即二进制文件。使用whereis命令搜索grep二进制文件的命令为”whereis grep“。
+
+使用which命令查看系统命令是否存在，并返回系统命令所在的位置。使用which命令查看grep命令是否存在以及存在的目录的命令为”which grep“。
+
+使用type命令查看系统中的某个命令是否为系统自带的命令。使用type命令查看cd命令是否为系统自带的命令；查看grep 是否为系统自带的命令。
+</code></pre></li>
+<li><p>强制结束当前进程：ctrl+c</p>
+</li>
+<li><p>挂起当前进程：ctrl+z</p>
+<pre><code>可用fg/bg操作继续前台或后台的任务,fg命令重新启动前台被中断的任务,bg命令把被中断的任务放在后台执行.
+</code></pre></li>
+</ul>
+<ul>
+<li><p>发送EOF二进制符：ctrl+d</p>
+</li>
+<li><p>查看文件尾：tail -f </p>
+<pre><code>常用于查看日志文件
+</code></pre></li>
+<li><p>测试网络连接和丢包率：ping 域名</p>
+</li>
+<li><p>curl命令：过于强大慢慢更新</p>
+</li>
+<li><p>压力测试：ab -n （访问量） -c（并发数）</p>
+</li>
+<li><p>清屏：ctrl +l</p>
+</li>
+<li><p>查看系统状态：top</p>
+<pre><code>top命令的第一行“top - 19:56:47 up 39 min,  3 users,  load average: 0.00, 0.00, 0.00”显示的内容依次为“系统当前时间 、系统到目前为止已运行的时间、当前登录系统的用户数量、系统负载(任务队列的平均长度)三个值分别为1分钟、5分钟、15分钟前到现在的平均值【这三个一般会小于1，如果持续高于5，请仔细查看那个程序影响系统的运行】”
+
+top命令的第二行“Tasks: 120 total,   2 running, 118 sleeping,   0 stopped,   0 zombie”显示的内容依次“所有启动的进程数”、“正在运行的进程数”、“挂起的进程数”、“停止的进程数”、“僵尸进程数”。
+
+top命令的第三行“Cpu(s):  0.0%us,  0.0%sy,  0.0%ni,100.0%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st”显示的内容依次为“用户空间占用CPU百分比”、“内核空间占用CPU百分比”、“用户空间内改变过优先级的进程占用CPU百分比”、“空闲CPU百分比”、“等待输入输出CPU时间百分比”、“CPU服务于硬件中断所耗费的时间总额”、“CPU服务软中断所耗费的时间总额”、“Steal Time”
+
+top命令第四行“Mem:    508820k total,   480172k used,    28648k free,    41944k buffers”显示内容依次为“物理内存总量”、“已使用的物理内存”、“空闲物理内存”、“内核缓存内存量”。
+
+“PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND ”显示内容依次为“进程ID”、“进程所有者”、“优先级”、“nice值，负值表示高优先级，正值表示低优先级”、“进程使用的虚拟内存总量”、“进程使用的、未被换出的物理内存大小”、“共享内存大小”、“进程状态”、“上次更新到现在的CPU时间占用百分比”、“进程使用的物理内存百分比”、“进程使用CPU总时间”、“命令名、命令行”。
+</code></pre></li>
+<li><p>chmod：用于改变linux系统文件或目录的访问权限。</p>
+<pre><code>chmod [-cfvR] [--help] [--version] mode file
+
+-c 当发生改变时，报告处理信息
+-f 错误信息不输出
+-R 处理指定目录以及其子目录下的所有文件
+-v 运行时显示详细处理信息
+
+权限范围：
+u ：目录或者文件的当前的用户
+g ：目录或者文件的当前的群组
+o ：除了目录或者文件的当前用户或群组之外的用户或者群组
+a ：所有的用户及群组
+
+权限代号：
+r ：读权限，用数字4表示
+w ：写权限，用数字2表示
+x ：执行权限，用数字1表示
+- ：删除权限，用数字0表示
+
+如：
+
+chmod a+x log2012.log
+
+r:读入，w:写入，x:执行
+
+linux文件权限如下：
+
+例如：
+　　- rw- r-- r--
+表示log2012.log是一个普通文件；log2012.log的属主有读写权限；与log2012.log属主同组的用户只有读权限；其他用户也只有读权限。
+</code></pre></li>
+<li><p>scp：拷贝远程文件</p>
+<pre><code>对拷文件夹 (包括文件夹本身)
+
+scp -r   /home/wwwroot/www/charts/util root@192.168.1.65:/home/wwwroot/limesurvey_back/scp
+
+对拷文件夹下所有文件 (不包括文件夹本身)
+
+scp   /home/wwwroot/www/charts/util/* root@192.168.1.65:/home/wwwroot/limesurvey_back/scp
+
+ 对拷文件并重命名
+
+scp   /home/wwwroot/www/charts/util/a.txt root@192.168.1.65:/home/wwwroot/limesurvey_back/scp/b.text
+</code></pre></li>
+<li><p>sudo：使普通用户获取root权限命令，如：sudo yum install pcre（也许要输入密码）</p>
+</li>
+<li><p>source：执行脚本</p>
+<pre><code>source命令与shell scripts的区别是，source在当前bash环境下执行命令，而scripts是启动一个子shell来执行命令。这样如果把设置环境变量（或alias等等）的命令写进scripts中，就只会影响子shell,无法改变当前的BASH,所以通过文件（命令列）设置环境变量时，要用source 命令。
+
+source命令(从 C Shell 而来)是bash shell的内置命令。点命令，就是个点符号，(从Bourne Shell而来)是source的另一名称。同样的，当前脚本中配置的变量也将作为脚本的环境，source(或点)命令通常用于重新执行刚修改的初始化文档，如 .bash_profile 和 .profile 等等。
+</code></pre></li>
+<li><p>ps：查看进程 和管道符|grep一起用，如ps -aux|grep xxx（匹配端口或者命令）</p>
+<pre><code>常用ps aux|grep 任务名 用来查找进程
+
+1）ps a 显示现行终端机下的所有程序，包括其他用户的程序。
+2）ps -A   显示所有程序。
+3）ps c    列出程序时，显示每个程序真正的指令名称，而不包含路径，参数或常驻服务的标示。
+4）ps -e  此参数的效果和指定&quot;A&quot;参数相同。
+5）ps e   列出程序时，显示每个程序所使用的环境变量。
+6）ps f    用ASCII字符显示树状结构，表达程序间的相互关系。
+7）ps -H    显示树状结构，表示程序间的相互关系。
+8）ps -N   显示所有的程序，除了执行ps指令终端机下的程序之外。
+9）ps s     采用程序信号的格式显示程序状况。
+10）ps S     列出程序时，包括已中断的子程序资料。
+11）ps -t &lt;终端机编号&gt; 　指定终端机编号，并列出属于该终端机的程序的状况。
+12）ps u 　 以用户为主的格式来显示程序状况。
+13）ps x 　 显示所有程序，不以终端机来区分。
+
+14）ps -l     較長,較詳細的顯示該PID的信息
+
+列表如下:
+
+USER  PID %CPU %MEM   VSZ  RSS  TTY  STAT START TIME COMMAND
+
+USER 进程的属主；
+PID   进程的ID；
+PPID    父进程；
+%CPU   进程占用的CPU百分比；
+%MEM  占用内存的百分比；
+NI        进程的NICE值，数值大，表示较少占用CPU时间；
+VSZ     該进程使用的虚拟內存量（KB）；
+RSS     該進程占用的固定內存量（KB）（驻留中页的数量）；
+TTY     該進程在那個終端上運行（登陸者的終端位置），若與終端無關，則顯示（？）。若為pts/0等，則表示由網絡連接主機進程
+WCHAN  當前進程是否正在進行，若為-表示正在進行；
+START   該進程被觸發启动时间；
+TIME      該进程實際使用CPU運行的时间；
+COMMAND   命令的名称和参数；
+
+ping：查询是否可连接 如ping www.baidu.com（ip）
+</code></pre></li>
+<li><p>grep：很强大的搜索匹配命令 grep xxx</p>
+<pre><code>－c：只输出匹配行的计数。
+－I：不区分大 小写(只适用于单字符)。
+－h：查询多文件时不显示文件名。
+－l：查询多文件时只输出包含匹配字符的文件名。
+－n：显示匹配行及 行号。
+－s：不显示不存在或无匹配文本的错误信息。
+－v：显示不包含匹配文本的所有行。
+pattern正则表达式主要参数：
+\： 忽略正则表达式中特殊字符的原有含义。
+^：匹配正则表达式的开始行。
+$: 匹配正则表达式的结束行。
+\&lt;：从匹配正则表达 式的行开始。
+\&gt;：到匹配正则表达式的行结束。
+[ ]：单个字符，如[A]即A符合要求 。
+[ - ]：范围，如[A-Z]，即A、B、C一直到Z都符合要求 。
+。：所有的单个字符。
+* ：有字符，长度可以为0。
+
+实例：
+
+$ grep ‘test’ d*
+显示所有以d开头的文件中包含 test的行。
+$ grep ‘test’ aa bb cc
+显示在aa，bb，cc文件中匹配test的行。
+$ grep ‘[a-z]\{5\}’ aa
+显示所有包含每个字符串至少有5个连续小写字符的字符串的行。
+$ grep ‘w\(es\)t.*\1′ aa
+如果west被匹配，则es就被存储到内存中，并标记为1，然后搜索任意个字符(.*)，这些字符后面紧跟着 另外一个es(\1)，找到就显示该行。如果用egrep或grep -E，就不用”\”号进行转义，直接写成’w(es)t.*\1′就可以了。
+</code></pre></li>
+<li><p>make: 安装应用</p>
+<pre><code>./configure是用来检测你的安装平台的目标特征的。比如它会检测你是不是有CC或GCC，并不是需要CC或GCC，它是个shell脚本。
+make是用来编译的，它从Makefile中读取指令，然后编译。
+make install是用来安装的，它也从Makefile中读取指令，安装到指定的位置。
+
+AUTOMAKE和AUTOCONF是非常有用的用来发布C程序的东西。
+
+-----
+1、configure，这一步一般用来生成 Makefile，为下一步的编译做准备，你可以通过在 configure 后加上参数来对安装进行控制，比如代码:./configure –prefix=/usr 意思是将该软件安装在 /usr 下面，执行文件就会安装在 /usr/bin （而不是默认的 /usr/local/bin),资源文件就会安装在 /usr/share（而不是默认的/usr/local/share）。同时一些软件的配置文件你可以通过指定 –sys-config= 参数进行设定。有一些软件还可以加上 –with、–enable、–without、–disable 等等参数对编译加以控制，你可以通过允许 ./configure –help 察看详细的说明帮助。
+
+2、make，这一步就是编译，大多数的源代码包都经过这一步进行编译（当然有些perl或python编写的软件需要调用perl或python来进行编译）。如果 在 make 过程中出现 error ，你就要记下错误代码（注意不仅仅是最后一行），然后你可以向开发者提交 bugreport（一般在 INSTALL 里有提交地址），或者你的系统少了一些依赖库等，这些需要自己仔细研究错误代码。
+
+3、make insatll，这条命令来进行安装（当然有些软件需要先运行 make check 或 make test 来进行一些测试），这一步一般需要你有 root 权限（因为要向系统写入文件）。
+
+-----
+Linux的用户可能知道，在Linux下安装一个应用程序时，一般先运行脚本configure，然后用make来编译源程序，在运行make install，最后运行make clean删除一些临时文件。使用上述三个自动工具，就可以生成configure脚本。运行configure脚本，就可以生成Makefile文件，然后就可以运行make、make install和make clean。
+
+configure是一个shell脚本，它可以自动设定源程序以符合各种不同平台上Unix系统的特性，并且根据系统叁数及环境产生合适的Makefile文件或是C的头文件(header file)，让源程序可以很方便地在这些不同的平台上被编译连接。
+
+这时，就可运行configure脚本了，运行configure脚本，就可产生出符合GNU规范的Makefile文件了：
+$ ./configure
+
+到此时，就可以运行make进行编译，在运行make install进行安装了，最后运行make clean删除临时文件。
+$ make
+$ make install           (注：运行这个要有足够的权限)
+$ make clean
+
+利用configure所产生的Makefile文件有几个预设的目标可供使用，其中几个重要的简述如下：
+
+make all：产生我们设定的目标，即此范例中的可执行文件。只打make也可以，此时会开始编译原始码，然后连结，并且产生可执行文件。
+
+make clean：清除编译产生的可执行文件及目标文件(object file，*.o)。
+
+make distclean：除了清除可执行文件和目标文件外，把configure所产生的Makefile也清除掉。
+
+make install：将程序安装至系统中。如果原始码编译无误，且执行结果正确，便可以把程序安装至系统预设的可执行文件存放路径。如果用bin_PROGRAMS宏的话，程序会被安装至/usr/local/bin这个目录。
+
+make dist：将程序和相关的档案包装成一个压缩文件以供发布。执行完在目录下会产生一个以PACKAGE-VERSION.tar.gz为名称的文件。 PACKAGE和VERSION这两个变数是根据configure.in文件中AM_INIT_AUTOMAKE(PACKAGE，VERSION)的定义。在此范例中会产生test-1.0.tar.gz的档案。
+
+make distcheck：和make dist类似，但是加入检查包装后的压缩文件是否正常。这个目标除了把程序和相关文件包装成tar.gz文件外，还会自动把这个压缩文件解开，执行 configure，并且进行make all 的动作，确认编译无误后，会显示这个tar.gz文件可供发布了。这个检查非常有用，检查过关的包，基本上可以给任何一个具备GNU开发环境-的人去重新编译。
+</code></pre></li>
+<li><p>sed：用于修改文件（好用）</p>
+<pre><code>不需要使用vim修改文件，直接sed -i &apos;s/原始内容/替换内容/&apos;就可以，很多参数如下：
+
+a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～
+
+c ：取代， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行！
+
+d ：删除，因为是删除啊，所以 d 后面通常不接任何咚咚；
+
+i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；
+
+p ：列印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n 一起运行～
+
+s ：取代，可以直接进行取代的工作哩！通常这个 s 的动作可以搭配正规表示法！例如 1,20s/old/new/g 就是啦！
+
+-i 用于保存
+</code></pre></li>
+<li><p>crontab： 定时任务（好用）</p>
+<pre><code>crontab -l 列出所有定时任务
+
+crontab -e新增定时任务
+
+crontab -r删除所有定时任务（删除一条请去编辑）
+
+编辑格式：
+
+*　　*　　*　　*　　*　　command 
+分　时　日　月　周　命令 
+
+  “*”代表取值范围内的数字,
+  “/”代表”每”,
+  “-”代表从某个数字到某个数字,
+  “,”分开几个离散的数字
+  注意，无论是调用的脚本还是在定时任务编辑中，一定要使用绝对路径
+</code></pre></li>
+</ul>
+<h2 id="慢慢更新中···"><a href="#慢慢更新中···" class="headerlink" title="慢慢更新中···"></a>慢慢更新中···</h2>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/07/09/前端跨域方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2581,7 +3002,7 @@ server {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
