@@ -320,7 +320,15 @@
 fastcgi_index  index.php;
 fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;//这里注意配置$document_root
 </code></pre><p>需要注意的是，php的版本一定是5.4以上，然后下载下来的php有很多拓展并不能用，需要后续打开。<br>然后其他的指定web根目录什么的就不多讲了。</p>
-<h2 id="composer"><a href="#composer" class="headerlink" title="composer"></a>composer</h2><p>好这就是正题了！写后端的各位是不是也很羡慕前端的npm工具呢？其实php也有包管理工具，名为Composer，<br>常用于各大php框架中例如Yii、laravel等，composer的拓展vender文件夹就是composer的包目录，我们可以通过<br>Composer的Vender拓展比如CAS等等功能。<br>废话少说，在windows下安装composer还是蛮轻松的，（在百度的时候因为用的是php5.2所以没怎么用过）。<br>推荐网站和composer镜像站，包括各个系统安装composer的方法：<br><a href="http://www.phpcomposer.com" target="_blank" rel="external">Composer中国全量镜像</a><br>好的如果按照上面的方法安装好，你会发现一个问题，我的php好像有些拓展没有开，<br>没错你需要打开<strong>ssl拓展</strong>和<strong>mbstring</strong>拓展<br>如果没问题了的话，你看到的大概是这个画面<br><img src="C:\Users\Administrator\Desktop\0~KGIBJZN6W{YIESR}Z[EYC.png" alt="Composer"><br>ok composer安装大概就是这样，如果有问题，你不会百度啊。</p>
+<h2 id="composer"><a href="#composer" class="headerlink" title="composer"></a>composer</h2><p>好这就是正题了！写后端的各位是不是也很羡慕前端的npm工具呢？其实php也有包管理工具，名为Composer，<br>常用于各大php框架中例如Yii、laravel等，composer的拓展vender文件夹就是composer的包目录，我们可以通过<br>Composer的Vender拓展比如CAS等等功能。<br>废话少说，在windows下安装composer还是蛮轻松的，（在百度的时候因为用的是php5.2所以没怎么用过）。<br>推荐网站和composer镜像站，包括各个系统安装composer的方法：<br><a href="http://www.phpcomposer.com" target="_blank" rel="external">Composer中国全量镜像</a><br>好的如果按照上面的方法安装好，你会发现一个问题，我的php好像有些拓展没有开，<br>没错你需要打开<strong>ssl拓展</strong>和<strong>mbstring</strong>拓展<br>如果没问题了的话，你看到的大概是这个画面<br><img src="http://www.myexception.cn/img/2014/07/05/112217521.png" alt="image"><br>ok composer安装大概就是这样，如果有问题，你不会百度啊。</p>
+<h2 id="Yii2"><a href="#Yii2" class="headerlink" title="Yii2"></a>Yii2</h2><p>Yii2这个框架，我是又爱又恨，在百度这半年没少把精力放他身上。这个说是我最拿手的框架也不为过。<br>安装Yii2主要是通过composer安装。首先需要安装个composer的插件</p>
+<pre><code>php composer.phar global require &quot;fxp/composer-asset-plugin:^1.2.0&quot;
+</code></pre><p>插件如果想要删除的话Composer请到对应的appdata目录下composer\vender删除。<br>现在选择的应用程序模板之一，开始安装 Yii 2.0。应用程序模板是一个包含Yii写的骨架Web应用程序包。<br>安装基本的应用程序模板，运行下面的命令：</p>
+<pre><code>php composer.phar create-project yiisoft/yii2-app-basic basic 2.0.12
+</code></pre><p>安装高级的应用程序模板，运行下面的命令：</p>
+<pre><code>php composer.phar create-project yiisoft/yii2-app-advanced advanced 2.0.12
+</code></pre><p>ok，出现下面的几个Done，就是搞定啦！然后你会发现出现了yii2的basic文件夹，配置好web根目录，访问一下<br>！<a href="http://d.hiphotos.baidu.com/exp/w=500/sign=3188841cd73f8794d3ff482ee21a0ead/024f78f0f736afc3dafc58c1b019ebc4b64512a5.jpg" target="_blank" rel="external">yii</a><br>怎么样，惊不惊喜，意不意外，熟不熟悉！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p> 没什么好总结的，就是php注意开一些拓展，如果不会可以百度，不过Composer的确是一个亮点，虽然不能代替lib但是表现也够出色了</p>
 
           
         
