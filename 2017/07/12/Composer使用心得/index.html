@@ -99,13 +99,12 @@
 <meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/07/12/Composer使用心得/index.html">
 <meta property="og:site_name" content="老战博客">
 <meta property="og:description" content="Composer和Yii2框架在windows下的搭建前言哦啦啦啦啦啦，百度离职了五天了，这几天去办理双认证准备留学所以没有怎么更新博客，还是很怀念在百度时边听jazz边写代码的日子的，最近手痒痒，打算在自己的windows系统下面搭建一个Yii2框架 nginx+php关于windows下面的php安装和nginx安装我就不再提啦，到官网下载系统对应版本的就可以，注意目前我用的是nginx使用t">
-<meta property="og:image" content="http://www.myexception.cn/img/2014/07/05/112217521.png">
 <meta property="og:image" content="http://d.hiphotos.baidu.com/exp/w=500/sign=3188841cd73f8794d3ff482ee21a0ead/024f78f0f736afc3dafc58c1b019ebc4b64512a5.jpg">
-<meta property="og:updated_time" content="2017-07-12T15:21:18.952Z">
+<meta property="og:updated_time" content="2017-07-12T15:25:10.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Composer使用心得">
 <meta name="twitter:description" content="Composer和Yii2框架在windows下的搭建前言哦啦啦啦啦啦，百度离职了五天了，这几天去办理双认证准备留学所以没有怎么更新博客，还是很怀念在百度时边听jazz边写代码的日子的，最近手痒痒，打算在自己的windows系统下面搭建一个Yii2框架 nginx+php关于windows下面的php安装和nginx安装我就不再提啦，到官网下载系统对应版本的就可以，注意目前我用的是nginx使用t">
-<meta name="twitter:image" content="http://www.myexception.cn/img/2014/07/05/112217521.png">
+<meta name="twitter:image" content="http://d.hiphotos.baidu.com/exp/w=500/sign=3188841cd73f8794d3ff482ee21a0ead/024f78f0f736afc3dafc58c1b019ebc4b64512a5.jpg">
 
 
 
@@ -318,7 +317,7 @@
 fastcgi_index  index.php;
 fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;//这里注意配置$document_root
 </code></pre><p>需要注意的是，php的版本一定是5.4以上，然后下载下来的php有很多拓展并不能用，需要后续打开。<br>然后其他的指定web根目录什么的就不多讲了。</p>
-<h2 id="composer"><a href="#composer" class="headerlink" title="composer"></a>composer</h2><p>好这就是正题了！写后端的各位是不是也很羡慕前端的npm工具呢？其实php也有包管理工具，名为Composer，<br>常用于各大php框架中例如Yii、laravel等，composer的拓展vender文件夹就是composer的包目录，我们可以通过<br>Composer的Vender拓展比如CAS等等功能。<br>废话少说，在windows下安装composer还是蛮轻松的，（在百度的时候因为用的是php5.2所以没怎么用过）。<br>推荐网站和composer镜像站，包括各个系统安装composer的方法：<br><a href="http://www.phpcomposer.com" target="_blank" rel="external">Composer中国全量镜像</a><br>好的如果按照上面的方法安装好，你会发现一个问题，我的php好像有些拓展没有开，<br>没错你需要打开<strong>ssl拓展</strong>和<strong>mbstring</strong>拓展<br>如果没问题了的话，你看到的大概是这个画面<br><img src="http://www.myexception.cn/img/2014/07/05/112217521.png" alt="image"><br>ok composer安装大概就是这样，如果有问题，你不会百度啊。</p>
+<h2 id="composer"><a href="#composer" class="headerlink" title="composer"></a>composer</h2><p>好这就是正题了！写后端的各位是不是也很羡慕前端的npm工具呢？其实php也有包管理工具，名为Composer，<br>常用于各大php框架中例如Yii、laravel等，composer的拓展vender文件夹就是composer的包目录，我们可以通过<br>Composer的Vender拓展比如CAS等等功能。<br>废话少说，在windows下安装composer还是蛮轻松的，（在百度的时候因为用的是php5.2所以没怎么用过）。<br>推荐网站和composer镜像站，包括各个系统安装composer的方法：<br><a href="http://www.phpcomposer.com" target="_blank" rel="external">Composer中国全量镜像</a><br>好的如果按照上面的方法安装好，你会发现一个问题，我的php好像有些拓展没有开，<br>没错你需要打开<strong>ssl拓展</strong>和<strong>mbstring</strong>拓展<br>如果没问题了的话，你看到的大概就是Yii的欢迎画面<br>剩下的就是后端开发啦！<br>ok composer安装大概就是这样，如果有问题，你不会百度啊。</p>
 <h2 id="Yii2"><a href="#Yii2" class="headerlink" title="Yii2"></a>Yii2</h2><p>Yii2这个框架，我是又爱又恨，在百度这半年没少把精力放他身上。这个说是我最拿手的框架也不为过。<br>安装Yii2主要是通过composer安装。首先需要安装个composer的插件</p>
 <pre><code>php composer.phar global require &quot;fxp/composer-asset-plugin:^1.2.0&quot;
 </code></pre><p>插件如果想要删除的话Composer请到对应的appdata目录下composer\vender删除。<br>现在选择的应用程序模板之一，开始安装 Yii 2.0。应用程序模板是一个包含Yii写的骨架Web应用程序包。<br>安装基本的应用程序模板，运行下面的命令：</p>
