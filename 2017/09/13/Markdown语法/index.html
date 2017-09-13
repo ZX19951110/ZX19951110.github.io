@@ -93,17 +93,22 @@
 
 
 
-<meta name="description" content="前端几种跨域方案背景在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。这里需">
+<meta name="description" content="Markdown基础语法前言啊，各位真是好久不见啦，自从拿到签证之后，回家过了一个慵懒的假期，自然也就再没有更新blog。现在回到了学校发现居然已经不会写markdown了，真是尴尬。那本文就作为一个记录性质的文章，提醒自己，也方便大家。 Markdown语法的简要规则标题标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 # 号即可。 #">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端跨域方案">
-<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/07/09/前端跨域方案/index.html">
+<meta property="og:title" content="Markdown语法">
+<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/09/13/Markdown语法/index.html">
 <meta property="og:site_name" content="老战博客">
-<meta property="og:description" content="前端几种跨域方案背景在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。这里需">
+<meta property="og:description" content="Markdown基础语法前言啊，各位真是好久不见啦，自从拿到签证之后，回家过了一个慵懒的假期，自然也就再没有更新blog。现在回到了学校发现居然已经不会写markdown了，真是尴尬。那本文就作为一个记录性质的文章，提醒自己，也方便大家。 Markdown语法的简要规则标题标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 # 号即可。 #">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-09T08:55:21.688Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/6aee7dbbgw1effeaclhiyj20eh09cwez.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/6aee7dbbgw1effew5aftij20d80bz3yw.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/6aee7dbbgw1effezhonxlj20e009c3yu.jpg">
+<meta property="og:image" content="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png">
+<meta property="og:updated_time" content="2017-09-13T06:33:09.441Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端跨域方案">
-<meta name="twitter:description" content="前端几种跨域方案背景在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。这里需">
+<meta name="twitter:title" content="Markdown语法">
+<meta name="twitter:description" content="Markdown基础语法前言啊，各位真是好久不见啦，自从拿到签证之后，回家过了一个慵懒的假期，自然也就再没有更新blog。现在回到了学校发现居然已经不会写markdown了，真是尴尬。那本文就作为一个记录性质的文章，提醒自己，也方便大家。 Markdown语法的简要规则标题标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 # 号即可。 #">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/6aee7dbbgw1effeaclhiyj20eh09cwez.jpg">
 
 
 
@@ -131,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://zx19951110.github.io/ZX.github.io/2017/07/09/前端跨域方案/"/>
+  <link rel="canonical" href="https://zx19951110.github.io/ZX.github.io/2017/09/13/Markdown语法/"/>
 
 
 
 
 
-  <title>前端跨域方案 | 老战博客</title>
+  <title>Markdown语法 | 老战博客</title>
   
 
 
@@ -246,7 +251,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/07/09/前端跨域方案/">
+    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/09/13/Markdown语法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhanxu">
@@ -263,7 +268,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">前端跨域方案</h1>
+          <h1 class="post-title" itemprop="name headline">Markdown语法</h1>
         
 
         <div class="post-meta">
@@ -275,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T13:29:10+08:00">
-                2017-07-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T14:11:26+08:00">
+                2017-09-13
               </time>
             
 
@@ -310,47 +315,67 @@
       
 
       
-        <h1 id="前端几种跨域方案"><a href="#前端几种跨域方案" class="headerlink" title="前端几种跨域方案"></a>前端几种跨域方案</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。<br>受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。<br>这里需要明确的一点是：所谓的域跟js的存放服务器没有关系，比如baidu.com的页面加载了google.com的js，那么此js的所在域是baidu.com而不是google.com。也就是说，此时该js能操作baidu.com的页面对象，而不能操作google.com的页面对象。</p>
-<h2 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h2><h3 id="单向跨域（一般用于获取数据）"><a href="#单向跨域（一般用于获取数据）" class="headerlink" title="单向跨域（一般用于获取数据）"></a>单向跨域（一般用于获取数据）</h3><ul>
-<li><p>使用JSONP跨域</p>
-<p>  原理：因为通过script标签引入的js是不受同源策略的限制的（正如前文提到的baidu.com的页面加载了google.com的js）。所以我们可以通过script标签引入一个js或者是一个其他后缀形式（如PHP，jsp等）的文件，此文件返回一个js函数的调用，如返回JSONP_getUsers([“paco”,”john”,”lili”])，也就是说此文件返回的结果调用了JSONP_getUsers函数，并且把[“paco”,”john”,”lili”]传进去，这个[“paco”,”john”,”lili”]是一个用户列表。那么如果此时我们的页面中有一个JSONP_getUsers函数，那么JSONP_getUsers就被调用到，并且传入了用户列表。此时就实现了在本域获取其他域数据的功能，也就是跨域。<br>  简单来讲呢，就是前端首先实现一个方法，方法名要和服务器端规定好，然后后端传来数据为函数名并且携带参数，具体参数由前端处理。<br>  例如：<br>  前端引入远程js并定义好JSONP_getUsers函数，注意需要先定义好JSONP_getUsers函数，避免在远程js加载完成并调用JSONP_getUsers时，此函数不存在：</p>
-<pre><code>//本域为baidu.com  
-&lt;script&gt;  
-function JSONP_getUsers(users){//定义好处理函数名  
-    console.dir(users);  
-}  
-&lt;/script&gt;  
-//加载google.com的getUsers.php  
-&lt;script src=&quot;http://www.google.com/getUsers.php&quot;&gt;&lt;/script&gt; //script标签跨域
-</code></pre><p>  服务端代码如下：</p>
-<pre><code>&lt;?php&gt;  
-echo &apos;JSONP_getUsers([&quot;paco&quot;,&quot;john&quot;,&quot;lili&quot;])&apos;;//返回一个js函数的调用  
-?&gt;  
-</code></pre><p>  为什么script标签引入的文件不受同源策略的限制？因为script标签引入的文件内容是不能够被客户端的js获取到的，不会影响到被引用文件的安全，所以没必要使script标签引入的文件遵循浏览器的同源策略。而通过ajax加载的文件内容是能够被客户端js获取到的，所以ajax必须遵循同源策略，否则被引入文件的内容会泄漏或者存在其他风险。</p>
-<p>  JSONP的缺点则是：它只支持GET请求而不支持POST等其它类型的HTTP请求（虽然采用post+动态生成iframe是可以达到post跨域的目的，但这样做是一个比较极端的方式，不建议采用）。一般get请求能完成所有功能。比如如果需要给其他域服务器传送参数可以在请求后挂参数（注意不要挂隐私数据）</p>
-</li>
-<li><p>动态创建script标签</p>
-<p>  这种方法其实是JSONP跨域的简化版，JSONP只是在此基础上加入了回调函数。<br>  比如上例中的getUsers.php返回的如果不是一个js函数的调用，而是一个js变量，如：</p>
-<pre><code>&lt;?php&gt;  
-    echo &apos;var users=[&quot;paco&quot;,&quot;john&quot;,&quot;lili&quot;]&apos;;//返回一个js变量users  
-?&gt;  
-</code></pre><p>  那么在本域下就可以取到data变量，这里需要注意判断script节点是否加载完毕，如：</p>
-<pre><code>js.onload = js.onreadystatechange = function() {  
-    if (!this.readyState || this.readyState === &apos;loaded&apos; || this.readyState === &apos;complete&apos;) {  
-        console.log(users);//此处取出其他域的数据  
-        js.onload = js.onreadystatechange = null;  
-    }  
-};  
-</code></pre></li>
-<li><p>后端加跨域header</p>
-<p>  这部需要在服务器这边处理</p>
-<p>  nginx：</p>
-<pre><code>add_header &apos;Access-Control-Allow-Origin&apos; &apos;*&apos;;
-</code></pre><p>  php:</p>
-<pre><code>header(&quot;Access-Control-Allow-Origin: http://www.baidu.com&quot;);//表示允许baidu.com跨域请求本文件  
-</code></pre></li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>跨域非难事，只怕有心人</p>
+        <h1 id="Markdown基础语法"><a href="#Markdown基础语法" class="headerlink" title="Markdown基础语法"></a>Markdown基础语法</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>啊，各位真是好久不见啦，自从拿到签证之后，回家过了一个慵懒的假期，自然也就再没有更新blog。现在回到了学校发现居然已经不会写markdown了，真是尴尬。那本文就作为一个记录性质的文章，提醒自己，也方便大家。</p>
+<h2 id="Markdown语法的简要规则"><a href="#Markdown语法的简要规则" class="headerlink" title="Markdown语法的简要规则"></a>Markdown语法的简要规则</h2><h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 # 号即可。</p>
+<pre><code># 一级标题
+
+## 二级标题
+
+### 三级标题
+</code></pre><p><img src="http://ww1.sinaimg.cn/large/6aee7dbbgw1effeaclhiyj20eh09cwez.jpg" alt="title"><br>以此类推，总共六级标题，建议在井号后加一个空格，这是最标准的 Markdown 语法。</p>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>熟悉 HTML 的同学肯定知道有序列表与无序列表的区别，在 Markdown 下，列表的显示只需要在文字前加上 - 或 * 即可变为无序列表，有序列表则直接在文字前加1. 2. 3. 符号要和文字之间加上一个字符的空格。</p>
+<pre><code>*1
+2.2
+-3
+</code></pre><p><img src="http://ww4.sinaimg.cn/large/6aee7dbbgw1effew5aftij20d80bz3yw.jpg" alt="list"></p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>只需要在文本前加入 &gt; 这种尖括号（大于号）即可</p>
+<pre><code>&gt;这里是引用
+</code></pre><p><img src="http://ww3.sinaimg.cn/large/6aee7dbbgw1effezhonxlj20e009c3yu.jpg" alt="refer"></p>
+<h3 id="图片与链接"><a href="#图片与链接" class="headerlink" title="图片与链接"></a>图片与链接</h3><p>插入链接与插入图片的语法很像，区别在一个 !号</p>
+<p><img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png" alt="baidu"><br><a href="https://baidu.com" target="_blank" rel="external">baidu</a><br>插入图片的地址需要图床，这里推荐围脖图床修复计划 与 CloudApp 的服务，生成URL地址即可。</p>
+<pre><code>![说明](图片url)
+[说明](链接url)
+</code></pre><h3 id="粗体与斜体"><a href="#粗体与斜体" class="headerlink" title="粗体与斜体"></a>粗体与斜体</h3><p>Markdown 的粗体和斜体也非常简单，用两个 <em> 包含一段文本就是粗体的语法，用一个 </em> 包含一段文本就是斜体的语法。<br><strong>粗体</strong><br><em>斜体</em></p>
+<pre><code>**粗体**
+*斜体*
+</code></pre><h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p>表格是我觉得 Markdown 比较累人的地方，例子如下：</p>
+<table>
+<thead>
+<tr>
+<th>dog</th>
+<th>bird</th>
+<th>cat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>foo</td>
+<td>foo</td>
+<td>foo</td>
+</tr>
+<tr>
+<td>bar</td>
+<td>bar</td>
+<td>bar</td>
+</tr>
+<tr>
+<td>baz</td>
+<td>baz</td>
+<td>baz</td>
+</tr>
+</tbody>
+</table>
+<pre><code>dog | bird | cat
+----|------|----
+foo | foo  | foo
+bar | bar  | bar
+baz | baz  | baz
+</code></pre><h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>很简单 一个tab</p>
+<pre><code>代码块
+</code></pre><h3 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h3><p>三个*号</p>
+<hr>
+<pre><code>***
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>还是图样，还是要提高自己的姿势水平</p>
 
       
     </div>
@@ -387,8 +412,8 @@ echo &apos;JSONP_getUsers([&quot;paco&quot;,&quot;john&quot;,&quot;lili&quot;])&
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/09/php使用Redis/" rel="next" title="php使用Redis">
-                <i class="fa fa-chevron-left"></i> php使用Redis
+              <a href="/2017/07/12/Composer使用心得/" rel="next" title="Composer使用心得">
+                <i class="fa fa-chevron-left"></i> Composer使用心得
               </a>
             
           </div>
@@ -396,10 +421,6 @@ echo &apos;JSONP_getUsers([&quot;paco&quot;,&quot;john&quot;,&quot;lili&quot;])&
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/10/Linux常见命令-更新中/" rel="prev" title="Linux常见命令(更新中)">
-                Linux常见命令(更新中) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -510,7 +531,7 @@ echo &apos;JSONP_getUsers([&quot;paco&quot;,&quot;john&quot;,&quot;lili&quot;])&
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端几种跨域方案"><span class="nav-number">1.</span> <span class="nav-text">前端几种跨域方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案"><span class="nav-number">1.2.</span> <span class="nav-text">方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单向跨域（一般用于获取数据）"><span class="nav-number">1.2.1.</span> <span class="nav-text">单向跨域（一般用于获取数据）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Markdown基础语法"><span class="nav-number">1.</span> <span class="nav-text">Markdown基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markdown语法的简要规则"><span class="nav-number">1.2.</span> <span class="nav-text">Markdown语法的简要规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标题"><span class="nav-number">1.2.1.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">1.2.2.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用"><span class="nav-number">1.2.3.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片与链接"><span class="nav-number">1.2.4.</span> <span class="nav-text">图片与链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#粗体与斜体"><span class="nav-number">1.2.5.</span> <span class="nav-text">粗体与斜体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表格"><span class="nav-number">1.2.6.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码块"><span class="nav-number">1.2.7.</span> <span class="nav-text">代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分割线"><span class="nav-number">1.2.8.</span> <span class="nav-text">分割线</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
