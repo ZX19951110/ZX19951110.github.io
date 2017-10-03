@@ -93,17 +93,16 @@
 
 
 
-<meta name="description" content="背景：学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下： 参数详情：b">
-<meta property="og:type" content="article">
-<meta property="og:title" content="PHP中CURL的option参数详解">
-<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/03/19/PHP中CURL的选项详解/index.html">
+<meta name="description" content="老战的程序猿成长踩坑路程">
+<meta property="og:type" content="website">
+<meta property="og:title" content="老战博客">
+<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/page/2/index.html">
 <meta property="og:site_name" content="老战博客">
-<meta property="og:description" content="背景：学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下： 参数详情：b">
+<meta property="og:description" content="老战的程序猿成长踩坑路程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-03-19T10:04:19.220Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP中CURL的option参数详解">
-<meta name="twitter:description" content="背景：学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下： 参数详情：b">
+<meta name="twitter:title" content="老战博客">
+<meta name="twitter:description" content="老战的程序猿成长踩坑路程">
 
 
 
@@ -131,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://zx19951110.github.io/ZX.github.io/2017/03/19/PHP中CURL的选项详解/"/>
+  <link rel="canonical" href="https://zx19951110.github.io/ZX.github.io/page/2/"/>
 
 
 
 
 
-  <title>PHP中CURL的option参数详解 | 老战博客</title>
+  <title>老战博客</title>
   
 
 
@@ -162,7 +161,9 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -235,9 +236,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -263,7 +264,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PHP中CURL的option参数详解</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/19/PHP中CURL的选项详解/" itemprop="url">PHP中CURL的option参数详解</a></h1>
         
 
         <div class="post-meta">
@@ -310,7 +313,9 @@
       
 
       
-        <h2 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h2><p>学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下：</p>
+        
+          
+            <h2 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h2><p>学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下：</p>
 <h2 id="参数详情："><a href="#参数详情：" class="headerlink" title="参数详情："></a>参数详情：</h2><p>bool curl_setopt (int ch, string option, mixed value)<br>curl_setopt()函数将为一个CURL会话设置选项。option参数是你想要的设置，value是这个选项给定的值。</p>
 <h3 id="下列选项的值将被作为长整形使用-在option参数中指定-："><a href="#下列选项的值将被作为长整形使用-在option参数中指定-：" class="headerlink" title="下列选项的值将被作为长整形使用(在option参数中指定)："></a>下列选项的值将被作为长整形使用(在option参数中指定)：</h3><ul>
 <li>CURLOPT_INFILESIZE : 当你上传一个文件到远程站点，这个选项告诉PHP你上传文件的大小。</li>
@@ -352,27 +357,20 @@
 <li>CURLOPT_STDERR : 这个文件写有错误而不是stderr。用来获取需要登录的页面的例子,当前做法是每次或许都登录一次,有需要的人再做改进了.<h4 id="curl可以做到一些更有趣的事情，模拟登陆之类的，hhh-ˉ﹃ˉ-。ps：别忘了curl-close-hhhh"><a href="#curl可以做到一些更有趣的事情，模拟登陆之类的，hhh-ˉ﹃ˉ-。ps：别忘了curl-close-hhhh" class="headerlink" title="curl可以做到一些更有趣的事情，模拟登陆之类的，hhh(ˉ﹃ˉ)。ps：别忘了curl_close();hhhh"></a>curl可以做到一些更有趣的事情，模拟登陆之类的，hhh(ˉ﹃ˉ)。ps：别忘了curl_close();hhhh</h4></li>
 </ul>
 
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
@@ -380,38 +378,25 @@
       
 
       
-      
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/20/Nginx在linux下的安装与配置/" rel="prev" title="Nginx在linux下的安装与配置">
-                Nginx在linux下的安装与配置 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -419,10 +404,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -442,17 +423,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://img.moegirl.org/common/thumb/4/4e/%E8%99%8E%E9%A6%AC.jpg/375px-%E8%99%8E%E9%A6%AC.jpg"
@@ -496,22 +468,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景："><span class="nav-number">1.</span> <span class="nav-text">背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数详情："><span class="nav-number">2.</span> <span class="nav-text">参数详情：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下列选项的值将被作为长整形使用-在option参数中指定-："><span class="nav-number">2.1.</span> <span class="nav-text">下列选项的值将被作为长整形使用(在option参数中指定)：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下列选项的值将被作为字符串："><span class="nav-number">2.2.</span> <span class="nav-text">下列选项的值将被作为字符串：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#curl可以做到一些更有趣的事情，模拟登陆之类的，hhh-ˉ﹃ˉ-。ps：别忘了curl-close-hhhh"><span class="nav-number">2.2.1.</span> <span class="nav-text">curl可以做到一些更有趣的事情，模拟登陆之类的，hhh(ˉ﹃ˉ)。ps：别忘了curl_close();hhhh</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -625,10 +581,10 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-
+  
 
   
 
