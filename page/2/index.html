@@ -247,7 +247,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/03/19/PHP中CURL的选项详解/">
+    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/07/09/php使用Redis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhanxu">
@@ -266,7 +266,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/03/19/PHP中CURL的选项详解/" itemprop="url">PHP中CURL的option参数详解</a></h1>
+                <a class="post-title-link" href="/2017/07/09/php使用Redis/" itemprop="url">php使用Redis</a></h1>
         
 
         <div class="post-meta">
@@ -278,8 +278,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-19T17:49:44+01:00">
-                2017-03-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T10:27:55+02:00">
+                2017-07-09
               </time>
             
 
@@ -315,47 +315,1883 @@
       
         
           
-            <h2 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h2><p>学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下：</p>
-<h2 id="参数详情："><a href="#参数详情：" class="headerlink" title="参数详情："></a>参数详情：</h2><p>bool curl_setopt (int ch, string option, mixed value)<br>curl_setopt()函数将为一个CURL会话设置选项。option参数是你想要的设置，value是这个选项给定的值。</p>
-<h3 id="下列选项的值将被作为长整形使用-在option参数中指定-："><a href="#下列选项的值将被作为长整形使用-在option参数中指定-：" class="headerlink" title="下列选项的值将被作为长整形使用(在option参数中指定)："></a>下列选项的值将被作为长整形使用(在option参数中指定)：</h3><ul>
-<li>CURLOPT_INFILESIZE : 当你上传一个文件到远程站点，这个选项告诉PHP你上传文件的大小。</li>
-<li>CURLOPT_VERBOSE : 如果你想CURL报告每一件意外的事情，设置这个选项为一个非零值。</li>
-<li>CURLOPT_HEADER : 如果你想把一个头包含在输出中，设置这个选项为一个非零值。</li>
-<li>CURLOPT_NOPROGRESS: 如果你不会PHP为CURL传输显示一个进程条，设置这个选项为一个非零值。注意：PHP自动设置这个选项为非零值，你应该仅仅为了调试的目的来改变这个选项。</li>
-<li>CURLOPT_NOBODY : 如果你不想在输出中包含body部分，设置这个选项为一个非零值。</li>
-<li>CURLOPT_FAILONERROR : 如果你想让PHP在发生错误(HTTP代码返回大于等于300)时，不显示，设置这个选项为一人非零值。默认行为是返回一个正常页，忽略代码。</li>
-<li>CURLOPT_UPLOAD: 如果你想让PHP为上传做准备，设置这个选项为一个非零值。</li>
-<li>CURLOPT_POST : 如果你想PHP去做一个正规的HTTP POST，设置这个选项为一个非零值。这个POST是普通的 application/x-www-from-urlencoded 类型，多数被HTML表单使用。</li>
-<li>CURLOPT_FTPLISTONLY : 设置这个选项为非零值，PHP将列出FTP的目录名列表。</li>
-<li>CURLOPT_FTPAPPEND : 设置这个选项为一个非零值，PHP将应用远程文件代替覆盖它。</li>
-<li>CURLOPT_NETRC : 设置这个选项为一个非零值，PHP将在你的 ~./netrc 文件中查找你要建立连接的远程站点的用户名及密码。</li>
-<li>CURLOPT_FOLLOWLOCATION : 设置这个选项为一个非零值(象 “Location: “)的头，服务器会把它当做HTTP头的一部分发送(注意这是递归的，PHP将发送形如 “Location: “的头)。</li>
-<li>CURLOPT_PUT : 设置这个选项为一个非零值去用HTTP上传一个文件。要上传这个文件必须设置CURLOPT_INFILE和CURLOPT_INFILESIZE选项.</li>
-<li>CURLOPT_MUTE : 设置这个选项为一个非零值，PHP对于CURL函数将完全沉默。</li>
-<li>CURLOPT_TIMEOUT : 设置一个长整形数，作为最大延续多少秒。</li>
-<li>CURLOPT_LOW_SPEED_LIMIT: 设置一个长整形数，控制传送多少字节。</li>
-<li>CURLOPT_LOW_SPEED_TIME : 设置一个长整形数，控制多少秒传送CURLOPT_LOW_SPEED_LIMIT规定的字节数。</li>
-<li>CURLOPT_RESUME_FROM : 传递一个包含字节偏移地址的长整形参数，(你想转移到的开始表单)。</li>
-<li>CURLOPT_SSLVERSION: 传递一个包含SSL版本的长参数。默认PHP将被它自己努力的确定，在更多的安全中你必须手工设置。</li>
-<li>CURLOPT_TIMECONDITION : 传递一个长参数，指定怎么处理CURLOPT_TIMEVALUE参数。你可以设置这个参数为TIMECOND_IFMODSINCE 或 TIMECOND_ISUNMODSINCE。这仅用于HTTP。</li>
-<li>CURLOPT_TIMEVALUE : 传递一个从1970-1-1开始到现在的秒数。这个时间将被CURLOPT_TIMEVALUE选项作为指定值使用，或被默认TIMECOND_IFMODSINCE使用。<h3 id="下列选项的值将被作为字符串："><a href="#下列选项的值将被作为字符串：" class="headerlink" title="下列选项的值将被作为字符串："></a>下列选项的值将被作为字符串：</h3></li>
-<li>CURLOPT_URL: 这是你想用PHP取回的URL地址。你也可以在用curl_init()函数初始化时设置这个选项。</li>
-<li>CURLOPT_USERPWD : 传递一个形如[username]:[password]风格的字符串,作用PHP去连接。</li>
-<li>CURLOPT_PROXYUSERPWD : 传递一个形如[username]:[password] 格式的字符串去连接HTTP代理。</li>
-<li>CURLOPT_RANGE : 传递一个你想指定的范围。它应该是”X-Y”格式，X或Y是被除外的。HTTP传送同样支持几个间隔，用逗句来分隔(X-Y,N-M)。</li>
-<li>CURLOPT_POSTFIELDS : 传递一个作为HTTP “POST”操作的所有数据的字符串。</li>
-<li>CURLOPT_REFERER: 在HTTP请求中包含一个”referer”头的字符串。</li>
-<li>CURLOPT_USERAGENT : 在HTTP请求中包含一个”user-agent”头的字符串。</li>
-<li>CURLOPT_FTPPORT: 传递一个包含被ftp “POST”指令使用的IP地址。这个POST指令告诉远程服务器去连接我们指定的IP地址。这个字符串可以是一个IP地址，一个主机名，一个网络界面名(在UNIX下)，或是‘-‘(使用系统默认IP地址)。</li>
-<li>CURLOPT_COOKIE : 传递一个包含HTTP cookie的头连接。</li>
-<li>CURLOPT_SSLCERT : 传递一个包含PEM格式证书的字符串。</li>
-<li>CURLOPT_COOKIEFILE : 传递一个包含cookie数据的文件的名字的字符串。这个cookie文件可以是Netscape格式，或是堆存在文件中的HTTP风格的头。</li>
-<li>CURLOPT_CUSTOMREQUEST : 当进行HTTP请求时，传递一个字符被GET或HEAD使用。为进行DELETE或其它操作是有益的，更Pass a string to be used instead of GET or HEAD when doing an HTTP request. This is useful for doing or another, more obscure, HTTP request. 注意: 在确认你的服务器支持命令先不要去这样做。下列的选项要求一个文件描述(通过使用fopen()函数获得)。</li>
-<li>CURLOPT_FILE: 这个文件将是你放置传送的输出文件，默认是STDOUT.</li>
-<li>CURLOPT_INFILE : 这个文件是你传送过来的输入文件。</li>
-<li>CURLOPT_WRITEHEADER : 这个文件写有你输出的头部分。</li>
-<li>CURLOPT_STDERR : 这个文件写有错误而不是stderr。用来获取需要登录的页面的例子,当前做法是每次或许都登录一次,有需要的人再做改进了.<h4 id="curl可以做到一些更有趣的事情，模拟登陆之类的，hhh-ˉ﹃ˉ-。ps：别忘了curl-close-hhhh"><a href="#curl可以做到一些更有趣的事情，模拟登陆之类的，hhh-ˉ﹃ˉ-。ps：别忘了curl-close-hhhh" class="headerlink" title="curl可以做到一些更有趣的事情，模拟登陆之类的，hhh(ˉ﹃ˉ)。ps：别忘了curl_close();hhhh"></a>curl可以做到一些更有趣的事情，模拟登陆之类的，hhh(ˉ﹃ˉ)。ps：别忘了curl_close();hhhh</h4></li>
+            <h1 id="PHP使用redis拓展"><a href="#PHP使用redis拓展" class="headerlink" title="PHP使用redis拓展"></a>PHP使用redis拓展</h1><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，<br>必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数<br>据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。<br>目前内存数据库有很多，这里不进行列出。由于百度使用的是Redis，那我们就聊一聊redis。</p>
+<h3 id="Redis的安装："><a href="#Redis的安装：" class="headerlink" title="Redis的安装："></a>Redis的安装：</h3><p>百度良心包管理工具Jumbo直接install就可以。连接不到百度内网可以参考这篇博客<a href="http://www.cnblogs.com/codersay/p/4301677.html" target="_blank" rel="external">http://www.cnblogs.com/codersay/p/4301677.html</a><br>这里不做多说。</p>
+<h3 id="小坑注意："><a href="#小坑注意：" class="headerlink" title="小坑注意："></a>小坑注意：</h3><p>redis使用的是tcp连接，首先启动服务redis-server时后面要加配置文件路径如</p>
+<pre><code>redis-server ./.jumbo/etc/redis.conf
+</code></pre><p>然后调用命令:</p>
+<pre><code>redis-cli -h 127.0.0.1 -p 6379
+</code></pre><h2 id="正题："><a href="#正题：" class="headerlink" title="正题："></a>正题：</h2><p>phpredis是php的一个扩展，效率是相当高有链表排序功能，对创建内存级的模块业务关系<br>很有用;以下是redis官方提供的命令使用技巧:<br>下载地址如下：<br><a href="https://github.com/owlient/phpredis（支持redis" target="_blank" rel="external">https://github.com/owlient/phpredis（支持redis</a> 2.0.4）</p>
+<p>Redis::__construct构造函数</p>
+<pre><code>$redis = new Redis();
+</code></pre><p>connect, open 链接redis服务<br>参数<br>host: string，服务地址<br>port: int,端口号<br>timeout: float,链接时长 (可选, 默认为 0 ，不限链接时间)<br>注: 在redis.conf中也有时间，默认为300</p>
+<pre><code>$redis-&gt;connect(&apos;127.0.0.1&apos;,6379,0);
+</code></pre><p>pconnect, popen 不会主动关闭的链接<br>参考上面</p>
+<p>setOption 设置redis模式</p>
+<p>getOption 查看redis设置的模式</p>
+<p>ping 查看连接状态</p>
+<pre><code>// 不序列化数据!
+$redis-&gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_NONE);
+// 使⽤用内置序列化/不序列化
+$redis-&gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP); 
+//使⽤用igbinary系列化/ 不序列化
+$redis-&gt;setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_IGBINARY); 
+//使⽤用⾃自定义前缀的所有键!
+$redis-&gt;setOption(Redis::OPT_PREFIX, &apos;myAppName:&apos;); 
+</code></pre><p>get 得到某个key的值（string值）<br>如果该key不存在，return false</p>
+<pre><code>$redis-&gt;get(&quot;test&quot;);
+</code></pre><p>set 写入key 和 value（string值）<br>如果写入成功，return ture</p>
+<pre><code>$redis-&gt;set（&apos;test&apos;,123）;
+</code></pre><p>setex 带生存时间的写入值</p>
+<pre><code>$redis-&gt;setex(&apos;key&apos;, 3600, &apos;value&apos;); // sets key → value, with 1h TTL.
+</code></pre><p>setnx 判断是否重复的，写入值</p>
+<pre><code>$redis-&gt;setnx(&apos;key&apos;, &apos;value&apos;);
+</code></pre><p>delete  删除指定key的值<br>返回已经删除key的个数（长整数）</p>
+<pre><code>$redis-&gt;delete(&apos;key1&apos;, &apos;key2&apos;);
+$redis-&gt;delete(array(&apos;key3&apos;, &apos;key4&apos;, &apos;key5&apos;));
+</code></pre><p>ttl<br>得到一个key的生存时间</p>
+<pre><code>$redis-&gt;ttl(&apos;test&apos;);
+</code></pre><p>persist<br>移除生存时间到期的key<br>如果key到期 true 如果不到期 false</p>
+<pre><code>$redis-&gt;persist(&apos;test&apos;);
+</code></pre><p>mset （redis版本1.1以上才可以用）<br>同时给多个key赋值</p>
+<pre><code>$redis-&gt;mset(array(&apos;key0&apos; =&gt; &apos;value0&apos;, &apos;key1&apos; =&gt; &apos;value1&apos;));
+</code></pre><p>multi, exec, discard<br>进入或者退出事务模式<br>参数可选Redis::MULTI或Redis::PIPELINE. 默认是 Redis::MULTI<br>Redis::MULTI：将多个操作当成一个事务执行<br>Redis::PIPELINE:让（多条）执行命令简单的，更加快速的发送给服务器，但是没有任何原子性的保证<br>discard:删除一个事务<br>返回值<br>multi()，返回一个redis对象，并进入multi-mode模式，一旦进入multi-mode模式，以后调用的所有方法都会返回相同的对象，只到exec(）方法被调用。</p>
+<p>watch, unwatch （代码测试后，不能达到所说的效果）<br>监测一个key的值是否被其它的程序更改。如果这个key在watch 和 exec （方法）间被修改，这个 MULTI/EXEC 事务的执行将失败（return false）<br>unwatch  取消被这个程序监测的所有key<br>参数，一对key的列表</p>
+<pre><code>$redis-&gt;watch(&apos;x&apos;);
+
+$ret = $redis-&gt;multi() -&gt;incr(&apos;x&apos;) -&gt;exec();
+</code></pre><p>subscribe *<br>方法回调。注意，该方法可能在未来里发生改变</p>
+<p>publish *<br>发表内容到某一个通道。注意，该方法可能在未来里发生改变</p>
+<p>exists<br>判断key是否存在。存在 true 不在 false</p>
+<pre><code>$redis-&gt;exists(&apos;test&apos;);
+</code></pre><p>incr, incrBy<br>key中的值进行自增1，如果填写了第二个参数，者自增第二个参数所填的值</p>
+<pre><code>$redis-&gt;incr(&apos;key1&apos;);
+$redis-&gt;incrBy(&apos;key1&apos;, 10);
+</code></pre><p>decr, decrBy<br>做减法，使用方法同incr</p>
+<p>getMultiple<br>传参<br>由key组成的数组<br>返回参数<br>如果key存在返回value，不存在返回false</p>
+<pre><code>$redis-&gt;set(&apos;key1&apos;, &apos;value1&apos;); 
+$redis-&gt;set(&apos;key2&apos;, &apos;value2&apos;); 
+$redis-&gt;set(&apos;key3&apos;, &apos;value3&apos;); 
+$redis-&gt;getMultiple(array(&apos;key1&apos;, &apos;key2&apos;, &apos;key3&apos;));
+$redis-&gt;lRem(&apos;key1&apos;, &apos;A&apos;, 2);
+$redis-&gt;lRange(&apos;key1&apos;, 0, -1);
+</code></pre><h4 id="list相关操作"><a href="#list相关操作" class="headerlink" title="list相关操作"></a>list相关操作</h4><p>lPush<br>在名称为key的list左边（头）添加一个值为value的 元素</p>
+<pre><code>$redis-&gt;lPush(key, value);
+</code></pre><p>rPush<br>在名称为key的list右边（尾）添加一个值为value的 元素</p>
+<pre><code>$redis-&gt;rPush(key, value);
+</code></pre><p>lPushx/rPushx<br>在名称为key的list左边(头)/右边（尾）添加一个值为value的元素,如果value已经存在，则不添加\</p>
+<pre><code>$redis-&gt;lPushx(key, value);
+</code></pre><p>lPop/rPop<br>输出名称为key的list左(头)起/右（尾）起的第一个元素，删除该元素</p>
+<pre><code>$redis-&gt;lPop(&apos;key&apos;);
+</code></pre><p>blPop/brPop<br>lpop命令的block版本。即当timeout为0时，若遇到名称为key i的list不存在或该list为空，则命令结束。如果timeout&gt;0，则遇到上述情况时，等待timeout秒，如果问题没有解决，则对keyi+1开始的list执行pop操作</p>
+<pre><code>$redis-&gt;blPop(&apos;key1&apos;, &apos;key2&apos;, 10);
+</code></pre><p>lSize<br>返回名称为key的list有多少个元素</p>
+<pre><code>$redis-&gt;lSize(&apos;key&apos;);
+</code></pre><p>lIndex, lGet<br>返回名称为key的list中index位置的元素</p>
+<pre><code>$redis-&gt;lGet(&apos;key&apos;, 0);
+</code></pre><p>lSet<br>给名称为key的list中index位置的元素赋值为value</p>
+<pre><code>$redis-&gt;lSet(&apos;key&apos;, 0, &apos;X&apos;);
+</code></pre><p>lRange, lGetRange<br>返回名称为key的list中start至end之间的元素（end为 -1 ，返回所有）</p>
+<pre><code>$redis-&gt;lRange(&apos;key1&apos;, 0, -1);
+</code></pre><p>lTrim, listTrim<br>截取名称为key的list，保留start至end之间的元素</p>
+<pre><code>$redis-&gt;lTrim(&apos;key&apos;, start, end);
+</code></pre><p>lRem, lRemove<br>删除count个名称为key的list中值为value的元素。count为0，删除所有值为value的元素，count&gt;0从头至尾删除count个值为value的元素，count&lt;0从尾到头删除|count|个值为value的元素</p>
+<pre><code>$redis-&gt;lRem(&apos;key&apos;, &apos;A&apos;, 2);
+</code></pre><p>lInsert<br>在名称为为key的list中，找到值为pivot 的value，并根据参数Redis::BEFORE | Redis::AFTER，来确定，newvalue 是放在 pivot 的前面，或者后面。如果key不存在，不会插入，如果 pivot不存在，return -1</p>
+<pre><code>$redis-&gt;delete(&apos;key1&apos;); $redis-&gt;lInsert(&apos;key1&apos;, Redis::AFTER, &apos;A&apos;, &apos;X&apos;); $redis-&gt;lPush(&apos;key1&apos;, &apos;A&apos;); $redis-&gt;lPush(&apos;key1&apos;, &apos;B&apos;); $redis-&gt;lPush(&apos;key1&apos;, &apos;C&apos;); $redis-&gt;lInsert(&apos;key1&apos;, Redis::BEFORE, &apos;C&apos;, &apos;X&apos;);
+$redis-&gt;lRange(&apos;key1&apos;, 0, -1);
+$redis-&gt;lInsert(&apos;key1&apos;, Redis::AFTER, &apos;C&apos;, &apos;Y&apos;);
+$redis-&gt;lRange(&apos;key1&apos;, 0, -1);
+$redis-&gt;lInsert(&apos;key1&apos;, Redis::AFTER, &apos;W&apos;, &apos;value&apos;);
+</code></pre><p>rpoplpush<br>返回并删除名称为srckey的list的尾元素，并将该元素添加到名称为dstkey的list的头部</p>
+<pre><code>$redis-&gt;delete(&apos;x&apos;, &apos;y&apos;);
+$redis-&gt;lPush(&apos;x&apos;, &apos;abc&apos;); $redis-&gt;lPush(&apos;x&apos;, &apos;def&apos;); $redis-&gt;lPush(&apos;y&apos;, &apos;123&apos;); $redis-&gt;lPush(&apos;y&apos;, &apos;456&apos;); // move the last of x to the front of y. var_dump($redis-&gt;rpoplpush(&apos;x&apos;, &apos;y&apos;));
+var_dump($redis-&gt;lRange(&apos;x&apos;, 0, -1));
+var_dump($redis-&gt;lRange(&apos;y&apos;, 0, -1)); 
+
+string(3) &quot;abc&quot; 
+array(1) { [0]=&gt; string(3) &quot;def&quot; } 
+array(3) { [0]=&gt; string(3) &quot;abc&quot; [1]=&gt; string(3) &quot;456&quot; [2]=&gt; string(3) &quot;123&quot; }
+</code></pre><h4 id="SET操作相关"><a href="#SET操作相关" class="headerlink" title="SET操作相关"></a>SET操作相关</h4><p>sAdd<br>向名称为key的set中添加元素value,如果value存在，不写入，return false</p>
+<pre><code>$redis-&gt;sAdd(key , value);
+</code></pre><p>sRem, sRemove<br>删除名称为key的set中的元素value</p>
+<pre><code>$redis-&gt;sAdd(&apos;key1&apos; , &apos;set1&apos;);
+$redis-&gt;sAdd(&apos;key1&apos; , &apos;set2&apos;);
+$redis-&gt;sAdd(&apos;key1&apos; , &apos;set3&apos;);
+$redis-&gt;sRem(&apos;key1&apos;, &apos;set2&apos;);
+</code></pre><p>sMove<br>将value元素从名称为srckey的集合移到名称为dstkey的集合</p>
+<pre><code>$redis-&gt;sMove(seckey, dstkey, value);
+</code></pre><p>sIsMember, sContains<br>名称为key的集合中查找是否有value元素，有ture 没有 false</p>
+<pre><code>$redis-&gt;sIsMember(key, value);
+</code></pre><p>sCard, sSize<br>返回名称为key的set的元素个数</p>
+<p>sPop<br>随机返回并删除名称为key的set中一个元素</p>
+<p>sRandMember<br>随机返回名称为key的set中一个元素，不删除</p>
+<p>sInter<br>求交集</p>
+<p>sInterStore<br>求交集并将交集保存到output的集合<br>$redis-&gt;sInterStore(‘output’, ‘key1’, ‘key2’, ‘key3’)</p>
+<p>sUnion<br>求并集<br>$redis-&gt;sUnion(‘s0’, ‘s1’, ‘s2’);<br>s0,s1,s2 同时求并集</p>
+<p>sUnionStore<br>求并集并将并集保存到output的集合<br>$redis-&gt;sUnionStore(‘output’, ‘key1’, ‘key2’, ‘key3’)；</p>
+<p>sDiff<br>求差集</p>
+<p>sDiffStore<br>求差集并将差集保存到output的集合</p>
+<p>sMembers, sGetMembers<br>返回名称为key的set的所有元素</p>
+<h4 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h4><p>排序，分页等<br>参数</p>
+<pre><code>&apos;by&apos; =&gt; &apos;some_pattern_*&apos;,
+&apos;limit&apos; =&gt; array(0, 1),
+&apos;get&apos; =&gt; &apos;some_other_pattern_*&apos; or an array of patterns,
+&apos;sort&apos; =&gt; &apos;asc&apos; or &apos;desc&apos;,
+&apos;alpha&apos; =&gt; TRUE,
+&apos;store&apos; =&gt; &apos;external-key&apos;
+</code></pre><p>例子</p>
+<pre><code>$redis-&gt;delete(&apos;s&apos;); 
+$redis-&gt;sadd(&apos;s&apos;, 5); 
+$redis-&gt;sadd(&apos;s&apos;, 4); 
+$redis-&gt;sadd(&apos;s&apos;, 2); 
+$redis-&gt;sadd(&apos;s&apos;, 1); 
+$redis-&gt;sadd(&apos;s&apos;, 3);
+var_dump($redis-&gt;sort(&apos;s&apos;)); // 1,2,3,4,5
+var_dump($redis-&gt;sort(&apos;s&apos;, array(&apos;sort&apos; =&gt; &apos;desc&apos;))); // 5,4,3,2,1
+var_dump($redis-&gt;sort(&apos;s&apos;, array(&apos;sort&apos; =&gt; &apos;desc&apos;, &apos;store&apos; =&gt; &apos;out&apos;))); // (int)5
+</code></pre><h4 id="string命令"><a href="#string命令" class="headerlink" title="string命令"></a>string命令</h4><p>getSet<br>返回原来key中的值，并将value写入key</p>
+<pre><code>$redis-&gt;set(&apos;x&apos;, &apos;42&apos;);
+$exValue = $redis-&gt;getSet(&apos;x&apos;, &apos;lol&apos;); // return &apos;42&apos;, replaces x by &apos;lol&apos;
+$newValue = $redis-&gt;get(&apos;x&apos;)&apos; // return &apos;lol&apos;
+</code></pre><p>append<br>string，名称为key的string的值在后面加上value</p>
+<pre><code>$redis-&gt;set(&apos;key&apos;, &apos;value1&apos;);
+$redis-&gt;append(&apos;key&apos;, &apos;value2&apos;);
+$redis-&gt;get(&apos;key&apos;);
+</code></pre><p>getRange （方法不存在）<br>返回名称为key的string中start至end之间的字符</p>
+<pre><code>$redis-&gt;set(&apos;key&apos;, &apos;string value&apos;);
+$redis-&gt;getRange(&apos;key&apos;, 0, 5);
+$redis-&gt;getRange(&apos;key&apos;, -5, -1);
+</code></pre><p>setRange （方法不存在）<br>改变key的string中start至end之间的字符为value</p>
+<pre><code>$redis-&gt;set(&apos;key&apos;, &apos;Hello world&apos;);
+$redis-&gt;setRange(&apos;key&apos;, 6, &quot;redis&quot;);
+$redis-&gt;get(&apos;key&apos;);
+</code></pre><p>strlen<br>得到key的string的长度</p>
+<pre><code>$redis-&gt;strlen(&apos;key&apos;);
+</code></pre><p>getBit/setBit<br>返回2进制信息</p>
+<h4 id="zset（sorted-set）操作相关"><a href="#zset（sorted-set）操作相关" class="headerlink" title="zset（sorted set）操作相关"></a>zset（sorted set）操作相关</h4><p>zAdd(key, score, member)：向名称为key的zset中添加元素member，score用于排序。如果该元素已经存在，则根据score更新该元素的顺序。</p>
+<pre><code>$redis-&gt;zAdd(&apos;key&apos;, 1, &apos;val1&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 0, &apos;val0&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 5, &apos;val5&apos;);
+$redis-&gt;zRange(&apos;key&apos;, 0, -1); // array(val0, val1, val5)
+</code></pre><p>zRange(key, start, end,withscores)：返回名称为key的zset（元素已按score从小到大排序）中的index从start到end的所有元素</p>
+<pre><code>$redis-&gt;zAdd(&apos;key1&apos;, 0, &apos;val0&apos;);
+$redis-&gt;zAdd(&apos;key1&apos;, 2, &apos;val2&apos;);
+$redis-&gt;zAdd(&apos;key1&apos;, 10, &apos;val10&apos;);
+$redis-&gt;zRange(&apos;key1&apos;, 0, -1); // with scores $redis-&gt;zRange(&apos;key1&apos;, 0, -1, true);
+</code></pre><p>zDelete, zRem<br>zRem(key, member) ：删除名称为key的zset中的元素member</p>
+<pre><code>$redis-&gt;zAdd(&apos;key&apos;, 0, &apos;val0&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 2, &apos;val2&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 10, &apos;val10&apos;);
+$redis-&gt;zDelete(&apos;key&apos;, &apos;val2&apos;);
+$redis-&gt;zRange(&apos;key&apos;, 0, -1); 
+</code></pre><p>zRevRange(key, start, end,withscores)：返回名称为key的zset（元素已按score从大到小排序）中的index从start到end的所有元素.withscores: 是否输出socre的值，默认false，不输出</p>
+<pre><code>$redis-&gt;zAdd(&apos;key&apos;, 0, &apos;val0&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 2, &apos;val2&apos;);
+$redis-&gt;zAdd(&apos;key&apos;, 10, &apos;val10&apos;);
+$redis-&gt;zRevRange(&apos;key&apos;, 0, -1); // with scores $redis-&gt;zRevRange(&apos;key&apos;, 0, -1, true);
+</code></pre><p>zRangeByScore, zRevRangeByScore<br>返回名称为key的zset中score &gt;= star且score &lt;= end的所有元素</p>
+<pre><code>$redis-&gt;zRangeByScore(key, star, end, array(withscores， limit ));
+</code></pre><p>zCount<br>返回名称为key的zset中score &gt;= star且score &lt;= end的所有元素的个数</p>
+<pre><code>$redis-&gt;zCount(key, star, end);
+</code></pre><p>zRemRangeByScore, zDeleteRangeByScore<br>删除名称为key的zset中score &gt;= star且score &lt;= end的所有元素，返回删除个数</p>
+<pre><code>$redis-&gt;zRemRangeByScore(&apos;key&apos;, star, end);
+</code></pre><p>zSize, zCard<br>返回名称为key的zset的所有元素的个数</p>
+<p>zScore<br>返回名称为key的zset中元素val2的score</p>
+<pre><code>$redis-&gt;zScore(key, val2);
+</code></pre><p>zRank, zRevRank<br>返回名称为key的zset（元素已按score从小到大排序）中val元素的rank（即index，从0开始），若没有val元素，返回“null”。zRevRank 是从大到小排序</p>
+<pre><code>$redis-&gt;zRevRank(key, val);
+</code></pre><p>zIncrBy<br>如果在名称为key的zset中已经存在元素member，则该元素的score增加increment；否则向集合中添加该元素，其score的值为increment</p>
+<pre><code>$redis-&gt;zIncrBy(&apos;key&apos;, increment, &apos;member&apos;);
+</code></pre><p>zUnion/zInter<br>参数</p>
+<pre><code>keyOutput
+arrayZSetKeys
+arrayWeights
+aggregateFunction Either &quot;SUM&quot;, &quot;MIN&quot;, or &quot;MAX&quot;: defines the behaviour to use on duplicate entries during the zUnion.
+</code></pre><p>对N个zset求并集和交集，并将最后的集合保存在dstkeyN中。对于集合中每一个元素的score，在进行AGGREGATE运算前，都要乘以对于的WEIGHT参数。如果没有提供WEIGHT，默认为1。默认的AGGREGATE是SUM，即结果集合中元素的score是所有集合对应元素进行SUM运算的值，而MIN和MAX是指，结果集合中元素的score是所有集合对应元素中最小值和最大值。</p>
+<h4 id="Hash操作"><a href="#Hash操作" class="headerlink" title="Hash操作"></a>Hash操作</h4><p>hSet<br>向名称为h的hash中添加元素key1—&gt;hello</p>
+<pre><code>$redis-&gt;hSet(&apos;h&apos;, &apos;key1&apos;, &apos;hello&apos;);
+</code></pre><p>hGet<br>返回名称为h的hash中key1对应的value（hello）</p>
+<pre><code>$redis-&gt;hGet(&apos;h&apos;, &apos;key1&apos;);
+</code></pre><p>hLen<br>返回名称为h的hash中元素个数</p>
+<pre><code>$redis-&gt;hLen(&apos;h&apos;);
+</code></pre><p>hDel<br>删除名称为h的hash中键为key1的域</p>
+<pre><code>$redis-&gt;hDel(&apos;h&apos;, &apos;key1&apos;);
+</code></pre><p>hKeys<br>返回名称为key的hash中所有键</p>
+<pre><code>$redis-&gt;hKeys(&apos;h&apos;);
+</code></pre><p>hVals<br>返回名称为h的hash中所有键对应的value</p>
+<pre><code>$redis-&gt;hVals(&apos;h&apos;)
+</code></pre><p>hGetAll<br>返回名称为h的hash中所有的键（field）及其对应的value</p>
+<pre><code>$redis-&gt;hGetAll(&apos;h&apos;);
+</code></pre><p>hExists<br>名称为h的hash中是否存在键名字为a的域</p>
+<pre><code>$redis-&gt;hExists(&apos;h&apos;, &apos;a&apos;);
+</code></pre><p>hIncrBy<br>将名称为h的hash中x的value增加2</p>
+<pre><code>$redis-&gt;hIncrBy(&apos;h&apos;, &apos;x&apos;, 2);
+</code></pre><p>hMset<br>向名称为key的hash中批量添加元素</p>
+<pre><code>$redis-&gt;hMset(&apos;user:1&apos;, array(&apos;name&apos; =&gt; &apos;Joe&apos;, &apos;salary&apos; =&gt; 2000));
+</code></pre><p>hMGet<br>返回名称为h的hash中field1,field2对应的value</p>
+<pre><code>$redis-&gt;hmGet(&apos;h&apos;, array(&apos;field1&apos;, &apos;field2&apos;));
+</code></pre><h4 id="redis-操作相关"><a href="#redis-操作相关" class="headerlink" title="redis 操作相关"></a>redis 操作相关</h4><p>flushDB<br>清空当前数据库</p>
+<p>flushAll<br>清空所有数据库</p>
+<p>randomKey<br>$key = $redis-&gt;randomKey();<br>随机返回key空间的一个key</p>
+<p>select<br>选择一个数据库<br>move<br>转移一个key到另外一个数据库</p>
+<pre><code>$redis-&gt;select(0); // switch to DB 0
+$redis-&gt;set(&apos;x&apos;, &apos;42&apos;); // write 42 to x
+$redis-&gt;move(&apos;x&apos;, 1); // move to DB 1
+$redis-&gt;select(1); // switch to DB 1
+$redis-&gt;get(&apos;x&apos;); // will return 42
+</code></pre><p>rename, renameKey<br>给key重命名</p>
+<pre><code>$redis-&gt;set(&apos;x&apos;, &apos;42&apos;);
+$redis-&gt;rename(&apos;x&apos;, &apos;y&apos;);
+$redis-&gt;get(&apos;y&apos;); // → 42
+$redis-&gt;get(&apos;x&apos;); // → `FALSE`
+</code></pre><p>renameNx<br>与remane类似，但是，如果重新命名的名字已经存在，不会替换成功</p>
+<p>setTimeout, expire<br>设定一个key的活动时间（s）</p>
+<pre><code>$redis-&gt;setTimeout(&apos;x&apos;, 3);
+</code></pre><p>expireAt<br>key存活到一个unix时间戳时间</p>
+<pre><code>$redis-&gt;expireAt(&apos;x&apos;, time() + 3);
+</code></pre><p>keys, getKeys<br>返回满足给定pattern的所有key</p>
+<pre><code>$keyWithUserPrefix = $redis-&gt;keys(&apos;user*&apos;);
+</code></pre><p>dbSize<br>查看现在数据库有多少key</p>
+<pre><code>$count = $redis-&gt;dbSize();
+</code></pre><p>auth<br>密码认证</p>
+<pre><code>$redis-&gt;auth(&apos;foobared&apos;);
+</code></pre><p>bgrewriteaof<br>使用aof来进行数据库持久化</p>
+<pre><code>$redis-&gt;bgrewriteaof();
+</code></pre><p>slaveof<br>选择从服务器</p>
+<pre><code>$redis-&gt;slaveof(&apos;10.0.1.7&apos;, 6379);
+</code></pre><p>save<br>将数据同步保存到磁盘</p>
+<p>bgsave<br>将数据异步保存到磁盘</p>
+<p>lastSave<br>返回上次成功将数据保存到磁盘的Unix时戳</p>
+<p>info<br>返回redis的版本信息等详情</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/04/16/NGINX的常用配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.moegirl.org/common/thumb/4/4e/%E8%99%8E%E9%A6%AC.jpg/375px-%E8%99%8E%E9%A6%AC.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老战博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/04/16/NGINX的常用配置/" itemprop="url">NGINX的常用配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-16T11:49:11+02:00">
+                2017-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Nginx-常见应用技术指南"><a href="#Nginx-常见应用技术指南" class="headerlink" title="Nginx 常见应用技术指南"></a>Nginx 常见应用技术指南</h1><p>========================</p>
+<h2 id="正则表达式匹配："><a href="#正则表达式匹配：" class="headerlink" title="正则表达式匹配："></a>正则表达式匹配：</h2><ul>
+<li>* ~ 为区分大小写匹配</li>
+<li>* ~* 为不区分大小写匹配</li>
+<li>* !~和!~*分别为区分大小写不匹配及不区分大小写不匹配</li>
+<li><p>*^~ 如果把这个前缀用于一个常规字符串,那么告诉nginx 如果路径匹配那么不测试正则表达式。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code>location = / {
+ # 只匹配 / 查询。
+}
+location / {
+ # 匹配任何查询，因为所有请求都已 / 开头。但是正则表达式规则和长的块规则将被优先和查询匹配。
+}
+location ^~ /images/ {
+ # 匹配任何已 /images/ 开头的任何查询并且停止搜索。任何正则表达式将不会被测试。
+}
+location ~*.(gif|jpg|jpeg)$ {
+ # 匹配任何已 gif、jpg 或 jpeg 结尾的请求。
+}
+location ~*.(gif|jpg|swf)$ {
+  valid_referers none blocked start.igrow.cn sta.igrow.cn;
+  if ($invalid_referer) {
+  #防盗链
+  rewrite ^/ http://$host/logo.png;
+  }
+}
+</code></pre></li>
 </ul>
+<h2 id="文件目录匹配："><a href="#文件目录匹配：" class="headerlink" title="文件目录匹配："></a>文件目录匹配：</h2><ul>
+<li>* -f和!-f用来判断是否存在文件</li>
+<li>* -d和!-d用来判断是否存在目录</li>
+<li>* -e和!-e用来判断是否存在文件或目录</li>
+<li>* -x和!-x用来判断文件是否可执行<h2 id="flag标记"><a href="#flag标记" class="headerlink" title="flag标记:"></a>flag标记:</h2></li>
+<li>* last 相当于Apache里的[L]标记，表示完成rewrite</li>
+<li>* break 终止匹配, 不再匹配后面的规则</li>
+<li>* redirect 返回302临时重定向 地址栏会显示跳转后的地址</li>
+<li>* permanent 返回301永久重定向 地址栏会显示跳转后的地址<h2 id="一些可用的全局变量，可以用做条件判断-待补全"><a href="#一些可用的全局变量，可以用做条件判断-待补全" class="headerlink" title="一些可用的全局变量，可以用做条件判断(待补全):"></a>一些可用的全局变量，可以用做条件判断(待补全):</h2></li>
+<li><p>$args</p>
+</li>
+<li><p>$content_length</p>
+</li>
+<li><p>$content_type</p>
+</li>
+<li><p>$document_root</p>
+</li>
+<li><p>$document_uri</p>
+</li>
+<li><p>$host</p>
+</li>
+<li><p>$http_user_agent</p>
+</li>
+<li><p>$http_cookie</p>
+</li>
+<li><p>$limit_rate</p>
+</li>
+<li><p>$request_body_file</p>
+</li>
+<li><p>$request_method</p>
+</li>
+<li><p>$remote_addr</p>
+</li>
+<li><p>$remote_port</p>
+</li>
+<li><p>$remote_user</p>
+</li>
+<li><p>$request_filename</p>
+</li>
+<li><p>$request_uri</p>
+</li>
+<li><p>$query_string</p>
+</li>
+<li><p>$scheme</p>
+</li>
+<li><p>$server_protocol</p>
+</li>
+<li><p>$server_addr</p>
+</li>
+<li><p>$server_name</p>
+</li>
+<li><p>$server_port</p>
+</li>
+<li><p>$uri</p>
+<h3 id="结合QeePHP的例子"><a href="#结合QeePHP的例子" class="headerlink" title="结合QeePHP的例子:"></a>结合QeePHP的例子:</h3><p>  if (!-d $request_filename) {</p>
+<p>  rewrite ^/([a-z-A-Z]+)/([a-z-A-Z]+)/?(.*)$ /index.php?namespace=user&amp;controller=$1&amp;action=$2&amp;$3 last;</p>
+<p>  rewrite ^/([a-z-A-Z]+)/?$ /index.php?namespace=user&amp;controller=$1 last;</p>
+<p>  break;</p>
+<h3 id="多目录转成参数"><a href="#多目录转成参数" class="headerlink" title="多目录转成参数"></a>多目录转成参数</h3></li>
+</ul>
+<p>abc.domian.com/sort/2 =&gt; abc.domian.com/index.PHP?act=sort&amp;name=abc&amp;id=2</p>
+<pre><code>if ($host ~* (.*)/.domain/.com) {
+
+set $sub_name $1;   
+
+rewrite ^/sort//(/d+)//?$ /index.php?act=sort&amp;cid=$sub_name&amp;id=$1 last;
+
+}
+</code></pre><h3 id="目录对换"><a href="#目录对换" class="headerlink" title="目录对换"></a>目录对换</h3><p>/123456/xxxx -&gt; /xxxx?id=123456</p>
+<pre><code>rewrite ^/(/d+)/(.+)/ /$2?id=$1 last;
+</code></pre><p>例如下面设定nginx在用户使用ie的使用重定向到/nginx-ie目录下：</p>
+<pre><code>if ($http_user_agent ~ MSIE) {
+
+rewrite ^(.*)$ /nginx-ie/$1 break;
+
+}
+</code></pre><h3 id="目录自动加“-”"><a href="#目录自动加“-”" class="headerlink" title="目录自动加“/”"></a>目录自动加“/”</h3><pre><code>if (-d $request_filename){
+
+rewrite ^/(.*)([^/])$ http://$host/$1$2/ permanent;
+
+}
+</code></pre><h3 id="禁止htaccess"><a href="#禁止htaccess" class="headerlink" title="禁止htaccess"></a>禁止htaccess</h3><pre><code>ocation ~//.ht {
+
+         deny all;
+
+     }
+</code></pre><h3 id="禁止多个目录"><a href="#禁止多个目录" class="headerlink" title="禁止多个目录"></a>禁止多个目录</h3><pre><code>location ~ ^/(cron|templates)/ {
+
+    deny all;
+
+    break;
+
+}
+</code></pre><h3 id="禁止以-data开头的文件"><a href="#禁止以-data开头的文件" class="headerlink" title="禁止以/data开头的文件"></a>禁止以/data开头的文件</h3><p>可以禁止/data/下多级目录下.log.txt等请求;</p>
+<pre><code>location ~ ^/data {
+
+         deny all;
+
+     }
+</code></pre><h3 id="禁止单个文件"><a href="#禁止单个文件" class="headerlink" title="禁止单个文件"></a>禁止单个文件</h3><pre><code>location ~ /data/sql/data.sql {
+
+         deny all;
+
+     }
+</code></pre><h3 id="给favicon-ico和robots-txt设置过期时间"><a href="#给favicon-ico和robots-txt设置过期时间" class="headerlink" title="给favicon.ico和robots.txt设置过期时间:"></a>给favicon.ico和robots.txt设置过期时间:</h3><p>这里为favicon.ico为99天,robots.txt为7天并不记录404错误日志</p>
+<pre><code>location ~(favicon.ico) {
+
+log_not_found off;
+
+expires 99d;
+
+break;
+
+}
+
+
+
+location ~(robots.txt) {
+
+log_not_found off;
+
+expires 7d;
+
+break;
+
+}
+</code></pre><h3 id="设定某个文件的过期时间-这里为600秒，并不记录访问日志"><a href="#设定某个文件的过期时间-这里为600秒，并不记录访问日志" class="headerlink" title="设定某个文件的过期时间;这里为600秒，并不记录访问日志"></a>设定某个文件的过期时间;这里为600秒，并不记录访问日志</h3><pre><code>location ^~ /html/scripts/loadhead_1.js {
+
+access_log   off;
+
+root /opt/lampp/htdocs/web;
+
+expires 600;
+
+break;
+
+}
+</code></pre><h3 id="文件反盗链并设置过期时间"><a href="#文件反盗链并设置过期时间" class="headerlink" title="文件反盗链并设置过期时间"></a>文件反盗链并设置过期时间</h3><p>这里的return 412 为自定义的http状态码，默认为403，方便找出正确的盗链的请求<br>“rewrite ^/ <a href="http://leech.c1gstudio.com/leech.gif;”显示一张防盗链图片" target="_blank" rel="external">http://leech.c1gstudio.com/leech.gif;”显示一张防盗链图片</a><br>“access_log off;”不记录访问日志，减轻压力<br>“expires 3d”所有文件3天的浏览器缓存</p>
+<pre><code>location ~* ^.+/.(jpg|jpeg|gif|png|swf|rar|zip|css|js)$ {
+
+valid_referers none blocked *.c1gstudio.com *.c1gstudio.net localhost 208.97.167.194;
+
+if ($invalid_referer) {
+
+    rewrite ^/ http://leech.c1gstudio.com/leech.gif;
+
+    return 412;
+
+    break;
+
+}
+
+    access_log   off;
+
+    root /opt/lampp/htdocs/web;
+
+expires 3d;
+
+break;
+
+     }
+</code></pre><h3 id="只充许固定ip访问网站，并加上密码"><a href="#只充许固定ip访问网站，并加上密码" class="headerlink" title="只充许固定ip访问网站，并加上密码"></a>只充许固定ip访问网站，并加上密码</h3><pre><code>root  /opt/htdocs/www;
+
+allow   208.97.167.194;
+
+allow   222.33.1.2;
+
+allow   231.152.49.4;
+
+deny    all;
+
+auth_basic &quot;C1G_ADMIN&quot;;
+
+auth_basic_user_file htpasswd;
+</code></pre><h3 id="将多级目录下的文件转成一个文件，增强seo效果"><a href="#将多级目录下的文件转成一个文件，增强seo效果" class="headerlink" title="将多级目录下的文件转成一个文件，增强seo效果"></a>将多级目录下的文件转成一个文件，增强seo效果</h3><p>/job-123-456-789.html 指向/job/123/456/789.html</p>
+<pre><code>rewrite ^/job-([0-9]+)-([0-9]+)-([0-9]+)/.html$ /job/$1/$2/jobshow_$3.html last;
+</code></pre><h3 id="将根目录下某个文件夹指向2级目录"><a href="#将根目录下某个文件夹指向2级目录" class="headerlink" title="将根目录下某个文件夹指向2级目录"></a>将根目录下某个文件夹指向2级目录</h3><p>如/shanghaijob/ 指向 /area/shanghai/<br>如果你将last改成permanent，那么浏览器地址栏显是/location/shanghai/</p>
+<pre><code>rewrite ^/([0-9a-z]+)job/(.*)$ /area/$1/$2 last;
+
+上面例子有个问题是访问/shanghai 时将不会匹配
+
+ewrite ^/([0-9a-z]+)job$ /area/$1/ last;
+
+rewrite ^/([0-9a-z]+)job/(.*)$ /area/$1/$2 last;
+
+这样/shanghai 也可以访问了，但页面中的相对链接无法使用，
+如./list_1.html真实地址是/area/shanghia/list_1.html会变成/list_1.html,导至无法访问。
+
+那我加上自动跳转也是不行咯
+(-d $request_filename)它有个条件是必需为真实目录，而我的rewrite不是的，所以没有效果
+
+if (-d $request_filename){
+
+rewrite ^/(.*)([^/])$ http://$host/$1$2/ permanent;
+
+}
+
+知道原因后就好办了，让我手动跳转吧
+
+rewrite ^/([0-9a-z]+)job$ /$1job/ permanent;
+
+rewrite ^/([0-9a-z]+)job/(.*)$ /area/$1/$2 last;
+
+文件和目录不存在的时候重定向：
+
+if (!-e $request_filename) {
+
+proxy_pass http://127.0.0.1;
+
+}
+</code></pre><h3 id="域名跳转"><a href="#域名跳转" class="headerlink" title="域名跳转:"></a>域名跳转:</h3><pre><code>server
+
+     {
+
+             listen       80;
+
+             server_name  jump.c1gstudio.com;
+
+             index index.html index.htm index.php;
+
+             root  /opt/lampp/htdocs/www;
+
+             rewrite ^/ http://www.c1gstudio.com/;
+
+             access_log  off;
+
+     }
+</code></pre><h3 id="多域名转向"><a href="#多域名转向" class="headerlink" title="多域名转向:"></a>多域名转向:</h3><pre><code>server_name  www.c1gstudio.com www.c1gstudio.net;
+
+             index index.html index.htm index.php;
+
+             root  /opt/lampp/htdocs;
+
+if ($host ~ &quot;c1gstudio/.net&quot;) {
+
+rewrite ^(.*) http://www.c1gstudio.com$1 permanent;
+
+}
+</code></pre><h3 id="三级域名跳转"><a href="#三级域名跳转" class="headerlink" title="三级域名跳转"></a>三级域名跳转</h3><pre><code>if ($http_host ~* &quot;^(.*)/.i/.c1gstudio/.com$&quot;) {
+
+rewrite ^(.*) http://top.yingjiesheng.com$1;
+
+break;
+
+}
+</code></pre><h3 id="域名镜像"><a href="#域名镜像" class="headerlink" title="域名镜像"></a>域名镜像</h3><pre><code>server
+
+     {
+
+             listen       80;
+
+             server_name  mirror.c1gstudio.com;
+
+             index index.html index.htm index.php;
+
+             root  /opt/lampp/htdocs/www;
+
+             rewrite ^/(.*) http://www.c1gstudio.com/$1 last;
+
+             access_log  off;
+
+     }
+</code></pre><h3 id="某个子目录作镜向"><a href="#某个子目录作镜向" class="headerlink" title="某个子目录作镜向"></a>某个子目录作镜向</h3><pre><code>location ^~ /zhaopinhui {
+
+  rewrite ^.+ http://zph.c1gstudio.com/ last;
+
+  break;
+
+     }
+</code></pre><h3 id="jspace-rewrite"><a href="#jspace-rewrite" class="headerlink" title="jspace rewrite"></a>jspace rewrite</h3><pre><code>location ~ .*/.php?$
+
+             {
+
+                  #fastcgi_pass  unix:/tmp/php-cgi.sock;
+
+                  fastcgi_pass  127.0.0.1:9000;
+
+                  fastcgi_index index.php;
+
+                  include fcgi.conf;     
+
+             }
+</code></pre><h3 id="头像-rewrite-优化"><a href="#头像-rewrite-优化" class="headerlink" title="头像 rewrite 优化"></a>头像 rewrite 优化</h3><pre><code>location ^~ /ucenter {
+
+     location ~ .*/.php?$
+
+     {
+
+  #fastcgi_pass  unix:/tmp/php-cgi.sock;
+
+  fastcgi_pass  127.0.0.1:9000;
+
+  fastcgi_index index.php;
+
+  include fcgi.conf;     
+
+     }
+
+
+
+     location /ucenter/data/avatar {
+
+log_not_found off;
+
+access_log   off;
+
+location ~ /(.*)_big/.jpg$ {
+
+    error_page 404 /ucenter/images/noavatar_big.gif;
+
+}
+
+location ~ /(.*)_middle/.jpg$ {
+
+    error_page 404 /ucenter/images/noavatar_middle.gif;
+
+}
+
+location ~ /(.*)_small/.jpg$ {
+
+    error_page 404 /ucenter/images/noavatar_small.gif;
+
+}
+
+expires 300;
+
+break;
+
+     }
+
+                       }
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/03/25/windows下配置nginx-mysql-php/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.moegirl.org/common/thumb/4/4e/%E8%99%8E%E9%A6%AC.jpg/375px-%E8%99%8E%E9%A6%AC.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老战博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/25/windows下配置nginx-mysql-php/" itemprop="url">windows下配置nginx+mysql+php</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-25T13:32:18+01:00">
+                2017-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一般来讲很多开发工作并不是在linux中用vim硬怼，很多人用windows编程然后通过git托管，那么我们可以在windows下面安装nginx和php+Mysql来调试我们的程序</p>
+<h2 id="nginx的安装："><a href="#nginx的安装：" class="headerlink" title="nginx的安装："></a>nginx的安装：</h2><p>方法类似linux下安装nginx，在官网上下载ngxin的windows版，解压然后修改conf/nginx.conf，主要修改如下：</p>
+<pre><code>server {
+        listen       80;#修改监听端口
+        server_name  localhost;#修改域名
+        ······
+        location / {
+                    root   html;#网站根目录
+                    index  index.html index.htm index.php;#配置index
+                }
+        ······
+        location ~ \.php$ {
+                    root           html;#网站根目录
+                    fastcgi_pass   127.0.0.1:9000;#Nginx以cgi方式用过tcp协议和php交互，也可配置成套接字交互（.sock）方法参考linux下配置
+                    fastcgi_index  index.php;
+                    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;#$document_root指的是web根目录，不配置可能会有No input file specified.错误
+                    include        fastcgi_params;
+                }
+</code></pre><p>然后我们访问localhost，会看到nginx的欢迎界面。</p>
+<h2 id="php的安装"><a href="#php的安装" class="headerlink" title="php的安装:"></a>php的安装:</h2><p>php在windows下面安装方式网上一搜一大堆，整理下就是：</p>
+<ul>
+<li><p>直接解压下载好的php包，把解压出来的文件夹重命名成php5。进入文件夹修改php.ini-recommended文件为php.ini，编辑文件：</p>
+<pre><code>extension_dir = &quot;./ext&quot;
+</code></pre><p>  更改为</p>
+<pre><code>extension_dir = &quot;D:/wnmp/php5/ext&quot;
+</code></pre><p>  往下看，再找到</p>
+<pre><code>;extension=php_mysql.dll
+;extension=php_mysqli.dll
+</code></pre><p>  前面指定了php的ext路径后，只要把需要的扩展包前面所对应的“;”去掉，就可以了。这里打开php_mysql.dll和php_mysqli.dll，让php支持mysql。</p>
+<p>  到这里，php已经可以支持mysql了。</p>
+<p>  接下来我们来配置php，让php能够与nginx结合。找到</p>
+<pre><code>;cgi.fix_pathinfo=1
+</code></pre><p>  我们去掉这里的封号。</p>
+<pre><code>cgi.fix_pathinfo=1
+</code></pre><h5 id="这一步非常重要，这里是php的CGI的设置。"><a href="#这一步非常重要，这里是php的CGI的设置。" class="headerlink" title="这一步非常重要，这里是php的CGI的设置。"></a>这一步非常重要，这里是php的CGI的设置。</h5></li>
+<li><p>输入命令</p>
+<pre><code>php-cgi -b 127.0.0.1:9000 -c $PHP_PATH./php.ini #$PHP_PATH是你php的根目录
+</code></pre><p>然后利用如下命令：</p>
+<pre><code>netstat -a
+</code></pre><p>查看9000端口是否已经被php监听，如果是，那么大功告成</p>
+<h3 id="踩过的坑"><a href="#踩过的坑" class="headerlink" title="踩过的坑"></a>踩过的坑</h3><p>php文件访问时会有No input file specified.错误，原因是没有配置</p>
+<p>  fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name; #document_root是根目录<br>这个错误类似404</p>
+</li>
+</ul>
+<h2 id="MySQL的安装："><a href="#MySQL的安装：" class="headerlink" title="MySQL的安装："></a>MySQL的安装：</h2><p>由于是在windows下面安装MySQL，操作自然没有在linux下面那么风骚，接下来以MySQL5.7为例，来聊一聊mysql的安装：</p>
+<ul>
+<li><p>首先下载mysql的windows版本，解压后新建my.ini或者修改my-defalut.ini为my.ini，并添加以下配置：</p>
+<pre><code>[mysql]
+#设置mysql客户端默认字符集
+default-character-set=utf8 
+[mysqld]
+#设置3306端口
+port = 3306 
+#设置mysql的安装目录
+basedir=D:\Programs\mysql-5.7.17-winx64
+#设置mysql数据库的数据的存放目录
+datadir=D:\Programs\mysql-5.7.17-winx64\data #坑注意！
+#允许最大连接数
+max_connections=200
+#服务端使用的字符集默认为8比特编码的latin1字符集
+character-set-server=utf8
+#创建新表时将使用的默认存储引擎
+default-storage-engine=INNODB 
+</code></pre></li>
+<li><p>前方高坑预警：如果你以为这么久可以直接启动服务那就真是naive了，5.7版本的mysql没有data文件夹，所以会导致服务打不开并且不报错，这个问题可以用如下命令解决：<br>   cd到mysql的bin文件夹并且以管理员打开cmd运行下面命令：</p>
+<pre><code>mysqld --initialize --user=mysql --console
+</code></pre><p>   先执行以上命令, 生成库. 注意有个临时密码, 要记下来.<br>   然后启动服务：</p>
+<pre><code>net start mysql
+</code></pre><p>   然后再命令行:</p>
+<pre><code>mysql -uroot -p
+</code></pre><p>   输入密码（生成表命令最后一行）进入mysql：</p>
+<pre><code>set password = password(&apos;root&apos;) #设置密码为root
+</code></pre><p>   必须修改否则无法使用mysql</p>
+<h3 id="踩过的坑-1"><a href="#踩过的坑-1" class="headerlink" title="踩过的坑"></a>踩过的坑</h3><p>妈个鸡mysql5.7居然没有data文件夹，而且启动服务不报错，找了好久才找到问题，具体的报错可以用下面命令查看：</p>
+<pre><code>mysqld -nt -install #安装并打印日志
+</code></pre></li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>没啥好总结的，在windows上面要是这些都不会装和咸鱼有什么区别。<br>在linux上面安装和在windows上面大同小异，值得一提的是虽然可以用tcp方式监听9000端口使nginx和php交互，但是利用套接字文件更快（.sock），linux上面启动php需要启动php-fpm.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/03/20/PHP使用Mongo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.moegirl.org/common/thumb/4/4e/%E8%99%8E%E9%A6%AC.jpg/375px-%E8%99%8E%E9%A6%AC.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老战博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/20/PHP使用Mongo/" itemprop="url">PHP使用Mongo</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T20:40:34+01:00">
+                2017-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Mongo介绍"><a href="#Mongo介绍" class="headerlink" title="Mongo介绍"></a>Mongo介绍</h2><p>MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。作为非关系型数据库，Mongo有一定趋势成为主流noSQL的DB</p>
+<h2 id="php连接mongo具体操作"><a href="#php连接mongo具体操作" class="headerlink" title="php连接mongo具体操作"></a>php连接mongo具体操作</h2><h3 id="mongo的连接"><a href="#mongo的连接" class="headerlink" title="mongo的连接"></a>mongo的连接</h3><pre><code>$conn = new MongoClient(&quot;mongodb://127.0.0.1:8550&quot;);//创建一个mongo的连接
+//可以简写为
+
+//$conn=new Mongo(); #连接本地主机,默认端口.
+
+//$conn=new Mongo(“172.21.15.69″); #连接远程主机
+
+//$conn=new Mongo(“xiaocai.loc:10086″); #连接指定端口远程主机
+
+//$conn=new Mongo(“xiaocai.loc”,array(“replicaSet”=&gt;true)); #负载均衡
+
+//$conn=new Mongo(“xiaocai.loc”,array(“persist”=&gt;”t”)); #持久连接
+
+//$conn=new Mongo(“mongodb://sa:123@localhost”); #带用户名密码
+
+//$conn=new Mongo(“mongodb://localhost:27017,localhost:27018″); #连接多个服务器
+
+//$conn=new Mongo(“mongodb:///tmp/mongo-27017.sock”); #域套接字
+//$conn=new Mongo(“mongodb://admin_miss:miss@localhost:27017/test”,array(‘persist’=&gt;’p&apos;,”replicaSet”=&gt;true)); #完整连接
+</code></pre><h3 id="选择数据库与表"><a href="#选择数据库与表" class="headerlink" title="选择数据库与表"></a>选择数据库与表</h3><pre><code>$db=$conn-&gt;mydb; #选择mydb数据库
+
+//$db=$conn-&gt;selectDB(“mydb”); #第二种写法
+
+$collection=$db-&gt;column; #选择集合(选择’表’)
+
+//$collection=$db-&gt;selectCollection(‘column’); #第二种写法
+
+//$collection=$conn-&gt;mydb-&gt;column; #更简洁的写法(常用且推荐)
+</code></pre><h3 id="插入文档"><a href="#插入文档" class="headerlink" title="插入文档"></a>插入文档</h3><pre><code>//**向集合中插入数据,返回bool判断是否插入成功. **/
+
+$array=array(‘column_name’=&gt;’col’.rand(100,999),’column_exp’=&gt;’xiaocai’);
+
+$result=$collection-&gt;insert($array); #简单插入
+
+echo “新记录ID:”.$array[&apos;_id&apos;]; #MongoDB会返回一个记录标识
+
+var_dump($result); #返回:bool(true)
+
+//**向集合中安全插入数据,返回插入状态(数组). **/
+
+$array=array(‘column_name’=&gt;’col’.rand(100,999),’column_exp’=&gt;’xiaocai2′);
+
+$result=$collection-&gt;insert($array,true); #用于等待MongoDB完成操作,以便确定是否成功.(当有大量记录插入时使用该参数会比较有用)
+
+echo “新记录ID:”.$array[&apos;_id&apos;]; #MongoDB会返回一个记录标识
+
+var_dump($result); #返回:array(3) { [&quot;err&quot;]=&gt; NULL [&quot;n&quot;]=&gt; int(0) [&quot;ok&quot;]=&gt; float(1) }
+
+//**完整的写法 **/
+
+#insert($array,array(‘safe’=&gt;false,’fsync’=&gt;false,’timeout’=&gt;10000))
+
+/*
+
+* *
+
+* 完整格式:insert ( array $a [, array $options = array() ] )
+
+*    insert(array(),array(‘safe’=&gt;false,’fsync’=&gt;false,’timeout’=&gt;10000))
+
+*       参数:safe:默认false,是否安全写入
+
+*   fsync:默认false,是否强制插入到同步到磁盘
+
+*     timeout:超时时间(毫秒)
+
+*
+
+* 插入结果:{ “_id” : ObjectId(“4d63552ad549a02c01000009″), “column_name” : “col770″, “column_exp” : “xiaocai” }
+
+*    ’_id’为主键字段,在插入是MongoDB自动添加.
+
+*
+
+*    注意:1.以下两次插入的为同一条记录(相同的_id),因为它们的值相同。
+
+*         $collection-&gt;insert(array(‘column_name’=&gt;’xiaocai’));
+
+*         $collection-&gt;insert(array(‘column_name’=&gt;’xiaocai’));
+
+*     避免
+
+* $collection-&gt;insert(array(‘column_name’=&gt;’xiaocai’),true);
+
+* try {
+
+*      $collection-&gt;insert(array(‘column_name’=&gt;’xiaocai’),true);
+
+* }catch(MongoCursorException $e){
+
+*      echo “Can’t save the same person twice!\n”;
+
+* }
+</code></pre><h3 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h3><pre><code>$where=array(‘column_name’=&gt;’col123′);
+
+$newdata=array(‘column_exp’=&gt;’GGGGGGG’,&apos;column_fid’=&gt;444);
+
+$result=$collection-&gt;update($where,array(‘$set’=&gt;$newdata)); #$set:让某节点等于给定值,类似的还有$pull $pullAll $pop $inc,在后面慢慢说明用法
+
+/*
+
+* 结果:
+
+* 原数据
+
+* {“_id”:ObjectId(“4d635ba2d549a02801000003″),”column_name”:”col123″,”column_exp”:”xiaocai”}
+
+* 被替换成了
+
+* {“_id”:ObjectId(“4d635ba2d549a02801000003″),”column_name”:”col123″,”column_exp”:”GGGGGGG”,”column_fid”:444}
+
+*/
+
+//** 替换更新 **/
+
+$where=array(‘column_name’=&gt;’col709′);
+
+$newdata=array(‘column_exp’=&gt;’HHHHHHHHH’,&apos;column_fid’=&gt;123);
+
+$result=$collection-&gt;update($where,$newdata);
+
+/*
+
+* 结果:
+
+* 原数据
+
+* {“_id”:ObjectId(“4d635ba2d549a02801000003″),”column_name”:”col709″,”column_exp”:”xiaocai”}
+
+* 被替换成了
+
+* {“_id”:ObjectId(“4d635ba2d549a02801000003″),”column_exp”:”HHHHHHHHH”,”column_fid”:123}
+
+*/
+
+//** 批量更新 **/
+
+$where=array(‘column_name’=&gt;’col’);
+
+$newdata=array(‘column_exp’=&gt;’multiple’,’91u’=&gt;684435);
+
+$result=$collection-&gt;update($where,array(‘$set’=&gt;$newdata),array(‘multiple’=&gt;true));
+
+/**
+
+* 所有’column_name’=&apos;col’都被修改
+
+*/
+
+//** 自动累加 **/
+
+$where=array(’91u’=&gt;684435);
+
+$newdata=array(‘column_exp’=&gt;’edit’);
+
+$result=$collection-&gt;update($where,array(‘$set’=&gt;$newdata,’$inc’=&gt;array(’91u’=&gt;-5)));
+
+/**
+
+* 更新91u=684435的数据,并且91u自减5
+
+*/
+
+/** 删除节点 **/
+
+$where=array(‘column_name’=&gt;’col685′);
+
+$result=$collection-&gt;update($where,array(‘$unset’=&gt;’column_exp’));
+
+/**
+
+* 删除节点column_exp
+
+*/
+
+/*
+
+* *
+
+* 完整格式:update(array $criteria, array $newobj [, array $options = array()  ] )
+
+*       注意:1.注意区分替换更新与修改更新
+
+*    2.注意区分数据类型如 array(’91u’=&gt;’684435′)与array(’91u’=&gt;684435)
+
+* 详细资料:http://www.mongodb.org/display/DOCS/Updating#Updating-%24bit
+
+* *
+
+*/
+</code></pre><h3 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h3><pre><code>/** 清空数据库 **/
+
+$collection-&gt;remove(array(‘column_name’=&gt;’col399′));
+
+//$collection-&gt;remove(); #清空集合
+
+/** 删除指定MongoId **/
+
+$id = new MongoId(“4d638ea1d549a02801000011″);
+
+$collection-&gt;remove(array(‘_id’=&gt;(object)$id));
+
+/*
+
+* *
+
+*  使用下面的方法来匹配{“_id”:ObjectId(“4d638ea1d549a02801000011″)},查询、更新也一样
+
+*  $id = new MongoId(“4d638ea1d549a02801000011″);
+
+*  array(‘_id’=&gt;(object)$id)
+
+* *
+
+*/
+</code></pre><h3 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h3><pre><code>/** 查询文档中的记录数 **/
+
+echo ‘count:’.$collection-&gt;count().”&lt;br&gt;”; #全部
+
+echo ‘count:’.$collection-&gt;count(array(‘type’=&gt;’user’)).”&lt;br&gt;”; #可以加上条件
+
+echo ‘count:’.$collection-&gt;count(array(‘age’=&gt;array(‘$gt’=&gt;50,’$lte’=&gt;74))).”&lt;br&gt;”; #大于50小于等于74
+
+echo ‘count:’.$collection-&gt;find()-&gt;limit(5)-&gt;skip(0)-&gt;count(true).”&lt;br&gt;”; #获得实际返回的结果数
+
+/**
+
+* 注:$gt为大于、$gte为大于等于、$lt为小于、$lte为小于等于、$ne为不等于、$exists不存在
+
+*/
+
+/** 集合中所有文档 **/
+
+$cursor = $collection-&gt;find()-&gt;snapshot();
+
+foreach ($cursor as $id =&gt; $value) {
+
+echo “$id: “; var_dump($value); echo “&lt;br&gt;”;
+
+}
+
+/**
+
+* 注意:
+
+* 在我们做了find()操作，获得$cursor游标之后，这个游标还是动态的.
+
+* 换句话说,在我find()之后,到我的游标循环完成这段时间,如果再有符合条件的记录被插入到collection,那么这些记录也会被$cursor 获得.
+
+* 如果你想在获得$cursor之后的结果集不变化,需要这样做：
+
+* $cursor = $collection-&gt;find();
+
+* $cursor-&gt;snapshot();
+
+* 详见http://www.bumao.com/index.php/2010/08/mongo_php_cursor.html
+
+*/
+
+/** 查询一条数据 **/
+
+$cursor = $collection-&gt;findOne();
+
+/**
+
+*  注意:findOne()获得结果集后不能使用snapshot(),fields()等函数;
+
+*/
+
+/** age,type 列不显示 **/
+
+$cursor = $collection-&gt;find()-&gt;fields(array(“age”=&gt;false,”type”=&gt;false));
+
+/** 只显示user 列 **/
+
+$cursor = $collection-&gt;find()-&gt;fields(array(“user”=&gt;true));
+
+/**
+
+* 我这样写会出错:$cursor-&gt;fields(array(“age”=&gt;true,”type”=&gt;false));
+
+*/
+
+/** (存在type,age节点) and age!=0 and age&lt;50 **/
+
+$where=array(‘type’=&gt;array(‘$exists’=&gt;true),’age’=&gt;array(‘$ne’=&gt;0,’$lt’=&gt;50,’$exists’=&gt;true));
+
+$cursor = $collection-&gt;find($where);
+
+/** 分页获取结果集  **/
+
+$cursor = $collection-&gt;find()-&gt;limit(5)-&gt;skip(0);
+
+/** 排序  **/
+
+$cursor = $collection-&gt;find()-&gt;sort(array(‘age’=&gt;-1,’type’=&gt;1)); ##1表示降序 -1表示升序,参数的先后影响排序顺序
+
+/** 索引  **/
+
+$collection-&gt;ensureIndex(array(‘age’ =&gt; 1,’type’=&gt;-1)); #1表示降序 -1表示升序
+
+$collection-&gt;ensureIndex(array(‘age’ =&gt; 1,’type’=&gt;-1),array(‘background’=&gt;true)); #索引的创建放在后台运行(默认是同步运行)
+
+$collection-&gt;ensureIndex(array(‘age’ =&gt; 1,’type’=&gt;-1),array(‘unique’=&gt;true)); #该索引是唯一的
+
+/**
+
+* ensureIndex (array(),array(‘name’=&gt;’索引名称’,&apos;background’=true,’unique’=true))
+
+* 详见:http://www.php.net/manual/en/mongocollection.ensureindex.php
+
+*/
+
+/** 取得查询结果 **/
+
+$cursor = $collection-&gt;find();
+
+$array=array();
+
+foreach ($cursor as $id =&gt; $value) {
+
+$array[]=$value;
+
+}
+</code></pre><h3 id="文档聚类"><a href="#文档聚类" class="headerlink" title="文档聚类"></a>文档聚类</h3><pre><code>$conn-&gt;close(); #关闭连接
+
+/*
+
+关系型数据库与MongoDB数据存储的区别
+
+MySql数据结构:
+
+CREATE TABLE IF NOT EXISTS `column`(
+
+`column_id` int(16)  NOT NULL  auto_increment  COMMENT ‘主键’,
+
+`column_name` varchar(32) NOT NULL COMMENT ‘栏目名称’,
+
+PRIMARY KEY  (`column_id`)
+
+);
+
+CREATE TABLE IF NOT EXISTS `article`(
+
+`article_id`  int(16)  NOT NULL  auto_increment  COMMENT ‘主键’,
+
+`article_caption` varchar(15) NOT NULL COMMENT ‘标题’,
+
+PRIMARY KEY(`article_id`)
+
+);
+
+CREATE TABLE IF NOT EXISTS `article_body`(
+
+`article_id` int(16) NOT NULL COMMENT ‘article.article_id’,
+
+`body` text COMMENT ‘正文’
+
+);
+
+MongoDB数据结构:
+
+$data=array(
+
+‘column_name’ =&gt;’default’,
+
+‘article’ =&gt;array(
+
+‘article_caption’ =&gt; ‘xiaocai’,
+
+‘body’   =&gt; ‘xxxxxxxxxx…’
+
+)
+
+);
+
+$inc
+
+如果记录的该节点存在，让该节点的数值加N；如果该节点不存在，让该节点值等于N
+
+设结构记录结构为 array(’a’=&gt;1,’b’=&gt;’t’),想让a加5，那么：
+
+$coll-&gt;update(
+
+array(’b’=&gt;’t’),
+
+array(’$inc’=&gt;array(’a’=&gt;5)),
+
+)
+
+$set
+
+让某节点等于给定值
+
+设结构记录结构为 array(’a’=&gt;1,’b’=&gt;’t’),b为加f，那么：
+
+$coll-&gt;update(
+
+array(’a’=&gt;1),
+
+array(’$set’=&gt;array(’b’=&gt;’f’)),
+
+)
+
+$unset
+
+删除某节点
+
+设记录结构为 array(’a’=&gt;1,’b’=&gt;’t’)，想删除b节点，那么：
+
+$coll-&gt;update(
+
+array(’a’=&gt;1),
+
+array(’$unset’=&gt;’b’),
+
+)
+
+$push
+
+如果对应节点是个数组，就附加一个新的值上去；不存在，就创建这个数组，并附加一个值在这个数组上；如果该节点不是数组，返回错误。
+
+设记录结构为array(’a’=&gt;array(0=&gt;’haha’),’b’=&amp; gt;1)，想附加新数据到节点a，那么：
+
+$coll-&gt;update(
+
+array(’b’=&gt;1),
+
+array(’$push’=&gt;array(’a’=&gt;’wow’)),
+
+)
+
+这样，该记录就会成为：array(’a’=&gt;array(0=&gt;’haha’,1=&gt;’wow’),’b’=&gt;1)
+
+$pushAll
+
+与$push类似，只是会一次附加多个数值到某节点
+
+$addToSet
+
+如果该阶段的数组中没有某值，就添加之
+
+设记录结构为array(’a’=&gt;array(0=&amp; gt;’haha’),’b’=&gt;1)，如果想附加新的数据到该节点a，那么：
+
+$coll-&gt;update(
+
+array(’b’=&gt;1),
+
+array(’$addToSet’=&gt;array(’a’=&gt;’wow’)),
+
+)
+
+如果在a节点中已经有了wow,那么就不会再添加新的，如果没有，就会为该节点添加新的item——wow。
+
+$pop
+
+设该记录为array(’a’=&gt;array(0=&gt;’haha’,1=&amp; gt;’wow’),’b’=&gt;1)
+
+删除某数组节点的最后一个元素:
+
+$coll-&gt;update(
+
+array(’b’=&gt;1),
+
+array(’$pop=&gt;array(’a’=&gt;1)),
+
+)
+
+删除某数组阶段的第一个元素
+
+$coll-&gt;update(
+
+array(’b’=&gt;1),
+
+array(’$pop=&gt;array(’a’=&gt;-1)),
+
+)
+
+$pull
+
+如果该节点是个数组，那么删除其值为value的子项，如果不是数组，会返回一个错误。
+
+设该记录为 array(’a’=&gt;array(0=&gt;’haha’,1=&gt;’wow’),’b’=&gt;1)，想要删除a中value为 haha的子项：
+
+$coll-&gt;update(
+
+array(’b’=&gt;1),
+
+array(’$pull=&gt;array(’a’=&gt;’haha’)),
+
+)
+
+结果为： array(’a’=&gt;array(0=&gt;’wow’),’b’=&gt;1)
+
+$pullAll
+
+与$pull类似，只是可以删除一组符合条件的记录。
+
+*/
+
+?&gt;
+</code></pre><h5 id="本篇文章太长估计没人会看完，当作字典去查吧233333"><a href="#本篇文章太长估计没人会看完，当作字典去查吧233333" class="headerlink" title="本篇文章太长估计没人会看完，当作字典去查吧233333"></a>本篇文章太长估计没人会看完，当作字典去查吧233333</h5>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/03/20/Nginx在linux下的安装与配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://img.moegirl.org/common/thumb/4/4e/%E8%99%8E%E9%A6%AC.jpg/375px-%E8%99%8E%E9%A6%AC.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老战博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/20/Nginx在linux下的安装与配置/" itemprop="url">Nginx在linux下的安装与配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T20:40:18+01:00">
+                2017-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Nginx简介"><a href="#Nginx简介" class="headerlink" title="Nginx简介"></a>Nginx简介</h2><p>Nginx (“engine x”) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由Igor Sysoev为俄罗斯访问量第二的Rambler.ru站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，nginx 1.0.4发布。LNMP的开发模式渐渐成为主流。</p>
+<h2 id="Nginx的安装"><a href="#Nginx的安装" class="headerlink" title="Nginx的安装"></a>Nginx的安装</h2><p>从nginx官网上下载linux版本的Nginx</p>
+<pre><code>wget http://nginx.org/download/nginx-1.5.9.tar.gz
+</code></pre><p>解压后进入目录</p>
+<pre><code>./configure --user=www --group=www --prefix=安装目录
+</code></pre><p>生成编译文件</p>
+<pre><code>make
+</code></pre><p>安装</p>
+<pre><code>make install
+</code></pre><p>修改安装目录下的conf/Nginx.conf，将监听端口改成没有被占用的端口</p>
+<pre><code>sbin/nginx 
+</code></pre><p>启动服务就可以啦，可以看一下是否启动成功 </p>
+<pre><code>sbin/nginx -t
+</code></pre><h2 id="Nginx的配置"><a href="#Nginx的配置" class="headerlink" title="Nginx的配置"></a>Nginx的配置</h2><h4 id="http反向代理配置"><a href="#http反向代理配置" class="headerlink" title="http反向代理配置"></a>http反向代理配置</h4><p>修改nginx.conf文件</p>
+<pre><code>#运行用户
+#user somebody;
+
+#启动进程,通常设置成和cpu的数量相等
+worker_processes  1;
+
+#全局错误日志
+error_log  D:/Tools/nginx-1.10.1/logs/error.log;
+error_log  D:/Tools/nginx-1.10.1/logs/notice.log  notice;
+error_log  D:/Tools/nginx-1.10.1/logs/info.log  info;
+
+#PID文件，记录当前启动的nginx的进程ID
+pid        D:/Tools/nginx-1.10.1/logs/nginx.pid;
+
+#工作模式及连接数上限
+events {
+    worker_connections 1024;    #单个后台worker process进程的最大并发链接数
+}
+
+#设定http服务器，利用它的反向代理功能提供负载均衡支持
+http {
+    #设定mime类型(邮件支持类型),类型由mime.types文件定义
+    include       D:/Tools/nginx-1.10.1/conf/mime.types;
+    default_type  application/octet-stream;
+
+    #设定日志
+    log_format  main  &apos;[$remote_addr] - [$remote_user] [$time_local] &quot;$request&quot; &apos;
+                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
+                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
+
+    access_log    D:/Tools/nginx-1.10.1/logs/access.log main;
+    rewrite_log     on;
+
+    #sendfile 指令指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，对于普通应用，
+    #必须设为 on,如果用来进行下载等应用磁盘IO重负载应用，可设置为 off，以平衡磁盘与网络I/O处理速度，降低系统的uptime.
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #连接超时时间
+    keepalive_timeout  120;
+    tcp_nodelay        on;
+
+    #gzip压缩开关
+    #gzip  on;
+
+    #设定实际的服务器列表 
+    upstream zp_server1{
+        server 127.0.0.1:8089;
+    }
+
+    #HTTP服务器
+    server {
+        #监听80端口，80端口是知名端口号，用于HTTP协议
+        listen       80;
+
+        #定义使用www.xx.com访问
+        server_name  www.helloworld.com;
+
+        #首页
+        index index.html
+
+        #指向webapp的目录
+        root D:\01_Workspace\Project\github\zp\SpringNotes\spring-security\spring-shiro\src\main\webapp;
+
+        #编码格式
+        charset utf-8;
+
+        #代理配置参数
+        proxy_connect_timeout 180;
+        proxy_send_timeout 180;
+        proxy_read_timeout 180;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarder-For $remote_addr;
+
+        #反向代理的路径（和upstream绑定），location 后面设置映射的路径
+        location / {
+            proxy_pass http://zp_server1;
+        } 
+
+        #静态文件，nginx自己处理
+        location ~ ^/(images|javascript|js|css|flash|media|static)/ {
+            root D:\01_Workspace\Project\github\zp\SpringNotes\spring-security\spring-shiro\src\main\webapp\views;
+            #过期30天，静态文件不怎么更新，过期可以设大一点，如果频繁更新，则可以设置得小一点。
+            expires 30d;
+        }
+
+        #设定查看Nginx状态的地址
+        location /NginxStatus {
+            stub_status           on;
+            access_log            on;
+            auth_basic            &quot;NginxStatus&quot;;
+            auth_basic_user_file  conf/htpasswd;
+        }
+
+        #禁止访问 .htxxx 文件
+        location ~ /\.ht {
+            deny all;
+        }
+
+        #错误处理页面（可选择性配置）
+        #error_page   404              /404.html;
+        #error_page   500 502 503 504  /50x.html;
+        #location = /50x.html {
+        #    root   html;
+        #}
+    }
+}
+</code></pre><h3 id="负载均衡配置"><a href="#负载均衡配置" class="headerlink" title="负载均衡配置"></a>负载均衡配置</h3><p>网站在实际运营过程中，多半都是有多台服务器运行着同样的app，这时需要使用负载均衡来分流。<br>假设这样一个应用场景：将应用部署在192.168.1.11:80、192.168.1.12:80、192.168.1.13:80三台linux环境的服务器上。公网IP为192.168.1.11。在公网IP所在的服务器上部署nginx，对所有请求做负载均衡处理。<br>nginx.conf配置如下：<br>    http {</p>
+<pre><code>     #设定mime类型,类型由mime.type文件定义
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    #设定日志格式
+    access_log    /var/log/nginx/access.log;
+
+    #设定负载均衡的服务器列表
+    upstream load_balance_server {
+        #weigth参数表示权值，权值越高被分配到的几率越大
+        server 192.168.1.11:80   weight=5;
+        server 192.168.1.12:80   weight=1;
+        server 192.168.1.13:80   weight=6;
+    }
+
+   #HTTP服务器
+   server {
+        #侦听80端口
+        listen       80;
+
+        #定义使用www.xx.com访问
+        server_name  www.helloworld.com;
+
+        #对所有请求进行负载均衡请求
+        location / {
+            root        /root;                 #定义服务器的默认网站根目录位置
+            index       index.html index.htm;  #定义首页索引文件的名称
+            proxy_pass  http://load_balance_server ;#请求转向load_balance_server 定义的服务器列表
+
+            #以下是一些反向代理的配置(可选择性配置)
+            #proxy_redirect off;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            #后端的Web服务器可以通过X-Forwarded-For获取用户真实IP
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_connect_timeout 90;          #nginx跟后端服务器连接超时时间(代理连接超时)
+            proxy_send_timeout 90;             #后端服务器数据回传时间(代理发送超时)
+            proxy_read_timeout 90;             #连接成功后，后端服务器响应时间(代理接收超时)
+            proxy_buffer_size 4k;              #设置代理服务器（nginx）保存用户头信息的缓冲区大小
+            proxy_buffers 4 32k;               #proxy_buffers缓冲区，网页平均在32k以下的话，这样设置
+            proxy_busy_buffers_size 64k;       #高负荷下缓冲大小（proxy_buffers*2）
+            proxy_temp_file_write_size 64k;    #设定缓存文件夹大小，大于这个值，将从upstream服务器传
+
+            client_max_body_size 10m;          #允许客户端请求的最大单文件字节数
+            client_body_buffer_size 128k;      #缓冲区代理缓冲用户端请求的最大字节数
+        }
+    }
+}
+</code></pre><h3 id="多个app配置"><a href="#多个app配置" class="headerlink" title="多个app配置"></a>多个app配置</h3><p>当一个网站功能越来越丰富时，往往需要将一些功能相对独立的模块剥离出来，独立维护。这样的话，通常，会有多个webapp。我们知道，http的默认端口号是80，如果在一台服务器上同时启动这3个webapp应用，都用80端口，肯定是不成的。所以，这三个应用需要分别绑定不同的端口号。那么，问题来了，用户在访问不同webapp，总不会还带着对应的端口号去访问吧。所以，你再次需要用到反向代理来做处理。<br>    http {</p>
+<pre><code>    #此处省略一些基本配置
+
+    upstream product_server{
+        server www.helloworld.com:8081;
+    }
+
+    upstream admin_server{
+        server www.helloworld.com:8082;
+    }
+
+    upstream finance_server{
+        server www.helloworld.com:8083;
+    }
+
+    server {
+        #此处省略一些基本配置
+        #默认指向product的server
+        location / {
+            proxy_pass http://product_server;
+        }
+
+        location /product/{
+            proxy_pass http://product_server;
+        }
+
+        location /admin/ {
+            proxy_pass http://admin_server;
+        }
+
+        location /finance/ {
+            proxy_pass http://finance_server;
+        }
+    }
+}
+</code></pre><h3 id="https反向代理配置"><a href="#https反向代理配置" class="headerlink" title="https反向代理配置"></a>https反向代理配置</h3><p>一些对安全性要求比较高的站点，可能会使用HTTPS（一种使用ssl通信标准的安全HTTP协议）。<br>这里不科普HTTP协议和SSL标准。但是，使用nginx配置https需要知道几点：<br>HTTPS的固定端口号是443，不同于HTTP的80端口<br>SSL标准需要引入安全证书，所以在nginx.conf中你需要指定证书和它对应的key<br>其他和http反向代理基本一样，只是在Server部分配置有些不同。</p>
+<pre><code>#HTTP服务器
+server {
+    #监听443端口。443为知名端口号，主要用于HTTPS协议
+    listen       443 ssl;
+
+    #定义使用www.xx.com访问
+    server_name  www.helloworld.com;
+
+    #ssl证书文件位置(常见证书文件格式为：crt/pem)
+    ssl_certificate      cert.pem;
+    #ssl证书key位置
+    ssl_certificate_key  cert.key;
+
+    #ssl配置参数（选择性配置）
+    ssl_session_cache    shared:SSL:1m;
+    ssl_session_timeout  5m;
+    #数字签名，此处使用MD5
+    ssl_ciphers  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+
+    location / {
+        root   /root;
+        index  index.html index.htm;
+    }
+}
+</code></pre><h4 id="踩过的坑"><a href="#踩过的坑" class="headerlink" title="踩过的坑"></a>踩过的坑</h4><p>在配置php服务时，需要取消一段注释并且配置php-cgi.sock的路径</p>
+<pre><code>location ~ \.php$ {
+
+    root           /home/users/zhanxu/home/Lab;
+
+    fastcgi_pass   &apos;unix:/home/users/zhanxu/home/odp/var/php-cgi.sock&apos;;#php-cgi路径没有玩个蛋
+
+    #fastcgi_index  index.php;
+
+    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+
+    include        fastcgi.conf;
+
+}
+</code></pre><h5 id="推荐文章："><a href="#推荐文章：" class="headerlink" title="推荐文章："></a>推荐文章：</h5><p><a href="http://www.cnblogs.com/jingmoxukong/p/5945200.html" target="_blank" rel="external">http://www.cnblogs.com/jingmoxukong/p/5945200.html</a> </p>
+<p><a href="http://tool.oschina.net/apidocs/apidoc?api=nginx-zh" target="_blank" rel="external">http://tool.oschina.net/apidocs/apidoc?api=nginx-zh</a></p>
 
           
         
@@ -394,7 +2230,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
