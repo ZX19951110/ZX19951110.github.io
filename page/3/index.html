@@ -317,254 +317,15 @@
       
         
           
-            <h2 id="Nginx简介"><a href="#Nginx简介" class="headerlink" title="Nginx简介"></a>Nginx简介</h2><p>Nginx (“engine x”) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由Igor Sysoev为俄罗斯访问量第二的Rambler.ru站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，nginx 1.0.4发布。LNMP的开发模式渐渐成为主流。</p>
-<h2 id="Nginx的安装"><a href="#Nginx的安装" class="headerlink" title="Nginx的安装"></a>Nginx的安装</h2><p>从nginx官网上下载linux版本的Nginx</p>
-<pre><code>wget http://nginx.org/download/nginx-1.5.9.tar.gz
-</code></pre><p>解压后进入目录</p>
-<pre><code>./configure --user=www --group=www --prefix=安装目录
-</code></pre><p>生成编译文件</p>
-<pre><code>make
-</code></pre><p>安装</p>
-<pre><code>make install
-</code></pre><p>修改安装目录下的conf/Nginx.conf，将监听端口改成没有被占用的端口</p>
-<pre><code>sbin/nginx 
-</code></pre><p>启动服务就可以啦，可以看一下是否启动成功 </p>
-<pre><code>sbin/nginx -t
-</code></pre><h2 id="Nginx的配置"><a href="#Nginx的配置" class="headerlink" title="Nginx的配置"></a>Nginx的配置</h2><h4 id="http反向代理配置"><a href="#http反向代理配置" class="headerlink" title="http反向代理配置"></a>http反向代理配置</h4><p>修改nginx.conf文件</p>
-<pre><code>#运行用户
-#user somebody;
-
-#启动进程,通常设置成和cpu的数量相等
-worker_processes  1;
-
-#全局错误日志
-error_log  D:/Tools/nginx-1.10.1/logs/error.log;
-error_log  D:/Tools/nginx-1.10.1/logs/notice.log  notice;
-error_log  D:/Tools/nginx-1.10.1/logs/info.log  info;
-
-#PID文件，记录当前启动的nginx的进程ID
-pid        D:/Tools/nginx-1.10.1/logs/nginx.pid;
-
-#工作模式及连接数上限
-events {
-    worker_connections 1024;    #单个后台worker process进程的最大并发链接数
-}
-
-#设定http服务器，利用它的反向代理功能提供负载均衡支持
-http {
-    #设定mime类型(邮件支持类型),类型由mime.types文件定义
-    include       D:/Tools/nginx-1.10.1/conf/mime.types;
-    default_type  application/octet-stream;
-
-    #设定日志
-    log_format  main  &apos;[$remote_addr] - [$remote_user] [$time_local] &quot;$request&quot; &apos;
-                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
-                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
-
-    access_log    D:/Tools/nginx-1.10.1/logs/access.log main;
-    rewrite_log     on;
-
-    #sendfile 指令指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，对于普通应用，
-    #必须设为 on,如果用来进行下载等应用磁盘IO重负载应用，可设置为 off，以平衡磁盘与网络I/O处理速度，降低系统的uptime.
-    sendfile        on;
-    #tcp_nopush     on;
-
-    #连接超时时间
-    keepalive_timeout  120;
-    tcp_nodelay        on;
-
-    #gzip压缩开关
-    #gzip  on;
-
-    #设定实际的服务器列表 
-    upstream zp_server1{
-        server 127.0.0.1:8089;
-    }
-
-    #HTTP服务器
-    server {
-        #监听80端口，80端口是知名端口号，用于HTTP协议
-        listen       80;
-
-        #定义使用www.xx.com访问
-        server_name  www.helloworld.com;
-
-        #首页
-        index index.html
-
-        #指向webapp的目录
-        root D:\01_Workspace\Project\github\zp\SpringNotes\spring-security\spring-shiro\src\main\webapp;
-
-        #编码格式
-        charset utf-8;
-
-        #代理配置参数
-        proxy_connect_timeout 180;
-        proxy_send_timeout 180;
-        proxy_read_timeout 180;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarder-For $remote_addr;
-
-        #反向代理的路径（和upstream绑定），location 后面设置映射的路径
-        location / {
-            proxy_pass http://zp_server1;
-        } 
-
-        #静态文件，nginx自己处理
-        location ~ ^/(images|javascript|js|css|flash|media|static)/ {
-            root D:\01_Workspace\Project\github\zp\SpringNotes\spring-security\spring-shiro\src\main\webapp\views;
-            #过期30天，静态文件不怎么更新，过期可以设大一点，如果频繁更新，则可以设置得小一点。
-            expires 30d;
-        }
-
-        #设定查看Nginx状态的地址
-        location /NginxStatus {
-            stub_status           on;
-            access_log            on;
-            auth_basic            &quot;NginxStatus&quot;;
-            auth_basic_user_file  conf/htpasswd;
-        }
-
-        #禁止访问 .htxxx 文件
-        location ~ /\.ht {
-            deny all;
-        }
-
-        #错误处理页面（可选择性配置）
-        #error_page   404              /404.html;
-        #error_page   500 502 503 504  /50x.html;
-        #location = /50x.html {
-        #    root   html;
-        #}
-    }
-}
-</code></pre><h3 id="负载均衡配置"><a href="#负载均衡配置" class="headerlink" title="负载均衡配置"></a>负载均衡配置</h3><p>网站在实际运营过程中，多半都是有多台服务器运行着同样的app，这时需要使用负载均衡来分流。<br>假设这样一个应用场景：将应用部署在192.168.1.11:80、192.168.1.12:80、192.168.1.13:80三台linux环境的服务器上。公网IP为192.168.1.11。在公网IP所在的服务器上部署nginx，对所有请求做负载均衡处理。<br>nginx.conf配置如下：<br>    http {</p>
-<pre><code>     #设定mime类型,类型由mime.type文件定义
-    include       /etc/nginx/mime.types;
-    default_type  application/octet-stream;
-    #设定日志格式
-    access_log    /var/log/nginx/access.log;
-
-    #设定负载均衡的服务器列表
-    upstream load_balance_server {
-        #weigth参数表示权值，权值越高被分配到的几率越大
-        server 192.168.1.11:80   weight=5;
-        server 192.168.1.12:80   weight=1;
-        server 192.168.1.13:80   weight=6;
-    }
-
-   #HTTP服务器
-   server {
-        #侦听80端口
-        listen       80;
-
-        #定义使用www.xx.com访问
-        server_name  www.helloworld.com;
-
-        #对所有请求进行负载均衡请求
-        location / {
-            root        /root;                 #定义服务器的默认网站根目录位置
-            index       index.html index.htm;  #定义首页索引文件的名称
-            proxy_pass  http://load_balance_server ;#请求转向load_balance_server 定义的服务器列表
-
-            #以下是一些反向代理的配置(可选择性配置)
-            #proxy_redirect off;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            #后端的Web服务器可以通过X-Forwarded-For获取用户真实IP
-            proxy_set_header X-Forwarded-For $remote_addr;
-            proxy_connect_timeout 90;          #nginx跟后端服务器连接超时时间(代理连接超时)
-            proxy_send_timeout 90;             #后端服务器数据回传时间(代理发送超时)
-            proxy_read_timeout 90;             #连接成功后，后端服务器响应时间(代理接收超时)
-            proxy_buffer_size 4k;              #设置代理服务器（nginx）保存用户头信息的缓冲区大小
-            proxy_buffers 4 32k;               #proxy_buffers缓冲区，网页平均在32k以下的话，这样设置
-            proxy_busy_buffers_size 64k;       #高负荷下缓冲大小（proxy_buffers*2）
-            proxy_temp_file_write_size 64k;    #设定缓存文件夹大小，大于这个值，将从upstream服务器传
-
-            client_max_body_size 10m;          #允许客户端请求的最大单文件字节数
-            client_body_buffer_size 128k;      #缓冲区代理缓冲用户端请求的最大字节数
-        }
-    }
-}
-</code></pre><h3 id="多个app配置"><a href="#多个app配置" class="headerlink" title="多个app配置"></a>多个app配置</h3><p>当一个网站功能越来越丰富时，往往需要将一些功能相对独立的模块剥离出来，独立维护。这样的话，通常，会有多个webapp。我们知道，http的默认端口号是80，如果在一台服务器上同时启动这3个webapp应用，都用80端口，肯定是不成的。所以，这三个应用需要分别绑定不同的端口号。那么，问题来了，用户在访问不同webapp，总不会还带着对应的端口号去访问吧。所以，你再次需要用到反向代理来做处理。<br>    http {</p>
-<pre><code>    #此处省略一些基本配置
-
-    upstream product_server{
-        server www.helloworld.com:8081;
-    }
-
-    upstream admin_server{
-        server www.helloworld.com:8082;
-    }
-
-    upstream finance_server{
-        server www.helloworld.com:8083;
-    }
-
-    server {
-        #此处省略一些基本配置
-        #默认指向product的server
-        location / {
-            proxy_pass http://product_server;
-        }
-
-        location /product/{
-            proxy_pass http://product_server;
-        }
-
-        location /admin/ {
-            proxy_pass http://admin_server;
-        }
-
-        location /finance/ {
-            proxy_pass http://finance_server;
-        }
-    }
-}
-</code></pre><h3 id="https反向代理配置"><a href="#https反向代理配置" class="headerlink" title="https反向代理配置"></a>https反向代理配置</h3><p>一些对安全性要求比较高的站点，可能会使用HTTPS（一种使用ssl通信标准的安全HTTP协议）。<br>这里不科普HTTP协议和SSL标准。但是，使用nginx配置https需要知道几点：<br>HTTPS的固定端口号是443，不同于HTTP的80端口<br>SSL标准需要引入安全证书，所以在nginx.conf中你需要指定证书和它对应的key<br>其他和http反向代理基本一样，只是在Server部分配置有些不同。</p>
-<pre><code>#HTTP服务器
-server {
-    #监听443端口。443为知名端口号，主要用于HTTPS协议
-    listen       443 ssl;
-
-    #定义使用www.xx.com访问
-    server_name  www.helloworld.com;
-
-    #ssl证书文件位置(常见证书文件格式为：crt/pem)
-    ssl_certificate      cert.pem;
-    #ssl证书key位置
-    ssl_certificate_key  cert.key;
-
-    #ssl配置参数（选择性配置）
-    ssl_session_cache    shared:SSL:1m;
-    ssl_session_timeout  5m;
-    #数字签名，此处使用MD5
-    ssl_ciphers  HIGH:!aNULL:!MD5;
-    ssl_prefer_server_ciphers  on;
-
-    location / {
-        root   /root;
-        index  index.html index.htm;
-    }
-}
-</code></pre><h4 id="踩过的坑"><a href="#踩过的坑" class="headerlink" title="踩过的坑"></a>踩过的坑</h4><p>在配置php服务时，需要取消一段注释并且配置php-cgi.sock的路径</p>
-<pre><code>location ~ \.php$ {
-
-    root           /home/users/zhanxu/home/Lab;
-
-    fastcgi_pass   &apos;unix:/home/users/zhanxu/home/odp/var/php-cgi.sock&apos;;#php-cgi路径没有玩个蛋
-
-    #fastcgi_index  index.php;
-
-    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-
-    include        fastcgi.conf;
-
-}
-</code></pre><h5 id="推荐文章："><a href="#推荐文章：" class="headerlink" title="推荐文章："></a>推荐文章：</h5><p><a href="http://www.cnblogs.com/jingmoxukong/p/5945200.html" target="_blank" rel="external">http://www.cnblogs.com/jingmoxukong/p/5945200.html</a> </p>
-<p><a href="http://tool.oschina.net/apidocs/apidoc?api=nginx-zh" target="_blank" rel="external">http://tool.oschina.net/apidocs/apidoc?api=nginx-zh</a></p>
-
-          
+          Nginx简介Nginx (“engine x”) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由Igor Sysoev为俄罗斯访问量第二的Rambler.ru站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/20/Nginx在linux下的安装与配置/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -674,49 +435,15 @@ server {
       
         
           
-            <h2 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h2><p>学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过curl_exec($curl_object)进行访问。常用curl的define参数如下：</p>
-<h2 id="参数详情："><a href="#参数详情：" class="headerlink" title="参数详情："></a>参数详情：</h2><p>bool curl_setopt (int ch, string option, mixed value)<br>curl_setopt()函数将为一个CURL会话设置选项。option参数是你想要的设置，value是这个选项给定的值。</p>
-<h3 id="下列选项的值将被作为长整形使用-在option参数中指定-："><a href="#下列选项的值将被作为长整形使用-在option参数中指定-：" class="headerlink" title="下列选项的值将被作为长整形使用(在option参数中指定)："></a>下列选项的值将被作为长整形使用(在option参数中指定)：</h3><ul>
-<li>CURLOPT_INFILESIZE : 当你上传一个文件到远程站点，这个选项告诉PHP你上传文件的大小。</li>
-<li>CURLOPT_VERBOSE : 如果你想CURL报告每一件意外的事情，设置这个选项为一个非零值。</li>
-<li>CURLOPT_HEADER : 如果你想把一个头包含在输出中，设置这个选项为一个非零值。</li>
-<li>CURLOPT_NOPROGRESS: 如果你不会PHP为CURL传输显示一个进程条，设置这个选项为一个非零值。注意：PHP自动设置这个选项为非零值，你应该仅仅为了调试的目的来改变这个选项。</li>
-<li>CURLOPT_NOBODY : 如果你不想在输出中包含body部分，设置这个选项为一个非零值。</li>
-<li>CURLOPT_FAILONERROR : 如果你想让PHP在发生错误(HTTP代码返回大于等于300)时，不显示，设置这个选项为一人非零值。默认行为是返回一个正常页，忽略代码。</li>
-<li>CURLOPT_UPLOAD: 如果你想让PHP为上传做准备，设置这个选项为一个非零值。</li>
-<li>CURLOPT_POST : 如果你想PHP去做一个正规的HTTP POST，设置这个选项为一个非零值。这个POST是普通的 application/x-www-from-urlencoded 类型，多数被HTML表单使用。</li>
-<li>CURLOPT_FTPLISTONLY : 设置这个选项为非零值，PHP将列出FTP的目录名列表。</li>
-<li>CURLOPT_FTPAPPEND : 设置这个选项为一个非零值，PHP将应用远程文件代替覆盖它。</li>
-<li>CURLOPT_NETRC : 设置这个选项为一个非零值，PHP将在你的 ~./netrc 文件中查找你要建立连接的远程站点的用户名及密码。</li>
-<li>CURLOPT_FOLLOWLOCATION : 设置这个选项为一个非零值(象 “Location: “)的头，服务器会把它当做HTTP头的一部分发送(注意这是递归的，PHP将发送形如 “Location: “的头)。</li>
-<li>CURLOPT_PUT : 设置这个选项为一个非零值去用HTTP上传一个文件。要上传这个文件必须设置CURLOPT_INFILE和CURLOPT_INFILESIZE选项.</li>
-<li>CURLOPT_MUTE : 设置这个选项为一个非零值，PHP对于CURL函数将完全沉默。</li>
-<li>CURLOPT_TIMEOUT : 设置一个长整形数，作为最大延续多少秒。</li>
-<li>CURLOPT_LOW_SPEED_LIMIT: 设置一个长整形数，控制传送多少字节。</li>
-<li>CURLOPT_LOW_SPEED_TIME : 设置一个长整形数，控制多少秒传送CURLOPT_LOW_SPEED_LIMIT规定的字节数。</li>
-<li>CURLOPT_RESUME_FROM : 传递一个包含字节偏移地址的长整形参数，(你想转移到的开始表单)。</li>
-<li>CURLOPT_SSLVERSION: 传递一个包含SSL版本的长参数。默认PHP将被它自己努力的确定，在更多的安全中你必须手工设置。</li>
-<li>CURLOPT_TIMECONDITION : 传递一个长参数，指定怎么处理CURLOPT_TIMEVALUE参数。你可以设置这个参数为TIMECOND_IFMODSINCE 或 TIMECOND_ISUNMODSINCE。这仅用于HTTP。</li>
-<li>CURLOPT_TIMEVALUE : 传递一个从1970-1-1开始到现在的秒数。这个时间将被CURLOPT_TIMEVALUE选项作为指定值使用，或被默认TIMECOND_IFMODSINCE使用。<h3 id="下列选项的值将被作为字符串："><a href="#下列选项的值将被作为字符串：" class="headerlink" title="下列选项的值将被作为字符串："></a>下列选项的值将被作为字符串：</h3></li>
-<li>CURLOPT_URL: 这是你想用PHP取回的URL地址。你也可以在用curl_init()函数初始化时设置这个选项。</li>
-<li>CURLOPT_USERPWD : 传递一个形如[username]:[password]风格的字符串,作用PHP去连接。</li>
-<li>CURLOPT_PROXYUSERPWD : 传递一个形如[username]:[password] 格式的字符串去连接HTTP代理。</li>
-<li>CURLOPT_RANGE : 传递一个你想指定的范围。它应该是”X-Y”格式，X或Y是被除外的。HTTP传送同样支持几个间隔，用逗句来分隔(X-Y,N-M)。</li>
-<li>CURLOPT_POSTFIELDS : 传递一个作为HTTP “POST”操作的所有数据的字符串。</li>
-<li>CURLOPT_REFERER: 在HTTP请求中包含一个”referer”头的字符串。</li>
-<li>CURLOPT_USERAGENT : 在HTTP请求中包含一个”user-agent”头的字符串。</li>
-<li>CURLOPT_FTPPORT: 传递一个包含被ftp “POST”指令使用的IP地址。这个POST指令告诉远程服务器去连接我们指定的IP地址。这个字符串可以是一个IP地址，一个主机名，一个网络界面名(在UNIX下)，或是‘-‘(使用系统默认IP地址)。</li>
-<li>CURLOPT_COOKIE : 传递一个包含HTTP cookie的头连接。</li>
-<li>CURLOPT_SSLCERT : 传递一个包含PEM格式证书的字符串。</li>
-<li>CURLOPT_COOKIEFILE : 传递一个包含cookie数据的文件的名字的字符串。这个cookie文件可以是Netscape格式，或是堆存在文件中的HTTP风格的头。</li>
-<li>CURLOPT_CUSTOMREQUEST : 当进行HTTP请求时，传递一个字符被GET或HEAD使用。为进行DELETE或其它操作是有益的，更Pass a string to be used instead of GET or HEAD when doing an HTTP request. This is useful for doing or another, more obscure, HTTP request. 注意: 在确认你的服务器支持命令先不要去这样做。下列的选项要求一个文件描述(通过使用fopen()函数获得)。</li>
-<li>CURLOPT_FILE: 这个文件将是你放置传送的输出文件，默认是STDOUT.</li>
-<li>CURLOPT_INFILE : 这个文件是你传送过来的输入文件。</li>
-<li>CURLOPT_WRITEHEADER : 这个文件写有你输出的头部分。</li>
-<li>CURLOPT_STDERR : 这个文件写有错误而不是stderr。用来获取需要登录的页面的例子,当前做法是每次或许都登录一次,有需要的人再做改进了.<h4 id="curl可以做到一些更有趣的事情，模拟登陆之类的，hhh-ˉ﹃ˉ-。ps：别忘了curl-close-hhhh"><a href="#curl可以做到一些更有趣的事情，模拟登陆之类的，hhh-ˉ﹃ˉ-。ps：别忘了curl-close-hhhh" class="headerlink" title="curl可以做到一些更有趣的事情，模拟登陆之类的，hhh(ˉ﹃ˉ)。ps：别忘了curl_close();hhhh"></a>curl可以做到一些更有趣的事情，模拟登陆之类的，hhh(ˉ﹃ˉ)。ps：别忘了curl_close();hhhh</h4></li>
-</ul>
-
-          
+          背景：学习了CURL的访问模式，卧槽真的比file_get_content()高到不知道哪里去了，几乎就是一个小型在php内部的浏览器。首先通过curl_init()实例化一个CURL对象，然后通过curl_setopt()函数给这次回话添加一些设置，比如NO_BODY属性之类的等等，最后通过cur
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/19/PHP中CURL的选项详解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -820,6 +547,26 @@ server {
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ZX19951110" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhan-xu-41/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
           
         </div>
 
