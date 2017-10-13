@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="后端," />
 
 
 
@@ -96,13 +96,14 @@
 
 
 <meta name="description" content="Nginx简介Nginx (“engine x”) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由Igor Sysoev为俄罗斯访问量第二的Rambler.ru站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，">
+<meta name="keywords" content="后端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx在linux下的安装与配置">
 <meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/03/20/Nginx在linux下的安装与配置/index.html">
 <meta property="og:site_name" content="老战博客">
 <meta property="og:description" content="Nginx简介Nginx (“engine x”) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由Igor Sysoev为俄罗斯访问量第二的Rambler.ru站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-03-20T12:41:08.465Z">
+<meta property="og:updated_time" content="2017-10-13T22:41:48.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx在linux下的安装与配置">
 <meta name="twitter:description" content="Nginx简介Nginx (“engine x”) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由Igor Sysoev为俄罗斯访问量第二的Rambler.ru站点开发的，第一个公开版本0.1.0发布于2004年10月4日。其将源代码以类BSD许可证的形式发布，因它的稳定性、丰富的功能集、示例配置文件和低系统资源的消耗而闻名。2011年6月1日，">
@@ -210,12 +211,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
           </a>
         </li>
       
@@ -287,6 +308,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -585,6 +628,12 @@ server {
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+        </div>
+      
 
       
       
@@ -594,8 +643,8 @@ server {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/19/PHP中CURL的选项详解/" rel="next" title="PHP中CURL的option参数详解">
-                <i class="fa fa-chevron-left"></i> PHP中CURL的option参数详解
+              <a href="/2017/03/19/PHP中CURL的选项详解/" rel="next" title="PHP中CURL的option参数详解、">
+                <i class="fa fa-chevron-left"></i> PHP中CURL的option参数详解、
               </a>
             
           </div>
@@ -685,7 +734,25 @@ server {
           
 
           
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
@@ -717,6 +784,15 @@ server {
                     <i class="fa fa-fw fa-globe"></i>
                   
                   知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://619186893.lofter.com/" target="_blank" title="Lofter">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Lofter
                 </a>
               </span>
             

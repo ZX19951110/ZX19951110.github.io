@@ -104,7 +104,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.myexception.cn/img/2014/07/05/112217521.png">
 <meta property="og:image" content="http://d.hiphotos.baidu.com/exp/w=500/sign=3188841cd73f8794d3ff482ee21a0ead/024f78f0f736afc3dafc58c1b019ebc4b64512a5.jpg">
-<meta property="og:updated_time" content="2017-07-12T15:33:22.552Z">
+<meta property="og:updated_time" content="2017-10-13T22:36:31.673Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Composer使用心得">
 <meta name="twitter:description" content="Composer和Yii2框架在windows下的搭建前言哦啦啦啦啦啦，百度离职了五天了，这几天去办理双认证准备留学所以没有怎么更新博客，还是很怀念在百度时边听jazz边写代码的日子的，最近手痒痒，打算在自己的windows系统下面搭建一个Yii2框架 nginx+php关于windows下面的php安装和nginx安装我就不再提啦，到官网下载系统对应版本的就可以，注意目前我用的是nginx使用t">
@@ -213,12 +213,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
           </a>
         </li>
       
@@ -290,6 +310,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -457,7 +499,25 @@ fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;//这里注�
           
 
           
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
@@ -489,6 +549,15 @@ fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;//这里注�
                     <i class="fa fa-fw fa-globe"></i>
                   
                   知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://619186893.lofter.com/" target="_blank" title="Lofter">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Lofter
                 </a>
               </span>
             

@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="前端," />
 
 
 
@@ -96,13 +96,14 @@
 
 
 <meta name="description" content="NPM命令参数解析最近在学Node，自然少不了对NPM这优秀的包管理软件的接触，这里总结一下NPM的使用命令和说明 背景Nodejs作为一个模块化的语言，很多依赖都是由外部引用，在node_modules文件夹中。其中和node_modules文件夹平级的一个package.json保存了包的信息，当安装更新包的时候，npm会根据package.json的信息进行安装。 Npm命令使用方法一般来讲">
+<meta name="keywords" content="前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NPM使用技巧">
 <meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/10/06/NPM使用技巧/index.html">
 <meta property="og:site_name" content="老战博客">
 <meta property="og:description" content="NPM命令参数解析最近在学Node，自然少不了对NPM这优秀的包管理软件的接触，这里总结一下NPM的使用命令和说明 背景Nodejs作为一个模块化的语言，很多依赖都是由外部引用，在node_modules文件夹中。其中和node_modules文件夹平级的一个package.json保存了包的信息，当安装更新包的时候，npm会根据package.json的信息进行安装。 Npm命令使用方法一般来讲">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-08T13:21:00.374Z">
+<meta property="og:updated_time" content="2017-10-13T22:42:23.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NPM使用技巧">
 <meta name="twitter:description" content="NPM命令参数解析最近在学Node，自然少不了对NPM这优秀的包管理软件的接触，这里总结一下NPM的使用命令和说明 背景Nodejs作为一个模块化的语言，很多依赖都是由外部引用，在node_modules文件夹中。其中和node_modules文件夹平级的一个package.json保存了包的信息，当安装更新包的时候，npm会根据package.json的信息进行安装。 Npm命令使用方法一般来讲">
@@ -210,12 +211,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
           </a>
         </li>
       
@@ -287,6 +308,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -604,6 +647,12 @@ optionalDependencies 中的配置会覆盖dependencies中的配置，最好只�
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+        </div>
+      
 
       
       
@@ -613,8 +662,8 @@ optionalDependencies 中的配置会覆盖dependencies中的配置，最好只�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/01/意大利留学/" rel="next" title="意大利留学">
-                <i class="fa fa-chevron-left"></i> 意大利留学
+              <a href="/2017/10/01/意大利留学/" rel="next" title="意大利留学（一）">
+                <i class="fa fa-chevron-left"></i> 意大利留学（一）
               </a>
             
           </div>
@@ -704,7 +753,25 @@ optionalDependencies 中的配置会覆盖dependencies中的配置，最好只�
           
 
           
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
@@ -736,6 +803,15 @@ optionalDependencies 中的配置会覆盖dependencies中的配置，最好只�
                     <i class="fa fa-fw fa-globe"></i>
                   
                   知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://619186893.lofter.com/" target="_blank" title="Lofter">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Lofter
                 </a>
               </span>
             

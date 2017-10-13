@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="后端," />
 
 
 
@@ -96,13 +96,14 @@
 
 
 <meta name="description" content="PHP使用redis拓展前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进">
+<meta name="keywords" content="后端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php使用Redis">
 <meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/07/09/php使用Redis/index.html">
 <meta property="og:site_name" content="老战博客">
 <meta property="og:description" content="PHP使用redis拓展前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-09T02:28:36.362Z">
+<meta property="og:updated_time" content="2017-10-13T22:42:23.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php使用Redis">
 <meta name="twitter:description" content="PHP使用redis拓展前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进">
@@ -210,12 +211,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
           </a>
         </li>
       
@@ -287,6 +308,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -588,6 +631,12 @@ $redis-&gt;get(&apos;x&apos;); // → `FALSE`
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+        </div>
+      
 
       
       
@@ -688,7 +737,25 @@ $redis-&gt;get(&apos;x&apos;); // → `FALSE`
           
 
           
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
@@ -720,6 +787,15 @@ $redis-&gt;get(&apos;x&apos;); // → `FALSE`
                     <i class="fa fa-fw fa-globe"></i>
                   
                   知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://619186893.lofter.com/" target="_blank" title="Lofter">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Lofter
                 </a>
               </span>
             
