@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="前端几种跨域方案背景在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。这里需">
+<meta name="description" content="背景在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。这里需要明确的一点是：">
 <meta name="keywords" content="前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端跨域方案">
 <meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/07/09/前端跨域方案/index.html">
 <meta property="og:site_name" content="老战博客">
-<meta property="og:description" content="前端几种跨域方案背景在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。这里需">
+<meta property="og:description" content="背景在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。这里需要明确的一点是：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T22:42:23.671Z">
+<meta property="og:updated_time" content="2017-10-14T09:02:12.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端跨域方案">
-<meta name="twitter:description" content="前端几种跨域方案背景在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。这里需">
+<meta name="twitter:description" content="背景在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。这里需要明确的一点是：">
 
 
 
@@ -355,7 +355,7 @@
       
 
       
-        <h1 id="前端几种跨域方案"><a href="#前端几种跨域方案" class="headerlink" title="前端几种跨域方案"></a>前端几种跨域方案</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。<br>受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。<br>这里需要明确的一点是：所谓的域跟js的存放服务器没有关系，比如baidu.com的页面加载了google.com的js，那么此js的所在域是baidu.com而不是google.com。也就是说，此时该js能操作baidu.com的页面对象，而不能操作google.com的页面对象。</p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在百度实习的时候曾经遇到过一些多服务器交互的问题，多台服务器不同域名，请求其他服务器数据时肯定是有一些问题的。<br>受浏览器同源策略的限制，本域的js不能操作其他域的页面对象（比如DOM）。但在安全限制的同时也给注入iframe或是ajax应用上带来了不少麻烦。所以我们要通过一些方法使本域的js能够操作其他域的页面对象或者使其他域的js能操作本域的页面对象（iframe之间）。<br>这里需要明确的一点是：所谓的域跟js的存放服务器没有关系，比如baidu.com的页面加载了google.com的js，那么此js的所在域是baidu.com而不是google.com。也就是说，此时该js能操作baidu.com的页面对象，而不能操作google.com的页面对象。</p>
 <h2 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h2><h3 id="单向跨域（一般用于获取数据）"><a href="#单向跨域（一般用于获取数据）" class="headerlink" title="单向跨域（一般用于获取数据）"></a>单向跨域（一般用于获取数据）</h3><ul>
 <li><p>使用JSONP跨域</p>
 <p>  原理：因为通过script标签引入的js是不受同源策略的限制的（正如前文提到的baidu.com的页面加载了google.com的js）。所以我们可以通过script标签引入一个js或者是一个其他后缀形式（如PHP，jsp等）的文件，此文件返回一个js函数的调用，如返回JSONP_getUsers([“paco”,”john”,”lili”])，也就是说此文件返回的结果调用了JSONP_getUsers函数，并且把[“paco”,”john”,”lili”]传进去，这个[“paco”,”john”,”lili”]是一个用户列表。那么如果此时我们的页面中有一个JSONP_getUsers函数，那么JSONP_getUsers就被调用到，并且传入了用户列表。此时就实现了在本域获取其他域数据的功能，也就是跨域。<br>  简单来讲呢，就是前端首先实现一个方法，方法名要和服务器端规定好，然后后端传来数据为函数名并且携带参数，具体参数由前端处理。<br>  例如：<br>  前端引入远程js并定义好JSONP_getUsers函数，注意需要先定义好JSONP_getUsers函数，避免在远程js加载完成并调用JSONP_getUsers时，此函数不存在：</p>
@@ -615,7 +615,7 @@ echo &apos;JSONP_getUsers([&quot;paco&quot;,&quot;john&quot;,&quot;lili&quot;])&
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端几种跨域方案"><span class="nav-number">1.</span> <span class="nav-text">前端几种跨域方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案"><span class="nav-number">1.2.</span> <span class="nav-text">方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单向跨域（一般用于获取数据）"><span class="nav-number">1.2.1.</span> <span class="nav-text">单向跨域（一般用于获取数据）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方案"><span class="nav-number">2.</span> <span class="nav-text">方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单向跨域（一般用于获取数据）"><span class="nav-number">2.1.</span> <span class="nav-text">单向跨域（一般用于获取数据）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

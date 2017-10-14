@@ -95,18 +95,18 @@
 
 
 
-<meta name="description" content="PHP使用redis拓展前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进">
+<meta name="description" content="前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进行列出。由于百度使用的是">
 <meta name="keywords" content="后端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php使用Redis">
 <meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/07/09/php使用Redis/index.html">
 <meta property="og:site_name" content="老战博客">
-<meta property="og:description" content="PHP使用redis拓展前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进">
+<meta property="og:description" content="前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进行列出。由于百度使用的是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T22:42:23.554Z">
+<meta property="og:updated_time" content="2017-10-14T09:02:12.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php使用Redis">
-<meta name="twitter:description" content="PHP使用redis拓展前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进">
+<meta name="twitter:description" content="前言：mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。目前内存数据库有很多，这里不进行列出。由于百度使用的是">
 
 
 
@@ -355,7 +355,7 @@
       
 
       
-        <h1 id="PHP使用redis拓展"><a href="#PHP使用redis拓展" class="headerlink" title="PHP使用redis拓展"></a>PHP使用redis拓展</h1><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，<br>必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数<br>据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。<br>目前内存数据库有很多，这里不进行列出。由于百度使用的是Redis，那我们就聊一聊redis。</p>
+        <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>mysql一直作为数据库的情况下在小并发网站上还是没有问题的，但是一旦出现高并发的情况，mysql服务器连接过多，<br>必然会导致IO瓶颈，速度越来越慢。那怎么解决呢？大家都知道，相比于硬盘，从内存中操作时最快的，如果我们把数<br>据存到内存中作为缓存，每次查询命中内存，则不去mysql的硬盘层去查找，这样既可以提高速度，也降低了mysql的连接数。<br>目前内存数据库有很多，这里不进行列出。由于百度使用的是Redis，那我们就聊一聊redis。</p>
 <h3 id="Redis的安装："><a href="#Redis的安装：" class="headerlink" title="Redis的安装："></a>Redis的安装：</h3><p>百度良心包管理工具Jumbo直接install就可以。连接不到百度内网可以参考这篇博客<a href="http://www.cnblogs.com/codersay/p/4301677.html" target="_blank" rel="external">http://www.cnblogs.com/codersay/p/4301677.html</a><br>这里不做多说。</p>
 <h3 id="小坑注意："><a href="#小坑注意：" class="headerlink" title="小坑注意："></a>小坑注意：</h3><p>redis使用的是tcp连接，首先启动服务redis-server时后面要加配置文件路径如</p>
 <pre><code>redis-server ./.jumbo/etc/redis.conf
@@ -823,7 +823,7 @@ $redis-&gt;get(&apos;x&apos;); // → `FALSE`
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP使用redis拓展"><span class="nav-number">1.</span> <span class="nav-text">PHP使用redis拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.1.</span> <span class="nav-text">前言：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis的安装："><span class="nav-number">1.1.1.</span> <span class="nav-text">Redis的安装：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小坑注意："><span class="nav-number">1.1.2.</span> <span class="nav-text">小坑注意：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正题："><span class="nav-number">1.2.</span> <span class="nav-text">正题：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#list相关操作"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">list相关操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SET操作相关"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">SET操作相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string命令"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">string命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zset（sorted-set）操作相关"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">zset（sorted set）操作相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash操作"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">Hash操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-操作相关"><span class="nav-number">1.2.0.7.</span> <span class="nav-text">redis 操作相关</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis的安装："><span class="nav-number">1.1.</span> <span class="nav-text">Redis的安装：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小坑注意："><span class="nav-number">1.2.</span> <span class="nav-text">小坑注意：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正题："><span class="nav-number">2.</span> <span class="nav-text">正题：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#list相关操作"><span class="nav-number">2.0.1.</span> <span class="nav-text">list相关操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SET操作相关"><span class="nav-number">2.0.2.</span> <span class="nav-text">SET操作相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sort"><span class="nav-number">2.0.3.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string命令"><span class="nav-number">2.0.4.</span> <span class="nav-text">string命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zset（sorted-set）操作相关"><span class="nav-number">2.0.5.</span> <span class="nav-text">zset（sorted set）操作相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash操作"><span class="nav-number">2.0.6.</span> <span class="nav-text">Hash操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-操作相关"><span class="nav-number">2.0.7.</span> <span class="nav-text">redis 操作相关</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
