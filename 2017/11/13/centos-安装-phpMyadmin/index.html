@@ -77,12 +77,10 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux," />
+  <meta name="keywords" content="后端," />
 
 
 
-
-  
 
 
   <link rel="alternate" href="/atom.xml" title="老战博客" type="application/atom+xml" />
@@ -97,21 +95,21 @@
 
 
 
-<meta name="description" content="Linux这么好玩，为什么不折腾一下呢前言为了留学离职了这么久，最后还不是要回去当程序员，所以还是要学习一下Linux的基本操作呀。穷人买不起苹果没办法玩terminal，用git的bush还不是很爽，双系统还怕崩掉，只能用虚拟机装个centos解解馋喽。 安装很简单的，去centos下载iso镜像，然后使用VM WorkStation去加载镜像，根据提示一步一步来，因为我打算作为服务器搞事情，所">
-<meta name="keywords" content="Linux">
+<meta name="description" content="Centos 安装 phpMyAdmin前言啊，教授好好的BPMN图不画，让我们去设计数据库，虽然在虚拟机上面有上次装的MariaDB（mysql），但是缺少了一个图形化界面，给人家七十岁老教授看也不太好。想起以前在百度使用的phpMyAdmin，打算折腾下。 安装还不算复杂，首先我们切换到超级管理员 $ su 然后使用yum安装phpmyadmin $ yum install phpmyadmi">
+<meta name="keywords" content="后端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="折腾Centos7系统">
-<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/10/29/折腾Centos7系统/index.html">
+<meta property="og:title" content="centos 安装 phpMyadmin">
+<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2017/11/13/centos-安装-phpMyadmin/index.html">
 <meta property="og:site_name" content="老战博客">
-<meta property="og:description" content="Linux这么好玩，为什么不折腾一下呢前言为了留学离职了这么久，最后还不是要回去当程序员，所以还是要学习一下Linux的基本操作呀。穷人买不起苹果没办法玩terminal，用git的bush还不是很爽，双系统还怕崩掉，只能用虚拟机装个centos解解馋喽。 安装很简单的，去centos下载iso镜像，然后使用VM WorkStation去加载镜像，根据提示一步一步来，因为我打算作为服务器搞事情，所">
+<meta property="og:description" content="Centos 安装 phpMyAdmin前言啊，教授好好的BPMN图不画，让我们去设计数据库，虽然在虚拟机上面有上次装的MariaDB（mysql），但是缺少了一个图形化界面，给人家七十岁老教授看也不太好。想起以前在百度使用的phpMyAdmin，打算折腾下。 安装还不算复杂，首先我们切换到超级管理员 $ su 然后使用yum安装phpmyadmin $ yum install phpmyadmi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=289bc0820bf3d7ca0cf63f76c21ebe3c/b17eca8065380cd7219a2551a644ad3458828182.jpg">
-<meta property="og:image" content="https://imgsa.baidu.com/exp/w=500/sign=f14107038b5494ee87220f191df4e0e1/d0c8a786c9177f3e65967ab177cf3bc79e3d56ef.jpg">
-<meta property="og:updated_time" content="2017-10-29T05:09:14.202Z">
+<meta property="og:image" content="https://assets.digitalocean.com/articles/phpmyadmin_lamp_centos7/login.png">
+<meta property="og:image" content="https://assets.digitalocean.com/articles/phpmyadmin_lamp_centos7/main_page.png">
+<meta property="og:updated_time" content="2017-11-12T23:54:33.946Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="折腾Centos7系统">
-<meta name="twitter:description" content="Linux这么好玩，为什么不折腾一下呢前言为了留学离职了这么久，最后还不是要回去当程序员，所以还是要学习一下Linux的基本操作呀。穷人买不起苹果没办法玩terminal，用git的bush还不是很爽，双系统还怕崩掉，只能用虚拟机装个centos解解馋喽。 安装很简单的，去centos下载iso镜像，然后使用VM WorkStation去加载镜像，根据提示一步一步来，因为我打算作为服务器搞事情，所">
-<meta name="twitter:image" content="https://imgsa.baidu.com/exp/w=500/sign=289bc0820bf3d7ca0cf63f76c21ebe3c/b17eca8065380cd7219a2551a644ad3458828182.jpg">
+<meta name="twitter:title" content="centos 安装 phpMyadmin">
+<meta name="twitter:description" content="Centos 安装 phpMyAdmin前言啊，教授好好的BPMN图不画，让我们去设计数据库，虽然在虚拟机上面有上次装的MariaDB（mysql），但是缺少了一个图形化界面，给人家七十岁老教授看也不太好。想起以前在百度使用的phpMyAdmin，打算折腾下。 安装还不算复杂，首先我们切换到超级管理员 $ su 然后使用yum安装phpmyadmin $ yum install phpmyadmi">
+<meta name="twitter:image" content="https://assets.digitalocean.com/articles/phpmyadmin_lamp_centos7/login.png">
 
 
 
@@ -139,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="https://zx19951110.github.io/ZX.github.io/2017/10/29/折腾Centos7系统/"/>
+  <link rel="canonical" href="https://zx19951110.github.io/ZX.github.io/2017/11/13/centos-安装-phpMyadmin/"/>
 
 
 
 
 
-  <title>折腾Centos7系统 | 老战博客</title>
+  <title>centos 安装 phpMyadmin | 老战博客</title>
   
 
 
@@ -274,7 +272,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/10/29/折腾Centos7系统/">
+    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2017/11/13/centos-安装-phpMyadmin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhanxu">
@@ -291,7 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">折腾Centos7系统</h1>
+          <h1 class="post-title" itemprop="name headline">centos 安装 phpMyadmin</h1>
         
 
         <div class="post-meta">
@@ -303,8 +301,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-29T12:36:14+01:00">
-                2017-10-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T00:13:58+01:00">
+                2017-11-13
               </time>
             
 
@@ -360,72 +358,41 @@
       
 
       
-        <h1 id="Linux这么好玩，为什么不折腾一下呢"><a href="#Linux这么好玩，为什么不折腾一下呢" class="headerlink" title="Linux这么好玩，为什么不折腾一下呢"></a>Linux这么好玩，为什么不折腾一下呢</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>为了留学离职了这么久，最后还不是要回去当程序员，所以还是要学习一下Linux的基本操作呀。穷人买不起苹果没办法玩terminal，用git的bush还不是很爽，双系统还怕崩掉，只能用虚拟机装个centos解解馋喽。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>很简单的，去centos下载iso镜像，然后使用VM WorkStation去加载镜像，根据提示一步一步来，因为我打算作为服务器搞事情，所以就把内存和cpu分配的高了一点。需要注意的有一些：</p>
-<h3 id="联网"><a href="#联网" class="headerlink" title="联网"></a>联网</h3><p>虚拟机联网需要使用桥接模式，这个在设置中有提到，记得选中，然后就是更坑爹的系统设置，转到/etc/sysconfig/network-scripts/</p>
-<p><img src="https://imgsa.baidu.com/exp/w=500/sign=289bc0820bf3d7ca0cf63f76c21ebe3c/b17eca8065380cd7219a2551a644ad3458828182.jpg" alt="列表"></p>
-<p>没错ifcfg后面一串数字的就是需要修改的文件，记得使用sudo chmod 777 更改这个文件的权限，然后用vi编辑这个文件，将最后一行的ONBOOT=no改为ONBOOT=yes，然后保存退出。</p>
-<p><img src="https://imgsa.baidu.com/exp/w=500/sign=f14107038b5494ee87220f191df4e0e1/d0c8a786c9177f3e65967ab177cf3bc79e3d56ef.jpg" alt="更改"></p>
-<p>然后您就可以愉悦的使用centos的强大的yum了</p>
-<h3 id="mysql的安装问题"><a href="#mysql的安装问题" class="headerlink" title="mysql的安装问题"></a>mysql的安装问题</h3><p>mysql这么实用，为什么不装个mysql呢，在Linux中，mysql是一个client，而mysqld是一个服务，所以需要安装服务和客户端。但是！！！但是！！！CentOS 7 版本将MySQL数据库软件从默认的程序列表中移除，用mariadb代替了，妈的坑死我了。<br>所以需要使用MariaDB：</p>
-<p>MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可。开发这个分支的原因之一是：甲骨文公司收购了MySQL后，有将MySQL闭源的潜在风险，因此社区采用分支的方式来避开这个风险。MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。<br>所以安装Mysql的全部步骤如下：</p>
-<pre><code>#yum install mysql
-#yum yum install mariadb-server mariadb 
-#yum install mysql-devel
-</code></pre><p>下面是一些mariadb的常用命令：</p>
-<pre><code>systemctl start mariadb  #启动MariaDB
-systemctl stop mariadb  #停止MariaDB
-systemctl restart mariadb  #重启MariaDB  
-systemctl enable mariadb  #设置开机启动
-</code></pre><p>之后就可以正常使用Mysql了，然后把在所有数据库的所有表的所有权限赋值给位于所有IP地址的root用户。</p>
-<pre><code>mysql&gt; grant all privileges on *.* to root@&apos;%&apos;identified by &apos;password&apos;;
-</code></pre><p>如果是新用户而不是root，则要先新建用户</p>
-<pre><code>mysql&gt;create user &apos;username&apos;@&apos;%&apos; identified by &apos;password&apos;; 
-</code></pre><p>感谢<a href="https://www.cnblogs.com/starof/p/4680083.html" target="_blank" rel="external">Blog</a></p>
-<h3 id="Nginx安装问题"><a href="#Nginx安装问题" class="headerlink" title="Nginx安装问题"></a>Nginx安装问题</h3><p>如果您直接yum install nginx，那是不行的，貌似yum的镜像站没有nginx，所以你需要安装CentOS 7 EPEL repository</p>
-<pre><code>sudo yum install epel-release
-</code></pre><p>然后就可以</p>
-<pre><code>yum install nginx
-</code></pre><p>nginx的启动命令是</p>
-<pre><code>sudo systemctl start nginx
-</code></pre><p>ok，然后通过curl命令访问127.0.0.1，可以看到欢迎界面的html的返回。<br>然后使用ifconfig命令，就可以看到虚拟机的地址了，但是，使用windows系统并不能访问到，一般来讲是因为防火墙问题，所以需要做如下修改：</p>
-<pre><code>iptables -F
-
-iptables -P INPUT ACCEPT（设置默认允许规则）
-</code></pre><p>反正我到了这步骤就可以访问到了虚拟机，如果还是不行的话，请参考<a href="http://www.easytd.com/gongjufangfa/d_14121820330.html" target="_blank" rel="external">博客</a></p>
-<h2 id="附yum命令"><a href="#附yum命令" class="headerlink" title="附yum命令"></a>附yum命令</h2><p>yum（全称为 Yellow dog Updater, Modified）是一个在Fedora和RedHat以及SUSE中的Shell前端软件包管理器。基於RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p>
-<p>yum的命令形式一般是如下：</p>
-<pre><code>yum [options] [command] [package ...]
-</code></pre><p>其中的[options]是可选的，选项包括-h（帮助），-y（当安装过程提示选择全部为”yes”），-q（不显示安装的过程）等等。[command]为所要进行的操作，[package …]是操作的对象。</p>
-<p>概括了部分常用的命令包括：</p>
-<pre><code>自动搜索最快镜像插件：   yum install yum-fastestmirror
-安装yum图形窗口插件：    yum install yumex
-查看可能批量安装的列表： yum grouplist
-</code></pre><p>1 安装</p>
-<pre><code>yum install 全部安装
-yum install package1 安装指定的安装包package1
-yum groupinsall group1 安装程序组group1
-</code></pre><p>2 更新和升级</p>
-<pre><code>yum update 全部更新
-yum update package1 更新指定程序包package1
-yum check-update 检查可更新的程序
-yum upgrade package1 升级指定程序包package1
-yum groupupdate group1 升级程序组group1
-</code></pre><p>3 查找和显示</p>
-<pre><code>yum info package1 显示安装包信息package1
-yum list 显示所有已经安装和可以安装的程序包
-yum list package1 显示指定程序包安装情况package1
-yum groupinfo group1 显示程序组group1信息yum search string 根据关键字string查找安装包
-</code></pre><p>4 删除程序</p>
-<pre><code>yum remove &amp;#124; erase package1 删除程序包package1
-yum groupremove group1 删除程序组group1
-yum deplist package1 查看程序package1依赖情况
-</code></pre><p>5 清除缓存</p>
-<pre><code>yum clean packages 清除缓存目录下的软件包
-yum clean headers 清除缓存目录下的 headers
-yum clean oldheaders 清除缓存目录下旧的 headers
-yum clean, yum clean all (= yum clean packages; yum clean oldheaders) 清除缓存目录下的软件包及旧的headers
-</code></pre><p>不常用的命令请参考<a href="http://www.cnblogs.com/chuncn/archive/2010/10/17/1853915.html" target="_blank" rel="external">这篇博客</a></p>
+        <h1 id="Centos-安装-phpMyAdmin"><a href="#Centos-安装-phpMyAdmin" class="headerlink" title="Centos 安装 phpMyAdmin"></a>Centos 安装 phpMyAdmin</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>啊，教授好好的BPMN图不画，让我们去设计数据库，虽然在虚拟机上面有上次装的MariaDB（mysql），但是缺少了一个图形化界面，给人家七十岁老教授看也不太好。想起以前在百度使用的phpMyAdmin，打算折腾下。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>还不算复杂，首先我们切换到超级管理员</p>
+<pre><code>$ su
+</code></pre><p>然后使用yum安装phpmyadmin</p>
+<pre><code>$ yum install phpmyadmin
+</code></pre><p>比较有趣的是，虚拟机因为已经安装了Nginx,没有必要再安装个服务器了，但是执行上面的命令后yum会自动下载个Apache，并且phpmyadmin的<strong>服务器配置文件</strong>刚好就在/etc/httpd/conf.d/下面，这时候我们去访问虚拟机ip/phpmyadmin的话，我们会看到不讨人喜欢的403，这很明显是被服务器拒绝了，所以需要做一下修改：</p>
+<pre><code>&lt;RequireAny&gt; //修改这个Dom节点
+# Require ip 127.0.0.1 //这里需要注释掉
+# Require ip : : 1 //这里也需要注释掉
+Require all granted //添加这一行
+&lt;/RequireAny&gt;
+</code></pre><p>ok我们再次访问，应该就会有欢迎界面了，如果不明白请<a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-with-apache-on-a-centos-7-server" target="_blank" rel="external">参考</a></p>
+<p><img src="https://assets.digitalocean.com/articles/phpmyadmin_lamp_centos7/login.png" alt="欢迎"></p>
+<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><h3 id="mysql用户密码设置"><a href="#mysql用户密码设置" class="headerlink" title="mysql用户密码设置"></a>mysql用户密码设置</h3><p>是这样的，我安装的过程一切顺利直到上面那步，无法登录mysql服务器，于是我觉得可能是mysql的用户名密码没有设置，<strong>但是</strong>，我愚蠢的使用了下面的命令</p>
+<pre><code>update from user set Password=&apos;123456&apos; where user=&apos;root&apos;;(错误！)
+</code></pre><p>因为mysql的用户表中的password字段是储存经过Password函数加密的，所以这样反而弄巧成拙，正确的方式应该是：</p>
+<pre><code>update from user set Password=Passoword(&apos;123456&apos;) where user=&apos;root&apos;;(正确！)
+</code></pre><p>当然如果你改错了，再次登录mysql是没有办法修改mysql的主库的，所以需要采用mysql安全模式<br>首先停止mysql</p>
+<pre><code>systemctl stop mariadb 
+</code></pre><p>然后启动mysqld安全模式</p>
+<pre><code>mysqld --skip-grant-tables &amp;
+</code></pre><p>成功启动mysql后修改密码，然后记得kill掉mysqld进程并重新启动mysql</p>
+<pre><code>pa aux|grep mysqld
+kill -9 #id
+systemctl start mariadb
+</code></pre><p>然后正常登录</p>
+<pre><code>mysql -uroot -h127.0.0.1 -P3306
+</code></pre><p>输入密码，ok搞定。顺便一提mysql的配置文件在/etc/my.cnf.</p>
+<h3 id="phpMyAdmin配置文件"><a href="#phpMyAdmin配置文件" class="headerlink" title="phpMyAdmin配置文件"></a>phpMyAdmin配置文件</h3><p>因为以普通用户登录不能修改配置文件，所以我获取管理员权限给配置文件777权限，给我坑惨了，phpmyadmin必须在755权限下才可以运行。<br>解决办法：</p>
+<pre><code>chmod -cR 755 /etc/phpMyAdmin/config.inc.php
+</code></pre><p>然后以<strong>管理员身份修改登录mysql的用户密码端口host</strong>等。。这里也有坑：输入用户名密码无法连接到数据库。网上很多人说修改成这样。</p>
+<pre><code>$cfg[&apos;Servers&apos;][$i][&apos;host&apos;] = &apos;127.0.0.1&apos;
+</code></pre><p>实际上不用改，保持这样</p>
+<pre><code>$cfg[&apos;Servers&apos;][$i][&apos;host&apos;] = &apos;localhost&apos;
+</code></pre><p>后来想一想可能是因为mysql的主库user表记录的host问题吧，然后就可以美滋滋登录进去啦<br><img src="https://assets.digitalocean.com/articles/phpmyadmin_lamp_centos7/main_page.png" alt="界面"></p>
 
       
     </div>
@@ -455,7 +422,7 @@ yum clean, yum clean all (= yum clean packages; yum clean oldheaders) 清除缓�
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/后端/" rel="tag"># 后端</a>
           
         </div>
       
@@ -468,8 +435,8 @@ yum clean, yum clean all (= yum clean packages; yum clean oldheaders) 清除缓�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/13/意大利留学（二）/" rel="next" title="意大利留学（二）">
-                <i class="fa fa-chevron-left"></i> 意大利留学（二）
+              <a href="/2017/11/11/Centos-安装-Python3/" rel="next" title="Centos 安装 Python3">
+                <i class="fa fa-chevron-left"></i> Centos 安装 Python3
               </a>
             
           </div>
@@ -477,10 +444,6 @@ yum clean, yum clean all (= yum clean packages; yum clean oldheaders) 清除缓�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/11/Centos-安装-Python3/" rel="prev" title="Centos 安装 Python3">
-                Centos 安装 Python3 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -645,7 +608,7 @@ yum clean, yum clean all (= yum clean packages; yum clean oldheaders) 清除缓�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux这么好玩，为什么不折腾一下呢"><span class="nav-number">1.</span> <span class="nav-text">Linux这么好玩，为什么不折腾一下呢</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#联网"><span class="nav-number">1.2.1.</span> <span class="nav-text">联网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql的安装问题"><span class="nav-number">1.2.2.</span> <span class="nav-text">mysql的安装问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx安装问题"><span class="nav-number">1.2.3.</span> <span class="nav-text">Nginx安装问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附yum命令"><span class="nav-number">1.3.</span> <span class="nav-text">附yum命令</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Centos-安装-phpMyAdmin"><span class="nav-number">1.</span> <span class="nav-text">Centos 安装 phpMyAdmin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#踩坑"><span class="nav-number">1.3.</span> <span class="nav-text">踩坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql用户密码设置"><span class="nav-number">1.3.1.</span> <span class="nav-text">mysql用户密码设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phpMyAdmin配置文件"><span class="nav-number">1.3.2.</span> <span class="nav-text">phpMyAdmin配置文件</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

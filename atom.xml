@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zx19951110.github.io/ZX.github.io/"/>
-  <updated>2017-11-11T11:48:52.483Z</updated>
+  <updated>2017-11-12T23:54:33.946Z</updated>
   <id>https://zx19951110.github.io/ZX.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>centos 安装 phpMyadmin</title>
+    <link href="https://zx19951110.github.io/ZX.github.io/2017/11/13/centos-%E5%AE%89%E8%A3%85-phpMyadmin/"/>
+    <id>https://zx19951110.github.io/ZX.github.io/2017/11/13/centos-安装-phpMyadmin/</id>
+    <published>2017-11-12T23:13:58.000Z</published>
+    <updated>2017-11-12T23:54:33.946Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Centos-安装-phpMyAdmin"><a href="#Centos-安装-phpMyAdmin" class="headerlink" title="Centos 安装 phpMyAdmin"></a>Centos 安装 phpMyAdmin</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>啊，教授好好的BPMN图不画，让我们去设计数据库，虽然在虚拟机上面有上次装的MariaDB（mysql），但是缺少了一个图形化界面，给人家七十岁老教授看也不太好。想起以前在百度使用的phpMyAdmin，打算折腾下。</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>还不算复杂，首先我们切换到超级管理员</p><pre><code>$ su</code></pre><p>然后使用yum安装phpmyadmin</p><pre><code>$ yum install phpmyadmin</code></pre><p>比较有趣的是，虚拟机因为已经安装了Nginx,没有必要再安装个服务器了，但是执行上面的命令后yum会自动下载个Apache，并且phpmyadmin的<strong>服务器配置文件</strong>刚好就在/etc/httpd/conf.d/下面，这时候我们去访问虚拟机ip/phpmyadmin的话，我们会看到不讨人喜欢的403，这很明显是被服务器拒绝了，所以需要做一下修改：</p><pre><code>&lt;RequireAny&gt; //修改这个Dom节点# Require ip 127.0.0.1 //这里需要注释掉# Require ip : : 1 //这里也需要注释掉Require all granted //添加这一行&lt;/RequireAny&gt;</code></pre><p>ok我们再次访问，应该就会有欢迎界面了，如果不明白请<a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-with-apache-on-a-centos-7-server" target="_blank" rel="external">参考</a></p><p><img src="https://assets.digitalocean.com/articles/phpmyadmin_lamp_centos7/login.png" alt="欢迎"></p><h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><h3 id="mysql用户密码设置"><a href="#mysql用户密码设置" class="headerlink" title="mysql用户密码设置"></a>mysql用户密码设置</h3><p>是这样的，我安装的过程一切顺利直到上面那步，无法登录mysql服务器，于是我觉得可能是mysql的用户名密码没有设置，<strong>但是</strong>，我愚蠢的使用了下面的命令</p><pre><code>update from user set Password=&apos;123456&apos; where user=&apos;root&apos;;(错误！)</code></pre><p>因为mysql的用户表中的password字段是储存经过Password函数加密的，所以这样反而弄巧成拙，正确的方式应该是：</p><pre><code>update from user set Password=Passoword(&apos;123456&apos;) where user=&apos;root&apos;;(正确！)</code></pre><p>当然如果你改错了，再次登录mysql是没有办法修改mysql的主库的，所以需要采用mysql安全模式<br>首先停止mysql</p><pre><code>systemctl stop mariadb </code></pre><p>然后启动mysqld安全模式</p><pre><code>mysqld --skip-grant-tables &amp;</code></pre><p>成功启动mysql后修改密码，然后记得kill掉mysqld进程并重新启动mysql</p><pre><code>pa aux|grep mysqldkill -9 #idsystemctl start mariadb</code></pre><p>然后正常登录</p><pre><code>mysql -uroot -h127.0.0.1 -P3306</code></pre><p>输入密码，ok搞定。顺便一提mysql的配置文件在/etc/my.cnf.</p><h3 id="phpMyAdmin配置文件"><a href="#phpMyAdmin配置文件" class="headerlink" title="phpMyAdmin配置文件"></a>phpMyAdmin配置文件</h3><p>因为以普通用户登录不能修改配置文件，所以我获取管理员权限给配置文件777权限，给我坑惨了，phpmyadmin必须在755权限下才可以运行。<br>解决办法：</p><pre><code>chmod -cR 755 /etc/phpMyAdmin/config.inc.php</code></pre><p>然后以<strong>管理员身份修改登录mysql的用户密码端口host</strong>等。。这里也有坑：输入用户名密码无法连接到数据库。网上很多人说修改成这样。</p><pre><code>$cfg[&apos;Servers&apos;][$i][&apos;host&apos;] = &apos;127.0.0.1&apos;</code></pre><p>实际上不用改，保持这样</p><pre><code>$cfg[&apos;Servers&apos;][$i][&apos;host&apos;] = &apos;localhost&apos;</code></pre><p>后来想一想可能是因为mysql的主库user表记录的host问题吧，然后就可以美滋滋登录进去啦<br><img src="https://assets.digitalocean.com/articles/phpmyadmin_lamp_centos7/main_page.png" alt="界面"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Centos-安装-phpMyAdmin&quot;&gt;&lt;a href=&quot;#Centos-安装-phpMyAdmin&quot; class=&quot;headerlink&quot; title=&quot;Centos 安装 phpMyAdmin&quot;&gt;&lt;/a&gt;Centos 安装 phpMyAdmin&lt;/h1&gt;&lt;
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="https://zx19951110.github.io/ZX.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="后端" scheme="https://zx19951110.github.io/ZX.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>Centos 安装 Python3</title>
