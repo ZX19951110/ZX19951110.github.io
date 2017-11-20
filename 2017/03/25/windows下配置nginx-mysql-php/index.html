@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="老战博客">
 <meta property="og:description" content="前言一般来讲很多开发工作并不是在linux中用vim硬怼，很多人用windows编程然后通过git托管，那么我们可以在windows下面安装nginx和php+Mysql来调试我们的程序 nginx的安装：方法类似linux下安装nginx，在官网上下载ngxin的windows版，解压然后修改conf/nginx.conf，主要修改如下： server {         listen">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T22:42:23.815Z">
+<meta property="og:updated_time" content="2017-11-20T09:06:25.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="windows下配置nginx+mysql+php">
 <meta name="twitter:description" content="前言一般来讲很多开发工作并不是在linux中用vim硬怼，很多人用windows编程然后通过git托管，那么我们可以在windows下面安装nginx和php+Mysql来调试我们的程序 nginx的安装：方法类似linux下安装nginx，在官网上下载ngxin的windows版，解压然后修改conf/nginx.conf，主要修改如下： server {         listen">
@@ -373,6 +373,18 @@
                     fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;#$document_root指的是web根目录，不配置可能会有No input file specified.错误
                     include        fastcgi_params;
                 }
+</code></pre><p>附上Nginx的常用命令：</p>
+<pre><code>运行start nginx
+
+关闭 nginx -s stop    或者    nginx -s quit
+
+stop表示立即停止nginx,不保存相关信息
+
+quit表示正常退出nginx,并保存相关信息
+
+重启(因为改变了配置,需要重启)
+
+nginx -s reload
 </code></pre><p>然后我们访问localhost，会看到nginx的欢迎界面。</p>
 <h2 id="php的安装"><a href="#php的安装" class="headerlink" title="php的安装:"></a>php的安装:</h2><p>php在windows下面安装方式网上一搜一大堆，整理下就是：</p>
 <ul>
