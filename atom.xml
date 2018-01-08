@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zx19951110.github.io/ZX.github.io/"/>
-  <updated>2017-11-12T23:54:33.946Z</updated>
+  <updated>2018-01-08T22:06:27.298Z</updated>
   <id>https://zx19951110.github.io/ZX.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>React-Native笔记</title>
+    <link href="https://zx19951110.github.io/ZX.github.io/2018/01/08/React-Native%E7%AC%94%E8%AE%B0/"/>
+    <id>https://zx19951110.github.io/ZX.github.io/2018/01/08/React-Native笔记/</id>
+    <published>2018-01-08T21:46:02.000Z</published>
+    <updated>2018-01-08T22:06:27.298Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="React-Native-折腾笔记"><a href="#React-Native-折腾笔记" class="headerlink" title="React-Native 折腾笔记"></a>React-Native 折腾笔记</h1><p>老头子教授真的是默认我们什么都会，上次NavAPP用Vue和Yii重构前后端后还不够，第二个作业要让我们用安卓重构。。。没办法，不是很想花时间去学习安卓，所以就用React-Native来做一个安卓应用顺便学习一下。</p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>关于安装我不细说了，就是npm那一套，然后注意要装java的JRE和Android的SDK，安卓SDK可以通过Android Studio来安装。<br>调试的话使用命令react-native run-android，注意此时应启动安卓模拟器。</p><h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h2><ul><li>2018-01-08 <ul><li>使用<strong>ListView</strong>时，渲染数据对象应是数组，如果需要渲染返回的JSON对象，应该用<strong>response[\’data\’]</strong>来作为数组而不是<strong>response.data</strong></li><li>在<strong>ListView</strong>中的item使用点击事件，不要直接使用<strong>onPress={function()}</strong>,应该使用<strong>onPress={() =&gt; this.detail(rowData.name)}</strong>，否则会渲染N次点击事件，原因不明。</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;React-Native-折腾笔记&quot;&gt;&lt;a href=&quot;#React-Native-折腾笔记&quot; class=&quot;headerlink&quot; title=&quot;React-Native 折腾笔记&quot;&gt;&lt;/a&gt;React-Native 折腾笔记&lt;/h1&gt;&lt;p&gt;老头子教授真的是默认
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="https://zx19951110.github.io/ZX.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="前端" scheme="https://zx19951110.github.io/ZX.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>centos 安装 phpMyadmin</title>
