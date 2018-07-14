@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="老战博客">
 <meta property="og:description" content="知识点总结(不定时更新)2018-07-12数据库事务四个特性ACID  原子性（Atomicity）： 操作要么全部完成，要么全部回滚。 一致性（Consistency）： 事务使数据库的一个一致性状态变为另一个一致性状态，事务执行不改变数据库一致性。 隔离性（Isolation）： 多用户事务并发访问事务之间隔离。 持久性（Durability）： 持久性是指一个事务一旦被提交了，那么对数据库">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-13T06:06:13.864Z">
+<meta property="og:updated_time" content="2018-07-14T07:50:20.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知识点总结(不定时更新)">
 <meta name="twitter:description" content="知识点总结(不定时更新)2018-07-12数据库事务四个特性ACID  原子性（Atomicity）： 操作要么全部完成，要么全部回滚。 一致性（Consistency）： 事务使数据库的一个一致性状态变为另一个一致性状态，事务执行不改变数据库一致性。 隔离性（Isolation）： 多用户事务并发访问事务之间隔离。 持久性（Durability）： 持久性是指一个事务一旦被提交了，那么对数据库">
@@ -406,6 +406,57 @@ console.log( b )  // [5,2]
 <li><p>对象和数组是通过引用来赋值的，所以改变a的同时b也会跟着改变。</p>
 </li>
 </ul>
+<h2 id="2018-07-14"><a href="#2018-07-14" class="headerlink" title="2018-07-14"></a>2018-07-14</h2><h3 id="排序算法相关"><a href="#排序算法相关" class="headerlink" title="排序算法相关"></a>排序算法相关</h3><p><strong>归并排序、冒泡排序、插入排序、基数排序是稳定的</strong></p>
+<p><strong>选择排序、快速排序、希尔排序、堆排序是不稳定的</strong></p>
+<ul>
+<li>冒泡    平均O(n2）  最大O(n2)     稳定     n小时较好</li>
+<li>选择    平均O(n2)   最大O(n2)    不稳定    n小时较好</li>
+<li>插入    平均O(n2)    最大O(n2)    稳定    大部分已排序时较好</li>
+<li>快速    平均小O(nlogn)     最大O(n2)    不稳定    n大时较好</li>
+<li>归并    平均小O(nlogn)     最大O(nlogn)    稳定        n大时较好</li>
+<li>堆     平均O(nlogn)     最大O(nlogn)    不稳定    n大时较好</li>
+</ul>
+<p><a href="https://www.cnblogs.com/dll-ft/p/5861210.html" target="_blank" rel="external">排序思想</a></p>
+<h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><p>ECMA数组大小可调整，当把一个值放在超出当前数组大小的位置上时，数组就会重新计算长度值，即长度值等于最后一项的索引加一，前面的值都自动被赋值为了undefined了。</p>
+<p>相同的域：域名，协议，端口都相同</p>
+<p>if (obj) 等价于 if (toBoolean(obj)) 而不是If (obj != null )</p>
+<h3 id="CSS3"><a href="#CSS3" class="headerlink" title="CSS3"></a>CSS3</h3><ul>
+<li>行内元素有：a b span img input select strong </li>
+<li>块级元素有：div ul ol li dl dt dd h1 h2 h3 h4…p</li>
+<li>常见的空元素： <br\> <hr\> <img\> <input\> <link\> <meta\></meta\></link\></input\></img\></hr\></br\></li>
+</ul>
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><p>php 支持一个错误控制运算符：@。当将其放置在一个 php 表达式之前，该表达式可能产生的任何错误信息都被忽略掉</p>
+<p>php实例化类无参数可不带括号</p>
+<p>对关联数组新增不带键的元素，若前面的元素有数字（或数字字符）键，新增元素的键为前面最大的数字加1。若前面的元素无数字键，新增元素的键为0。</p>
+<p>bool  empty  (  mixed $var )<br>如果 var 是非空或非零的值，则  empty()  返回 FALSE。换句话说，””、0、”0”、NULL、FALSE、array()、var $var; 以及没有任何属性的对象都将被认为是空的，如果 var 为空，则返回 TRUE。</p>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>递归是栈实现的。栈是先进后出,也就是上次递归调用的时候,保存在栈顶</p>
+<p>递归次数可使用多项式展开思想</p>
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><p>final 变量：</p>
+<p>final 变量能被显式地初始化并且只能初始化一次。被声明为 final 的对象的引用不能指向不同的对象。但是 final 对象里的数据可以被改变。也就是说 final 对象的引用不能改变，但是里面的值可以改变。</p>
+<p>final 修饰符通常和 static 修饰符一起使用来创建类常量。</p>
+<p>final 方法：</p>
+<p>类中的 final 方法可以被子类继承，但是不能被子类修改。</p>
+<p>声明 final 方法的主要目的是防止该方法的内容被修改。</p>
+<p>如下所示，使用 final 修饰符声明方法。</p>
+<p>final 类：</p>
+<p>final 类不能被继承，没有类能够继承 final 类的任何特性。</p>
+<p>==强调栈中的比较，可以理解为地址比较<br>，equals强调对象的内容比较</p>
+<p>子类的构造方法总是先调用父类的构造方法，如果子类的构造方法没有明显地指明使用父类的哪个构造方法，子类就调用父类不带参数的构造方法。子类的构造方法的第一行隐式的默认调用父类的无参构造器即super()</p>
+<h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><p>DDL：数据库模式定义语言，关键字：create</p>
+<p>DML：数据操纵语言，关键字：Insert、delete、update</p>
+<p>DCL：数据库控制语言 ，关键字：grant、remove</p>
+<p>DQL：数据库查询语言，关键字：select</p>
+<p>当要删除的记录在数据库中不存在的时候，是不会报错的。</p>
+<p>HAVING子句在聚合后对组记录进行筛选，HAVING在查询语句中必须依赖于GROUP BY</p>
+<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>二叉树的性质</p>
+<p>性质1：二叉树第i层上的结点数目最多为2i-1(i&gt;=1)</p>
+<p>性质2：深度为k的二叉树至多有2k-1个结点（k&gt;=1）</p>
+<p>性质3：包含n个结点的二叉树的高度至少为(log2n)+1</p>
+<p>性质4：在任意一棵二叉树中，若终端结点的个数为n0，度为2的结点数为n2，则n0=n2+1</p>
+<p>性质5：如果一棵完全二叉树的结点总数为n，那么叶子结点等于n/2（当n为偶数时）或者(n+1)/2（当n为奇数时）</p>
+<p>先序遍历：（1）访问根节点；（2）采用先序递归遍历左子树；（3）采用先序递归遍历右子树；</p>
+<p>中序遍历：（1）采用中序遍历左子树；（2）访问根节点；（3）采用中序遍历右子树</p>
+<p>后序遍历：（1）采用后序递归遍历左子树；（2）采用后序递归遍历右子树；（3）访问根节点；</p>
 
       
     </div>
@@ -615,7 +666,7 @@ console.log( b )  // [5,2]
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点总结-不定时更新"><span class="nav-number">1.</span> <span class="nav-text">知识点总结(不定时更新)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-12"><span class="nav-number">1.1.</span> <span class="nav-text">2018-07-12</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库事务四个特性"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据库事务四个特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql四个隔离级别"><span class="nav-number">1.1.2.</span> <span class="nav-text">mysql四个隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB与MyISAM区别"><span class="nav-number">1.1.3.</span> <span class="nav-text">InnoDB与MyISAM区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA内存堆栈"><span class="nav-number">1.1.4.</span> <span class="nav-text">JAVA内存堆栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript闭包"><span class="nav-number">1.1.5.</span> <span class="nav-text">JavaScript闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递赋值与引用赋值"><span class="nav-number">1.1.6.</span> <span class="nav-text">传递赋值与引用赋值</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点总结-不定时更新"><span class="nav-number">1.</span> <span class="nav-text">知识点总结(不定时更新)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-12"><span class="nav-number">1.1.</span> <span class="nav-text">2018-07-12</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库事务四个特性"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据库事务四个特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql四个隔离级别"><span class="nav-number">1.1.2.</span> <span class="nav-text">mysql四个隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB与MyISAM区别"><span class="nav-number">1.1.3.</span> <span class="nav-text">InnoDB与MyISAM区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA内存堆栈"><span class="nav-number">1.1.4.</span> <span class="nav-text">JAVA内存堆栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript闭包"><span class="nav-number">1.1.5.</span> <span class="nav-text">JavaScript闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递赋值与引用赋值"><span class="nav-number">1.1.6.</span> <span class="nav-text">传递赋值与引用赋值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-14"><span class="nav-number">1.2.</span> <span class="nav-text">2018-07-14</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法相关"><span class="nav-number">1.2.1.</span> <span class="nav-text">排序算法相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.2.2.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3"><span class="nav-number">1.2.3.</span> <span class="nav-text">CSS3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP"><span class="nav-number">1.2.4.</span> <span class="nav-text">PHP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归"><span class="nav-number">1.2.5.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">1.2.6.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL"><span class="nav-number">1.2.7.</span> <span class="nav-text">SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树"><span class="nav-number">1.2.8.</span> <span class="nav-text">二叉树</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
