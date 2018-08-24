@@ -112,7 +112,8 @@
 <meta property="og:image" content="https://uploadfiles.nowcoder.net/images/20160731/213669_1469934373582_04341C4C965D57F74167CCE72D2EAF7B">
 <meta property="og:image" content="https://uploadfiles.nowcoder.net/images/20160731/213669_1469934384802_F3CB514AAFC503A1BCD00D1B81F87ED1">
 <meta property="og:image" content="https://uploadfiles.nowcoder.net/images/20170623/2527957_1498180954324_D83CBF646B3F43FE947460F6D7231780">
-<meta property="og:updated_time" content="2018-08-07T12:50:57.119Z">
+<meta property="og:image" content="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=ea3d88e2269759ee4a5067cd8ac0242b/94cad1c8a786c9179df9bed6c93d70cf3ac75763.jpg">
+<meta property="og:updated_time" content="2018-08-18T10:41:40.003Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知识点总结(不定时更新)">
 <meta name="twitter:description" content="知识点总结(不定时更新)2018-07-12数据库事务四个特性ACID  原子性（Atomicity）： 操作要么全部完成，要么全部回滚。 一致性（Consistency）： 事务使数据库的一个一致性状态变为另一个一致性状态，事务执行不改变数据库一致性。 隔离性（Isolation）： 多用户事务并发访问事务之间隔离。 持久性（Durability）： 持久性是指一个事务一旦被提交了，那么对数据库">
@@ -460,11 +461,12 @@ console.log( b )  // [5,2]
 <p>当要删除的记录在数据库中不存在的时候，是不会报错的。</p>
 <p>HAVING子句在聚合后对组记录进行筛选，HAVING在查询语句中必须依赖于GROUP BY</p>
 <h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>二叉树的性质</p>
-<p>性质1：二叉树第i层上的结点数目最多为2i-1(i&gt;=1)</p>
-<p>性质2：深度为k的二叉树至多有2k-1个结点（k&gt;=1）</p>
+<p>性质1：二叉树第i层上的结点数目最多为2^(i-1)(i&gt;=1)</p>
+<p>性质2：深度为k的二叉树至多有2^k-1个结点（k&gt;=1） 至少k个</p>
 <p>性质3：包含n个结点的二叉树的高度至少为(log2n)+1</p>
 <p>性质4：在任意一棵二叉树中，若终端结点的个数为n0，度为2的结点数为n2，则n0=n2+1</p>
-<p>性质5：如果一棵完全二叉树的结点总数为n，那么叶子结点等于n/2（当n为偶数时）或者(n+1)/2（当n为奇数时）</p>
+<p>性质5：如果一棵完全二叉树的结点总数为n，那么叶子结点等于n</p>
+<p>（当n为偶数时）或者(n+1)/2（当n为奇数时）</p>
 <p>先序遍历：（1）访问根节点；（2）采用先序递归遍历左子树；（3）采用先序递归遍历右子树；</p>
 <p>中序遍历：（1）采用中序遍历左子树；（2）访问根节点；（3）采用中序遍历右子树</p>
 <p>后序遍历：（1）采用后序递归遍历左子树；（2）采用后序递归遍历右子树；（3）访问根节点；</p>
@@ -795,6 +797,116 @@ table 1.column_name=table 2.column_name
 <li>final类—不可被继承。  </li>
 <li>final方法—不可被覆盖。</li>
 </ul>
+<h2 id="2018-08-08"><a href="#2018-08-08" class="headerlink" title="2018-08-08"></a>2018-08-08</h2><h3 id="二叉树-1"><a href="#二叉树-1" class="headerlink" title="二叉树"></a>二叉树</h3><p>已知一棵二叉树的前序序列和中序序列，构造该二叉树的过程如下：</p>
+<ol>
+<li>根据前序序列的第一个元素建立根结点；</li>
+<li>在中序序列中找到该元素，确定根结点的左右子树的中序序列；</li>
+<li>在前序序列中确定左右子树的前序序列；</li>
+<li>由左子树的前序序列和中序序列建立左子树；</li>
+<li>由右子树的前序序列和中序序列建立右子树。</li>
+</ol>
+<p>已知一棵二叉树的后序序列和中序序列，构造该二叉树的过程如下：</p>
+<ol>
+<li>根据后序序列的最后一个元素建立根结点；</li>
+<li>在中序序列中找到该元素，确定根结点的左右子树的中序序列；</li>
+<li>在后序序列中确定左右子树的后序序列；</li>
+<li>由左子树的后序序列和中序序列建立左子树；</li>
+<li>由右子树的后序序列和中序序列建立右子树。</li>
+</ol>
+<p>只给出先序遍历和后序遍历不能唯一确定二叉树的例子</p>
+<p>二叉树分类：</p>
+<ul>
+<li><p>满二叉树: 除了叶子结点之外的每一个结点都有两个孩子，每一层(当然包含最后一层)都被完全填充。</p>
+</li>
+<li><p>完全二叉树: 除了最后一层之外的其他每一层都被完全填充，并且所有结点都保持向左对齐。</p>
+</li>
+</ul>
+<p>完全二叉书&lt;满二叉树</p>
+<p><strong>二叉排序树</strong>:</p>
+<p>二叉排序树或者是一棵空树，或者是具有下列性质的二叉树：</p>
+<p>（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；</p>
+<p>（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；</p>
+<p>（3）左、右子树也分别为二叉排序树；</p>
+<p>（4）二叉排序树中序遍历为从大到小的顺序；</p>
+<p><img src="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=ea3d88e2269759ee4a5067cd8ac0242b/94cad1c8a786c9179df9bed6c93d70cf3ac75763.jpg" alt="二叉排序树"></p>
+<p>二叉排序树查找：<br>要在二叉树中找出查找最大最小元素是极简单的事情，从根节点一直往左走，直到无路可走就可得到最小值；从根节点一直往右走，直到无路可走，就可以得到最大值。</p>
+<p>二叉排序树插入：<br>插入新元素时，可以从根节点开始，遇键值较大者就向左，遇键值较小者就向右，一直到末端，就是插入点。 </p>
+<p>二叉排序树删除：<br>对于二叉排序树中的节点A，对它的删除分为两种情况： </p>
+<ul>
+<li>如果A只有一个子节点，就直接将A的子节点连至A的父节点上，并将A删除；</li>
+<li>如果A有两个子节点，我们就以右子树内的最小节点取代A</li>
+</ul>
+<p><strong>平衡二叉树</strong>：</p>
+<p>【平衡特性1】：左子树的深度和右子树的深度相差不能超过1</p>
+<p>【平衡特性2】它的左右子树也要是平衡二叉树</p>
+<p><strong>二叉线索树</strong>：</p>
+<p>结点结构图：</p>
+<pre><code>LChild  Ltag   Data  Rtag   RChild 
+</code></pre><p>如果有左孩子，则LChild继续指向左孩子，否则，指向该结点的前驱结点。</p>
+<p>如果有右孩子，则RChild继续指向右孩子，否则，指向该结点的后继结点。</p>
+<p>Ltag 用来标记是 左孩子（Ltag = 0）还是 前驱结点 （Ltag = 1）</p>
+<p>Rtag 用来标记是 右孩子(Rtag = 0) 还是 后继结点  (Rtag = 1)</p>
+<p>前驱节点</p>
+<ul>
+<li>若一个节点有左子树，那么该节点的前驱节点是其左子树中val值最大的节点</li>
+<li>若一个节点没有左子树，那么判断该节点和其父节点的关系 <ul>
+<li>若该节点是其父节点的右边孩子，那么该节点的前驱结点即为其父节点。 </li>
+<li>若该节点是其父节点的左边孩子，那么需要沿着其父亲节点一直向树的顶端寻找，直到找到一个节点P，P节点是其父节点Q的右边孩子，那么Q就是该节点的前驱</li>
+</ul>
+</li>
+</ul>
+<p>后继节点（类比前驱结点）</p>
+<ul>
+<li>若一个节点有右子树，那么该节点的后继节点是其右子树中val值最小的节点</li>
+<li>若一个节点没有右子树，那么判断该节点和其父节点的关系 <ul>
+<li>若该节点是其父节点的左边孩子，那么该节点的后继结点即为其父节点。 </li>
+<li>若该节点是其父节点的右边孩子，那么需要沿着其父亲节点一直向树的顶端寻找，直到找到一个节点P，P节点是其父节点Q的左边孩子，那么Q就是该节点的后继节点</li>
+</ul>
+</li>
+</ul>
+<p>n结点的二叉链表共有2n个链域，非空链域为n-1个，但其中的空链域却有n+1个</p>
+<h2 id="2018-08-10"><a href="#2018-08-10" class="headerlink" title="2018-08-10"></a>2018-08-10</h2><h3 id="JavaScript-6"><a href="#JavaScript-6" class="headerlink" title="JavaScript"></a>JavaScript</h3><p>关于var作用域问题</p>
+<ul>
+<li><p>var定义的变量会存在变量提升，会被提升到定义它的函数顶部</p>
+<pre><code>function f(){
+    //some actions()
+    var a = 1；
+} 
+
+等价于
+
+function f(){
+    var a //a == undefined
+    //some actions()
+    a = 1
+}
+</code></pre></li>
+<li><p>不添加var定义的变量相当于全局变量，无论是在函数内还是函数外。</p>
+</li>
+<li><p><strong>但是有这么个情况</strong></p>
+<pre><code>aa = 1；
+function test (aa){
+  aa = 2;
+    alert(aa) //输出2
+}
+test(aa)
+alert(aa)//输出1
+</code></pre></li>
+</ul>
+<p><strong>看似在function中更改了全局变量2 应该输出2,2,但是function函数形参变量名仍为aa，所以相当于在函数体内隐式定义 var aa，所以函数体内aa相当于函数内局部变量，并没有修改全局aa</strong></p>
+<h2 id="2018-08-11"><a href="#2018-08-11" class="headerlink" title="2018-08-11"></a>2018-08-11</h2><h3 id="JavaScript-7"><a href="#JavaScript-7" class="headerlink" title="JavaScript"></a>JavaScript</h3><p><strong>前端缓存机制</strong></p>
+<p>通过header中的cache-control字段来控制前端缓存机制</p>
+<ul>
+<li>public 客户端与缓存代理服务器可以缓存</li>
+<li>private 只能客户端进行缓存</li>
+<li>expires 缓存过期时间</li>
+<li>max-age 设定缓存过期时间（秒）可覆盖expires</li>
+<li>no-cache 浏览器发送请求标识符到服务器做验证（协商缓存）<ul>
+<li>request携带if-modified-science 与 response中的last-modified进行对比，如果last-modified &gt; if-modified-science，则从服务器返回资源，（status 200），否则使用硬盘缓存资源（status 304）</li>
+</ul>
+</li>
+<li>no-store 浏览器不进行缓存。</li>
+</ul>
 
       
     </div>
@@ -1004,7 +1116,7 @@ table 1.column_name=table 2.column_name
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点总结-不定时更新"><span class="nav-number">1.</span> <span class="nav-text">知识点总结(不定时更新)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-12"><span class="nav-number">1.1.</span> <span class="nav-text">2018-07-12</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库事务四个特性"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据库事务四个特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql四个隔离级别"><span class="nav-number">1.1.2.</span> <span class="nav-text">mysql四个隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB与MyISAM区别"><span class="nav-number">1.1.3.</span> <span class="nav-text">InnoDB与MyISAM区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA内存堆栈"><span class="nav-number">1.1.4.</span> <span class="nav-text">JAVA内存堆栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript闭包"><span class="nav-number">1.1.5.</span> <span class="nav-text">JavaScript闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递赋值与引用赋值"><span class="nav-number">1.1.6.</span> <span class="nav-text">传递赋值与引用赋值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-14"><span class="nav-number">1.2.</span> <span class="nav-text">2018-07-14</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法相关"><span class="nav-number">1.2.1.</span> <span class="nav-text">排序算法相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.2.2.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3"><span class="nav-number">1.2.3.</span> <span class="nav-text">CSS3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP"><span class="nav-number">1.2.4.</span> <span class="nav-text">PHP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归"><span class="nav-number">1.2.5.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">1.2.6.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL"><span class="nav-number">1.2.7.</span> <span class="nav-text">SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树"><span class="nav-number">1.2.8.</span> <span class="nav-text">二叉树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-19"><span class="nav-number">1.3.</span> <span class="nav-text">2018-07-19</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">JavaScript</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-20"><span class="nav-number">1.4.</span> <span class="nav-text">2018-07-20</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">JavaScript</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-12-1"><span class="nav-number">1.5.</span> <span class="nav-text">2018-07-12</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-3"><span class="nav-number">1.5.1.</span> <span class="nav-text">JavaScript</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-24"><span class="nav-number">1.6.</span> <span class="nav-text">2018-07-24</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA"><span class="nav-number">1.6.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-25"><span class="nav-number">1.7.</span> <span class="nav-text">2018-07-25</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA-1"><span class="nav-number">1.7.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-25-1"><span class="nav-number">1.8.</span> <span class="nav-text">2018-07-25</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis"><span class="nav-number">1.8.1.</span> <span class="nav-text">Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-1"><span class="nav-number">1.8.2.</span> <span class="nav-text">SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-4"><span class="nav-number">1.8.3.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-5"><span class="nav-number">1.8.4.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-1"><span class="nav-number">1.8.5.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-1"><span class="nav-number">1.8.6.</span> <span class="nav-text">PHP</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点总结-不定时更新"><span class="nav-number">1.</span> <span class="nav-text">知识点总结(不定时更新)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-12"><span class="nav-number">1.1.</span> <span class="nav-text">2018-07-12</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库事务四个特性"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据库事务四个特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql四个隔离级别"><span class="nav-number">1.1.2.</span> <span class="nav-text">mysql四个隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB与MyISAM区别"><span class="nav-number">1.1.3.</span> <span class="nav-text">InnoDB与MyISAM区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA内存堆栈"><span class="nav-number">1.1.4.</span> <span class="nav-text">JAVA内存堆栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript闭包"><span class="nav-number">1.1.5.</span> <span class="nav-text">JavaScript闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递赋值与引用赋值"><span class="nav-number">1.1.6.</span> <span class="nav-text">传递赋值与引用赋值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-14"><span class="nav-number">1.2.</span> <span class="nav-text">2018-07-14</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法相关"><span class="nav-number">1.2.1.</span> <span class="nav-text">排序算法相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.2.2.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS3"><span class="nav-number">1.2.3.</span> <span class="nav-text">CSS3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP"><span class="nav-number">1.2.4.</span> <span class="nav-text">PHP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归"><span class="nav-number">1.2.5.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">1.2.6.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL"><span class="nav-number">1.2.7.</span> <span class="nav-text">SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树"><span class="nav-number">1.2.8.</span> <span class="nav-text">二叉树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-19"><span class="nav-number">1.3.</span> <span class="nav-text">2018-07-19</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">JavaScript</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-20"><span class="nav-number">1.4.</span> <span class="nav-text">2018-07-20</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">JavaScript</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-12-1"><span class="nav-number">1.5.</span> <span class="nav-text">2018-07-12</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-3"><span class="nav-number">1.5.1.</span> <span class="nav-text">JavaScript</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-24"><span class="nav-number">1.6.</span> <span class="nav-text">2018-07-24</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA"><span class="nav-number">1.6.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-25"><span class="nav-number">1.7.</span> <span class="nav-text">2018-07-25</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA-1"><span class="nav-number">1.7.1.</span> <span class="nav-text">JAVA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-07-25-1"><span class="nav-number">1.8.</span> <span class="nav-text">2018-07-25</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis"><span class="nav-number">1.8.1.</span> <span class="nav-text">Redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL-1"><span class="nav-number">1.8.2.</span> <span class="nav-text">SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-4"><span class="nav-number">1.8.3.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-5"><span class="nav-number">1.8.4.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-1"><span class="nav-number">1.8.5.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP-1"><span class="nav-number">1.8.6.</span> <span class="nav-text">PHP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-08-08"><span class="nav-number">1.9.</span> <span class="nav-text">2018-08-08</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树-1"><span class="nav-number">1.9.1.</span> <span class="nav-text">二叉树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-08-10"><span class="nav-number">1.10.</span> <span class="nav-text">2018-08-10</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-6"><span class="nav-number">1.10.1.</span> <span class="nav-text">JavaScript</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-08-11"><span class="nav-number">1.11.</span> <span class="nav-text">2018-08-11</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-7"><span class="nav-number">1.11.1.</span> <span class="nav-text">JavaScript</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
