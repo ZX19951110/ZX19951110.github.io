@@ -108,7 +108,21 @@
 <meta property="og:image" content="https://images0.cnblogs.com/blog/138012/201409/251448515607115.png">
 <meta property="og:image" content="https://uploadfiles.nowcoder.net/images/20160731/213669_1469934373582_04341C4C965D57F74167CCE72D2EAF7B">
 <meta property="og:image" content="https://uploadfiles.nowcoder.net/images/20160731/213669_1469934384802_F3CB514AAFC503A1BCD00D1B81F87ED1">
-<meta property="og:updated_time" content="2018-10-24T11:08:35.324Z">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071005.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071006.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071010.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071011.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071012.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071013.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071014.png">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071015.jpg">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071016.png">
+<meta property="og:image" content="https://images0.cnblogs.com/blog2015/608782/201504/211706247502238.jpg">
+<meta property="og:image" content="https://images0.cnblogs.com/blog2015/608782/201504/211733434531605.jpg">
+<meta property="og:image" content="https://images0.cnblogs.com/blog2015/608782/201504/211807460315685.jpg">
+<meta property="og:image" content="https://images0.cnblogs.com/blog2015/608782/201504/211816323284565.jpg">
+<meta property="og:updated_time" content="2018-10-24T12:06:56.642Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端知识点总结">
 <meta name="twitter:description" content="前端知识点总结JavaScript数组ECMA数组大小可调整，当把一个值放在超出当前数组大小的位置上时，数组就会重新计算长度值，即长度值等于最后一项的索引加一，前面的值都自动被赋值为了undefined了。 同域相同的域：域名，协议，端口都相同 if判断if (obj) 等价于 if (toBoolean(obj)) 而不是If (obj != null ) JavaScript闭包调用闭包函数访">
@@ -581,13 +595,204 @@ alert(aa)//输出1
 </ul>
 <h3 id="布局方式"><a href="#布局方式" class="headerlink" title="布局方式"></a>布局方式</h3><p>常用5种布局方式<br><strong>static | relative | absolute | sticky(不常用) | fixed</strong></p>
 <ul>
-<li>absolute：不为元素预留空间，通过指定元素相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margins），且不会与其他边距合并。</li>
+<li>absolute：不为元素预留空间，通过指定元素相对于最近的非 static 定位（<strong>定义了position的父元素</strong>）祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margins），且不会与其他边距合并。</li>
 <li>static：该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top, right, bottom, left 和 z-index 属性无效。</li>
 <li>relative：该关键字下，元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）。position:relative 对 table-*-group, table-row, table-column, table-cell, table-caption 元素无效。</li>
 <li>fixed：不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变。打印时，元素会出现在的每页的固定位置。fixed 属性会创建新的层叠上下文。当元素祖先的 transform  属性非 none 时，容器由视口改为该祖先。</li>
 <li>sticky ：盒位置根据正常流计算(这称为正常流动中的位置)，然后相对于该元素在流中的 flow root（BFC）和 containing block（最近的块级祖先元素）定位。在所有情况下（即便被定位元素为 table 时），该元素定位均不对后续元素造成影响。当元素 B 被粘性定位时，后续元素的位置仍按照 B 未定位时的位置来确定。position: sticky 对 table 元素的效果与 position: relative 相同。</li>
 </ul>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" target="_blank" rel="external">参考</a></p>
+<h3 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h3><p>当你设置了元素的宽度，实际展现的元素却超出你的设置：这是因为元素的边框和内边距会撑开元素。<br>当你设置一个元素为 box-sizing: border-box; 时，此元素的内边距和边框不再会增加它的宽度。</p>
+<h3 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h3><ol>
+<li>使用 clear 指定对应元素左侧或者右侧没有浮动元素</li>
+<li>使用overflow关键字</li>
+</ol>
+<h3 id="百分比"><a href="#百分比" class="headerlink" title="百分比"></a>百分比</h3><p>百分比是一种相对于包含块的计量单位。对应父级元素的宽或高。</p>
+<h3 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h3><p>媒体查询是做此事所需的最强大的工具。使用百分比宽度来布局，然后在浏览器变窄到无法容纳侧边栏中的菜单时，把布局显示成一列：</p>
+<pre><code>@media screen and (min-width:600px) {
+  nav {
+    float: left;
+    width: 25%;
+  }
+  section {
+    margin-left: 25%;
+  }
+}
+@media screen and (max-width:599px) {
+  nav li {
+    display: inline;
+  }
+}
+</code></pre><h3 id="inline-block"><a href="#inline-block" class="headerlink" title="inline-block"></a>inline-block</h3><p>inline-box可以使元素达到横向浮动的效果，并且不需要让后续或者前面的元素清除浮动</p>
+<ul>
+<li>vertical-align 属性会影响到 inline-block 元素，你可能会把它的值设置为 top 。</li>
+<li>你需要设置每一列的宽度</li>
+<li>如果HTML源代码中元素之间有空格，那么列与列之间会产生空隙</li>
+</ul>
+<h3 id="flexbox布局"><a href="#flexbox布局" class="headerlink" title="flexbox布局"></a>flexbox布局</h3><p>新的布局标准，可能有些不规范与低兼容性</p>
+<p>Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
+<pre><code>display: flex //块级元素
+display: inline-flex //行内元素
+display: -webkit-flex; /* Safari */
+  display: flex
+</code></pre><p>设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。</p>
+<p>采用 Flex 布局的元素，称为 Flex 容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称”项目”。</p>
+<p>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。</p>
+<p>项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png" alt=""></p>
+<h3 id="flexbox布局常用属性"><a href="#flexbox布局常用属性" class="headerlink" title="flexbox布局常用属性"></a>flexbox布局常用属性</h3><ul>
+<li>flex-direction<ul>
+<li>lex-direction属性决定主轴的方向（即项目的排列方向）</li>
+<li>flex-direction: row | row-reverse | column | column-reverse;</li>
+<li><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071005.png" alt=""></li>
+</ul>
+</li>
+<li>flex-wrap<ul>
+<li>默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。</li>
+<li>flex-wrap: nowrap | wrap | wrap-reverse</li>
+<li><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071006.png" alt=""></li>
+</ul>
+</li>
+<li>flex-flow<ul>
+<li>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。</li>
+<li>flex-flow: <flex-direction> || <flex-wrap>;</flex-wrap></flex-direction></li>
+</ul>
+</li>
+<li>justify-content<ul>
+<li>justify-content属性定义了项目在主轴上的对齐方式。</li>
+<li>justify-content: flex-start | flex-end | center | space-between | space-around;</li>
+<li><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071010.png" alt=""></li>
+</ul>
+</li>
+<li>align-items<ul>
+<li>align-items属性定义项目在交叉轴上如何对齐。</li>
+<li>align-items: flex-start | flex-end | center | baseline | stretch;</li>
+<li><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071011.png" alt=""></li>
+</ul>
+</li>
+<li>align-content<ul>
+<li>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</li>
+<li>align-content: flex-start | flex-end | center | space-between | space-around | stretch;</li>
+<li><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071012.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<h3 id="flex布局的item属性"><a href="#flex布局的item属性" class="headerlink" title="flex布局的item属性"></a>flex布局的item属性</h3><ul>
+<li>order<ul>
+<li>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</li>
+<li><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071013.png" alt=""></li>
+</ul>
+</li>
+<li>flex-grow<ul>
+<li>flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</li>
+<li>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</li>
+<li><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071014.png" alt=""></li>
+</ul>
+</li>
+<li>flex-shrink<ul>
+<li>flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</li>
+<li>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。负值对该属性无效。</li>
+<li>flex-shrink: <number>; /<em> default 1 </em>/</number></li>
+<li><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071015.jpg" alt=""></li>
+</ul>
+</li>
+<li>flex-basis<ul>
+<li>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</li>
+<li>它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。</li>
+<li>flex-basis: <length> | auto; /<em> default auto </em>/</length></li>
+</ul>
+</li>
+<li>flex<ul>
+<li>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。</li>
+<li>该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。</li>
+<li>建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。</li>
+<li>flex: none | [ &lt;’flex-grow’&gt; &lt;’flex-shrink’&gt;? || &lt;’flex-basis’&gt; ]</li>
+</ul>
+</li>
+<li>align-self<ul>
+<li>align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</li>
+<li>align-self: auto | flex-start | flex-end | center | baseline | stretch;</li>
+<li><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071016.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<h3 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h3><ol>
+<li>行内元素： 要实现<strong>行内元素的水平居中</strong>，只需<strong>把行内元素包裹在块级父层元素中</strong>，并且在父层元素CSS设置<strong>text-align:center</strong></li>
+<li>块级元素： 要实现块状元素（display:block）的水平居中，我们只需要将它的左右外边距<strong>margin-left和margin-right设置为auto</strong>，即可实现块状元素的居中(<strong>需要设置宽度</strong>)</li>
+<li>多个块状元素的水平居中： </li>
+<li>要实现多个水平排列的块状元素的水平居中，传统的方法是<strong>将要水平排列的块状元素设为display:inline-block</strong>，然后在父级元素上设置<strong>text-align:center</strong></li>
+<li>使用flexbox实现多个块状元素的水平居中：<ol>
+<li>原理： flexbox由伸缩容器和伸缩项目组成。通过设置元素的display属性为flex或者inline-flex可以得到一个伸缩容器。设置为flex的容器被渲染为一个块级元素，而设置为inline-flex的容器则渲染为一个行内元素。而<strong>每一个被设置为flex的容器，它的内部元素都将变成一个flex项目</strong>，即是一个伸缩项目。简单的说，flex 定义了伸缩容器内伸缩项目该如何布局。</li>
+<li><strong>父级元素</strong>#container{<strong>justify-content:center;display:flex;</strong>}</li>
+</ol>
+</li>
+</ol>
+<h3 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h3><h4 id="已知高度宽度元素的水平垂直居中"><a href="#已知高度宽度元素的水平垂直居中" class="headerlink" title="已知高度宽度元素的水平垂直居中"></a>已知高度宽度元素的水平垂直居中</h4><p>1.绝对定位与负边距实现：</p>
+<p>利用绝对定位，将元素的top和left属性都设为50%，再利用margin边距，将元素回拉它本身高宽的一半，实现垂直居中。核心CSS代码如下：</p>
+<pre><code>#container{
+position:relative;
+}
+
+#center{
+width:100px;
+height:100px;
+position:absolute;
+top:50%;
+left:50%;
+margin:-50px 0 0 -50px;
+}
+</code></pre><p>2.绝对定位与margin</p>
+<p>这种方法也是利用绝对定位与margin，但是无需知道被垂直居中元素的高和宽。核心代码如下：</p>
+<pre><code>#container{
+position:relative;
+}
+
+#center{
+position:absolute;
+margin:auto;
+top:0;
+bottom:0;
+left:0;
+right:0;
+}
+</code></pre><p><img src="https://images0.cnblogs.com/blog2015/608782/201504/211706247502238.jpg" alt=""></p>
+<h4 id="未知高度和宽度元素的水平垂直居中"><a href="#未知高度和宽度元素的水平垂直居中" class="headerlink" title="未知高度和宽度元素的水平垂直居中"></a>未知高度和宽度元素的水平垂直居中</h4><p>1.当要被居中的元素是inline或者inline-block元素</p>
+<p>当要被居中的元素是inline或者inline-block的时候，可以巧妙的将父级容器设置为display:table-cell，配合text-align:center和vertical-align:middle即可以实现水平垂直居中。</p>
+<pre><code>#container{
+display:table-cell;
+text-align:center;
+vertical-align:middle;
+}
+
+#center{
+
+}
+</code></pre><p><img src="https://images0.cnblogs.com/blog2015/608782/201504/211733434531605.jpg" alt=""></p>
+<p>2.CSS3</p>
+<p>利用CSS3的transform，可以轻松的在未知元素的高宽的情况下实现元素的垂直居中。</p>
+<pre><code>#container{
+position:relative;
+}
+
+#center{
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+</code></pre><p><img src="https://images0.cnblogs.com/blog2015/608782/201504/211807460315685.jpg" alt=""></p>
+<p>3.flex布局</p>
+<p><strong>使用flex布局，无需绝对定位等改变布局的操作，可以轻松实现元素的水平垂直居中。</strong></p>
+<pre><code>#container{
+display:flex;
+justify-content:center;
+align-items: center;
+}
+
+#center{
+
+}
+</code></pre><p><img src="https://images0.cnblogs.com/blog2015/608782/201504/211816323284565.jpg" alt=""></p>
 
       
     </div>
@@ -803,7 +1008,7 @@ alert(aa)//输出1
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端知识点总结"><span class="nav-number">1.</span> <span class="nav-text">前端知识点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-number">1.1.1.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同域"><span class="nav-number">1.1.2.</span> <span class="nav-text">同域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if判断"><span class="nav-number">1.1.3.</span> <span class="nav-text">if判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript闭包"><span class="nav-number">1.1.4.</span> <span class="nav-text">JavaScript闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递赋值与引用赋值"><span class="nav-number">1.1.5.</span> <span class="nav-text">传递赋值与引用赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined-与-null"><span class="nav-number">1.1.6.</span> <span class="nav-text">undefined 与 null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var-self-this"><span class="nav-number">1.1.7.</span> <span class="nav-text">var self = this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var变量"><span class="nav-number">1.1.8.</span> <span class="nav-text">var变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var、let、const"><span class="nav-number">1.1.9.</span> <span class="nav-text">var、let、const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prototype"><span class="nav-number">1.1.10.</span> <span class="nav-text">Prototype</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">1.1.11.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6特性"><span class="nav-number">1.1.12.</span> <span class="nav-text">ES6特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this指向"><span class="nav-number">1.1.13.</span> <span class="nav-text">this指向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域方式"><span class="nav-number">1.1.14.</span> <span class="nav-text">跨域方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器端常用储存技术："><span class="nav-number">1.1.15.</span> <span class="nav-text">浏览器端常用储存技术：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript内部对象"><span class="nav-number">1.1.16.</span> <span class="nav-text">JavaScript内部对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的页面的图片格式"><span class="nav-number">1.1.17.</span> <span class="nav-text">常用的页面的图片格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie结束时间"><span class="nav-number">1.1.18.</span> <span class="nav-text">cookie结束时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不添加var的变量"><span class="nav-number">1.1.19.</span> <span class="nav-text">不添加var的变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端缓存机制"><span class="nav-number">1.1.20.</span> <span class="nav-text">前端缓存机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-CSS"><span class="nav-number">1.2.</span> <span class="nav-text">HTML+CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#行内元素与块级元素"><span class="nav-number">1.2.1.</span> <span class="nav-text">行内元素与块级元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行级元素与块级元素区别"><span class="nav-number">1.2.2.</span> <span class="nav-text">行级元素与块级元素区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块级元素与行内元素的转换"><span class="nav-number">1.2.3.</span> <span class="nav-text">块级元素与行内元素的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局方式"><span class="nav-number">1.2.4.</span> <span class="nav-text">布局方式</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端知识点总结"><span class="nav-number">1.</span> <span class="nav-text">前端知识点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-number">1.1.1.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同域"><span class="nav-number">1.1.2.</span> <span class="nav-text">同域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if判断"><span class="nav-number">1.1.3.</span> <span class="nav-text">if判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript闭包"><span class="nav-number">1.1.4.</span> <span class="nav-text">JavaScript闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递赋值与引用赋值"><span class="nav-number">1.1.5.</span> <span class="nav-text">传递赋值与引用赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined-与-null"><span class="nav-number">1.1.6.</span> <span class="nav-text">undefined 与 null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var-self-this"><span class="nav-number">1.1.7.</span> <span class="nav-text">var self = this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var变量"><span class="nav-number">1.1.8.</span> <span class="nav-text">var变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#var、let、const"><span class="nav-number">1.1.9.</span> <span class="nav-text">var、let、const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prototype"><span class="nav-number">1.1.10.</span> <span class="nav-text">Prototype</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">1.1.11.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6特性"><span class="nav-number">1.1.12.</span> <span class="nav-text">ES6特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this指向"><span class="nav-number">1.1.13.</span> <span class="nav-text">this指向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域方式"><span class="nav-number">1.1.14.</span> <span class="nav-text">跨域方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器端常用储存技术："><span class="nav-number">1.1.15.</span> <span class="nav-text">浏览器端常用储存技术：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript内部对象"><span class="nav-number">1.1.16.</span> <span class="nav-text">JavaScript内部对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的页面的图片格式"><span class="nav-number">1.1.17.</span> <span class="nav-text">常用的页面的图片格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie结束时间"><span class="nav-number">1.1.18.</span> <span class="nav-text">cookie结束时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不添加var的变量"><span class="nav-number">1.1.19.</span> <span class="nav-text">不添加var的变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端缓存机制"><span class="nav-number">1.1.20.</span> <span class="nav-text">前端缓存机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-CSS"><span class="nav-number">1.2.</span> <span class="nav-text">HTML+CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#行内元素与块级元素"><span class="nav-number">1.2.1.</span> <span class="nav-text">行内元素与块级元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行级元素与块级元素区别"><span class="nav-number">1.2.2.</span> <span class="nav-text">行级元素与块级元素区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#块级元素与行内元素的转换"><span class="nav-number">1.2.3.</span> <span class="nav-text">块级元素与行内元素的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布局方式"><span class="nav-number">1.2.4.</span> <span class="nav-text">布局方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#box-sizing"><span class="nav-number">1.2.5.</span> <span class="nav-text">box-sizing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清除浮动"><span class="nav-number">1.2.6.</span> <span class="nav-text">清除浮动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百分比"><span class="nav-number">1.2.7.</span> <span class="nav-text">百分比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应式布局"><span class="nav-number">1.2.8.</span> <span class="nav-text">响应式布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inline-block"><span class="nav-number">1.2.9.</span> <span class="nav-text">inline-block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flexbox布局"><span class="nav-number">1.2.10.</span> <span class="nav-text">flexbox布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flexbox布局常用属性"><span class="nav-number">1.2.11.</span> <span class="nav-text">flexbox布局常用属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex布局的item属性"><span class="nav-number">1.2.12.</span> <span class="nav-text">flex布局的item属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#水平居中"><span class="nav-number">1.2.13.</span> <span class="nav-text">水平居中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垂直居中"><span class="nav-number">1.2.14.</span> <span class="nav-text">垂直居中</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#已知高度宽度元素的水平垂直居中"><span class="nav-number">1.2.14.1.</span> <span class="nav-text">已知高度宽度元素的水平垂直居中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#未知高度和宽度元素的水平垂直居中"><span class="nav-number">1.2.14.2.</span> <span class="nav-text">未知高度和宽度元素的水平垂直居中</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
