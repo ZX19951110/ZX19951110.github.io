@@ -1,0 +1,844 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="老战博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="算法知识点总结排序算法排序稳定性 归并排序、冒泡排序、插入排序、基数排序是稳定的  选择排序、快速排序、希尔排序、堆排序是不稳定的   时间复杂度 冒泡    平均O(n2）  最大O(n2)     稳定     n小时较好 选择    平均O(n2)   最大O(n2)    不稳定    n小时较好 插入    平均O(n2)    最大O(n2)    稳定    大部分已排序时较好 快速">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法知识点总结">
+<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2018/10/24/算法知识点总结/index.html">
+<meta property="og:site_name" content="老战博客">
+<meta property="og:description" content="算法知识点总结排序算法排序稳定性 归并排序、冒泡排序、插入排序、基数排序是稳定的  选择排序、快速排序、希尔排序、堆排序是不稳定的   时间复杂度 冒泡    平均O(n2）  最大O(n2)     稳定     n小时较好 选择    平均O(n2)   最大O(n2)    不稳定    n小时较好 插入    平均O(n2)    最大O(n2)    稳定    大部分已排序时较好 快速">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=ea3d88e2269759ee4a5067cd8ac0242b/94cad1c8a786c9179df9bed6c93d70cf3ac75763.jpg">
+<meta property="og:updated_time" content="2018-10-24T10:57:32.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法知识点总结">
+<meta name="twitter:description" content="算法知识点总结排序算法排序稳定性 归并排序、冒泡排序、插入排序、基数排序是稳定的  选择排序、快速排序、希尔排序、堆排序是不稳定的   时间复杂度 冒泡    平均O(n2）  最大O(n2)     稳定     n小时较好 选择    平均O(n2)   最大O(n2)    不稳定    n小时较好 插入    平均O(n2)    最大O(n2)    稳定    大部分已排序时较好 快速">
+<meta name="twitter:image" content="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=ea3d88e2269759ee4a5067cd8ac0242b/94cad1c8a786c9179df9bed6c93d70cf3ac75763.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zx19951110.github.io/ZX.github.io/2018/10/24/算法知识点总结/"/>
+
+
+
+
+
+  <title>算法知识点总结 | 老战博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">老战博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2018/10/24/算法知识点总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhanxu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老战博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法知识点总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-24T11:50:31+02:00">
+                2018-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="算法知识点总结"><a href="#算法知识点总结" class="headerlink" title="算法知识点总结"></a>算法知识点总结</h1><h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h2><h3 id="排序稳定性"><a href="#排序稳定性" class="headerlink" title="排序稳定性"></a>排序稳定性</h3><ul>
+<li><p>归并排序、冒泡排序、插入排序、基数排序是稳定的</p>
+</li>
+<li><p>选择排序、快速排序、希尔排序、堆排序是不稳定的</p>
+</li>
+</ul>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><ul>
+<li>冒泡    平均O(n2）  最大O(n2)     稳定     n小时较好</li>
+<li>选择    平均O(n2)   最大O(n2)    不稳定    n小时较好</li>
+<li>插入    平均O(n2)    最大O(n2)    稳定    大部分已排序时较好</li>
+<li>快速    平均小O(nlogn)     最大O(n2)    不稳定    n大时较好</li>
+<li>归并    平均小O(nlogn)     最大O(nlogn)    稳定        n大时较好</li>
+<li>堆     平均O(nlogn)     最大O(nlogn)    不稳定    n大时较好</li>
+</ul>
+<p><a href="https://www.cnblogs.com/dll-ft/p/5861210.html" target="_blank" rel="external">排序思想</a></p>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h3><p>性质1：二叉树第i层上的结点数目最多为2^(i-1)(i&gt;=1)</p>
+<p>性质2：深度为k的二叉树至多有2^k-1个结点（k&gt;=1） 至少k个</p>
+<p>性质3：包含n个结点的二叉树的高度至少为(log2n)+1</p>
+<p>性质4：在任意一棵二叉树中，若终端结点的个数为n0，度为2的结点数为n2，则n0=n2+1</p>
+<p>性质5：如果一棵完全二叉树的结点总数为n，那么叶子结点等于n （当n为偶数时）或者(n+1)/2（当n为奇数时）</p>
+<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>先序遍历：（1）访问根节点；（2）采用先序递归遍历左子树；（3）采用先序递归遍历右子树；</p>
+<p>中序遍历：（1）采用中序遍历左子树；（2）访问根节点；（3）采用中序遍历右子树</p>
+<p>后序遍历：（1）采用后序递归遍历左子树；（2）采用后序递归遍历右子树；（3）访问根节点；</p>
+<h3 id="二叉树构建"><a href="#二叉树构建" class="headerlink" title="二叉树构建"></a>二叉树构建</h3><p>已知一棵二叉树的前序序列和中序序列，构造该二叉树的过程如下：</p>
+<ol>
+<li>根据前序序列的第一个元素建立根结点；</li>
+<li>在中序序列中找到该元素，确定根结点的左右子树的中序序列；</li>
+<li>在前序序列中确定左右子树的前序序列；</li>
+<li>由左子树的前序序列和中序序列建立左子树；</li>
+<li>由右子树的前序序列和中序序列建立右子树。</li>
+</ol>
+<p>已知一棵二叉树的后序序列和中序序列，构造该二叉树的过程如下：</p>
+<ol>
+<li>根据后序序列的最后一个元素建立根结点；</li>
+<li>在中序序列中找到该元素，确定根结点的左右子树的中序序列；</li>
+<li>在后序序列中确定左右子树的后序序列；</li>
+<li>由左子树的后序序列和中序序列建立左子树；</li>
+<li>由右子树的后序序列和中序序列建立右子树。</li>
+</ol>
+<p>只给出先序遍历和后序遍历不能唯一确定二叉树的例子</p>
+<h3 id="二叉排序树"><a href="#二叉排序树" class="headerlink" title="二叉排序树"></a>二叉排序树</h3><p>二叉排序树或者是一棵空树，或者是具有下列性质的二叉树：</p>
+<p>（1）若左子树不空，则左子树上所有结点的值均小于或等于它的根结点的值；</p>
+<p>（2）若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值；</p>
+<p>（3）左、右子树也分别为二叉排序树；</p>
+<p>（4）二叉排序树中序遍历为从大到小的顺序；</p>
+<p><img src="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=ea3d88e2269759ee4a5067cd8ac0242b/94cad1c8a786c9179df9bed6c93d70cf3ac75763.jpg" alt="二叉排序树"></p>
+<p>二叉排序树查找：<br>要在二叉树中找出查找最大最小元素是极简单的事情，从根节点一直往左走，直到无路可走就可得到最小值；从根节点一直往右走，直到无路可走，就可以得到最大值。</p>
+<p>二叉排序树插入：<br>插入新元素时，可以从根节点开始，遇键值较大者就向左，遇键值较小者就向右，一直到末端，就是插入点。 </p>
+<p>二叉排序树删除：<br>对于二叉排序树中的节点A，对它的删除分为两种情况： </p>
+<ul>
+<li>如果A只有一个子节点，就直接将A的子节点连至A的父节点上，并将A删除；</li>
+<li><p>如果A有两个子节点，我们就以右子树内的最小节点取代A</p>
+<h3 id="二叉树分类"><a href="#二叉树分类" class="headerlink" title="二叉树分类"></a>二叉树分类</h3></li>
+<li><p>满二叉树: 除了叶子结点之外的每一个结点都有两个孩子，每一层(当然包含最后一层)都被完全填充。</p>
+</li>
+<li><p>完全二叉树: 除了最后一层之外的其他每一层都被完全填充，并且所有结点都保持向左对齐。</p>
+</li>
+</ul>
+<p>完全二叉书&lt;满二叉树</p>
+<h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><p>【平衡特性1】：左子树的深度和右子树的深度相差不能超过1</p>
+<p>【平衡特性2】：它的左右子树也要是平衡二叉树</p>
+<h3 id="二叉线索树"><a href="#二叉线索树" class="headerlink" title="二叉线索树"></a>二叉线索树</h3><p>结点结构图：</p>
+<pre><code>LChild  Ltag   Data  Rtag   RChild 
+</code></pre><p>如果有左孩子，则LChild继续指向左孩子，否则，指向该结点的前驱结点。</p>
+<p>如果有右孩子，则RChild继续指向右孩子，否则，指向该结点的后继结点。</p>
+<p>Ltag 用来标记是 左孩子（Ltag = 0）还是 前驱结点 （Ltag = 1）</p>
+<p>Rtag 用来标记是 右孩子(Rtag = 0) 还是 后继结点  (Rtag = 1)</p>
+<p>前驱节点</p>
+<ul>
+<li>若一个节点有左子树，那么该节点的前驱节点是其左子树中val值最大的节点</li>
+<li>若一个节点没有左子树，那么判断该节点和其父节点的关系 <ul>
+<li>若该节点是其父节点的右边孩子，那么该节点的前驱结点即为其父节点。 </li>
+<li>若该节点是其父节点的左边孩子，那么需要沿着其父亲节点一直向树的顶端寻找，直到找到一个节点P，P节点是其父节点Q的右边孩子，那么Q就是该节点的前驱</li>
+</ul>
+</li>
+</ul>
+<p>后继节点（类比前驱结点）</p>
+<ul>
+<li>若一个节点有右子树，那么该节点的后继节点是其右子树中val值最小的节点</li>
+<li>若一个节点没有右子树，那么判断该节点和其父节点的关系 <ul>
+<li>若该节点是其父节点的左边孩子，那么该节点的后继结点即为其父节点。 </li>
+<li>若该节点是其父节点的右边孩子，那么需要沿着其父亲节点一直向树的顶端寻找，直到找到一个节点P，P节点是其父节点Q的左边孩子，那么Q就是该节点的后继节点</li>
+</ul>
+</li>
+</ul>
+<p>n结点的二叉链表共有2n个链域，非空链域为n-1个，但其中的空链域却有n+1个</p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><h3 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h3><p>递归是栈实现的。栈是先进后出,也就是上次递归调用的时候,保存在栈顶</p>
+<h3 id="递归思想"><a href="#递归思想" class="headerlink" title="递归思想"></a>递归思想</h3><p>递归次数可使用多项式展开思想</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/24/数据库知识点总结/" rel="next" title="数据库知识点总结">
+                <i class="fa fa-chevron-left"></i> 数据库知识点总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/24/前端知识点总结/" rel="prev" title="前端跨域方案">
+                前端跨域方案 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="zhanxu" />
+          <p class="site-author-name" itemprop="name">zhanxu</p>
+           
+              <p class="site-description motion-element" itemprop="description">老战的程序猿成长踩坑路程</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ZX19951110" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhan-xu-41/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://619186893.lofter.com/" target="_blank" title="Lofter">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Lofter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法知识点总结"><span class="nav-number">1.</span> <span class="nav-text">算法知识点总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#排序算法"><span class="nav-number">1.1.</span> <span class="nav-text">排序算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序稳定性"><span class="nav-number">1.1.1.</span> <span class="nav-text">排序稳定性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度"><span class="nav-number">1.1.2.</span> <span class="nav-text">时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树"><span class="nav-number">1.2.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的性质"><span class="nav-number">1.2.1.</span> <span class="nav-text">二叉树的性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历"><span class="nav-number">1.2.2.</span> <span class="nav-text">遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树构建"><span class="nav-number">1.2.3.</span> <span class="nav-text">二叉树构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉排序树"><span class="nav-number">1.2.4.</span> <span class="nav-text">二叉排序树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树分类"><span class="nav-number">1.2.5.</span> <span class="nav-text">二叉树分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平衡二叉树"><span class="nav-number">1.2.6.</span> <span class="nav-text">平衡二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉线索树"><span class="nav-number">1.2.7.</span> <span class="nav-text">二叉线索树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">1.3.</span> <span class="nav-text">递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#递归实现"><span class="nav-number">1.3.1.</span> <span class="nav-text">递归实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归思想"><span class="nav-number">1.3.2.</span> <span class="nav-text">递归思想</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhanxu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
