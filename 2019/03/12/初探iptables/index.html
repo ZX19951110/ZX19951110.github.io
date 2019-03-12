@@ -1,0 +1,928 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="计算机网络," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZX's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="iptables 命令初探前言经历惨无人道的倒数第二学期的全部考试，终于毫无牵挂的进入了网络性能分析实验室。iptables这种强大的工具自然需要使用并且学习。 iptables我们可以将他理解成Linux下的防火墙控制工具，虽然不止这一种工具，但是这是最常用的。它可以代替昂贵的商业防火墙解决方案，完成封包过滤、封包重定向和网络地址转换（NAT）等功能。本文来源 基础知识规则（rules）其实就是">
+<meta name="keywords" content="计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初探iptables">
+<meta property="og:url" content="https://zx19951110.github.io/ZX.github.io/2019/03/12/初探iptables/index.html">
+<meta property="og:site_name" content="ZX&#39;s Blog">
+<meta property="og:description" content="iptables 命令初探前言经历惨无人道的倒数第二学期的全部考试，终于毫无牵挂的进入了网络性能分析实验室。iptables这种强大的工具自然需要使用并且学习。 iptables我们可以将他理解成Linux下的防火墙控制工具，虽然不止这一种工具，但是这是最常用的。它可以代替昂贵的商业防火墙解决方案，完成封包过滤、封包重定向和网络地址转换（NAT）等功能。本文来源 基础知识规则（rules）其实就是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://lesca.me/wp-content/uploads/2012/03/iptables-table-chain-rule-structure.png">
+<meta property="og:updated_time" content="2019-03-12T16:26:32.390Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初探iptables">
+<meta name="twitter:description" content="iptables 命令初探前言经历惨无人道的倒数第二学期的全部考试，终于毫无牵挂的进入了网络性能分析实验室。iptables这种强大的工具自然需要使用并且学习。 iptables我们可以将他理解成Linux下的防火墙控制工具，虽然不止这一种工具，但是这是最常用的。它可以代替昂贵的商业防火墙解决方案，完成封包过滤、封包重定向和网络地址转换（NAT）等功能。本文来源 基础知识规则（rules）其实就是">
+<meta name="twitter:image" content="http://lesca.me/wp-content/uploads/2012/03/iptables-table-chain-rule-structure.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://zx19951110.github.io/ZX.github.io/2019/03/12/初探iptables/"/>
+
+
+
+
+
+  <title>初探iptables | ZX's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZX's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://zx19951110.github.io/ZX.github.io/2019/03/12/初探iptables/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZhanXu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZX's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初探iptables</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-12T15:21:11+01:00">
+                2019-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="iptables-命令初探"><a href="#iptables-命令初探" class="headerlink" title="iptables 命令初探"></a>iptables 命令初探</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>经历惨无人道的倒数第二学期的全部考试，终于毫无牵挂的进入了网络性能分析实验室。iptables这种强大的工具自然需要使用并且学习。</p>
+<p>iptables我们可以将他理解成Linux下的防火墙控制工具，虽然不止这一种工具，但是这是最常用的。它可以代替昂贵的商业防火墙解决方案，完成封包过滤、封包重定向和网络地址转换（NAT）等功能。<a href="https://lesca.me/archives/iptables-tutorial-structures-configuratios-examples.html" target="_blank" rel="external">本文来源</a></p>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p>规则（rules）其实就是网络管理员预定义的条件，规则一般的定义为“如果数据包头符合这样的条件，就这样处理这个数据包”。规则存储在内核空间的信息 包过滤表中，这些规则分别指定了源地址、目的地址、传输协议（如TCP、UDP、ICMP）和服务类型（如HTTP、FTP和SMTP）等。当数据包与规 则匹配时，iptables就根据规则所定义的方法来处理这些数据包，如放行（accept）、拒绝（reject）和丢弃（drop）等。配置防火墙的 主要工作就是添加、修改和删除这些规则。</p>
+<h3 id="iptables传输数据包的过程"><a href="#iptables传输数据包的过程" class="headerlink" title="iptables传输数据包的过程"></a>iptables传输数据包的过程</h3><ol>
+<li>当一个数据包进入网卡时，它首先进入PREROUTING链，内核根据数据包目的IP判断是否需要转送出去。</li>
+<li>如果数据包就是进入本机的，它就会沿着图向下移动，到达INPUT链。数据包到了INPUT链后，任何进程都会收到它。本机上运行的程序可以发送数据包，这些数据包会经过OUTPUT链，然后到达POSTROUTING链输出。</li>
+<li>如果数据包是要转发出去的，且内核允许转发，数据包就会如图所示向右移动，经过FORWARD链，然后到达POSTROUTING链输出。</li>
+</ol>
+<h3 id="iptables的构成"><a href="#iptables的构成" class="headerlink" title="iptables的构成"></a>iptables的构成</h3><p><img src="http://lesca.me/wp-content/uploads/2012/03/iptables-table-chain-rule-structure.png" alt=""></p>
+<h3 id="iptables的表与链"><a href="#iptables的表与链" class="headerlink" title="iptables的表与链"></a>iptables的表与链</h3><p>iptables具有Filter, NAT, Mangle, Raw四种内建表：</p>
+<ol>
+<li><p>Filter表 表示iptables的默认表，因此如果你没有自定义表，那么就默认使用filter表，它具有以下三种内建链：</p>
+<ul>
+<li>INPUT链 – 处理来自外部的数据。</li>
+<li>OUTPUT链 – 处理向外发送的数据。</li>
+<li>FORWARD链 – 将数据转发到本机的其他网卡设备上</li>
+</ul>
+</li>
+<li><p>NAT表 NAT表有三种内建链：</p>
+<ul>
+<li>PREROUTING链 – 处理刚到达本机并在路由转发前的数据包。它会转换数据包中的目标IP地址（destination ip address），通常用于DNAT(destination NAT)。</li>
+<li>POSTROUTING链 – 处理即将离开本机的数据包。它会转换数据包中的源IP地址（source ip address），通常用于SNAT（source NAT）。</li>
+<li>OUTPUT链 – 处理本机产生的数据包。</li>
+</ul>
+</li>
+<li><p>Mangle表 Mangle表用于指定如何处理数据包。它能改变TCP头中的QoS位。Mangle表具有5个内建链：</p>
+<ul>
+<li>PREROUTING</li>
+<li>OUTPUT</li>
+<li>FORWARD</li>
+<li>INPUT</li>
+<li>POSTROUTING</li>
+</ul>
+</li>
+<li><p>Raw表 Raw表用于处理异常，它具有2个内建链：</p>
+<ul>
+<li>PREROUTING chain</li>
+<li>OUTPUT chain</li>
+</ul>
+</li>
+</ol>
+<h2 id="iptables-规则"><a href="#iptables-规则" class="headerlink" title="iptables 规则"></a>iptables 规则</h2><p><strong>牢记以下三点式理解iptables规则的关键：<br>Rules包括一个条件和一个目标(target)<br>如果满足条件，就执行目标(target)中的规则或者特定值。<br>如果不满足条件，就判断下一条Rules。</strong></p>
+<h3 id="目标值"><a href="#目标值" class="headerlink" title="目标值"></a>目标值</h3><ul>
+<li>ACCEPT – 允许防火墙接收数据包</li>
+<li>DROP – 防火墙丢弃包</li>
+<li>QUEUE – 防火墙将数据包移交到用户空间</li>
+<li>RETURN – 防火墙停止执行当前链中的后续Rules，并返回到调用链(the calling chain)中</li>
+</ul>
+<p>如果你执行iptables -t<table> –list你将看到防火墙上的可用规则。下例说明当前系统没有定义防火墙，如果没有指定表你可以看到，它显示了默认的filter表，以及表内默认的input链, forward链, output链。</table></p>
+<p>以上输出包含下列字段：</p>
+<ul>
+<li>num – 指定链中的规则编号</li>
+<li>target – 前面提到的target的特殊值</li>
+<li>prot – 协议：tcp, udp, icmp等</li>
+<li>source – 数据包的源IP地址</li>
+<li>destination – 数据包的目标IP地址</li>
+</ul>
+<h3 id="清空规则"><a href="#清空规则" class="headerlink" title="清空规则"></a>清空规则</h3><p><strong>在配置iptables之前，你通常需要用iptables –list命令或者iptables-save命令查看有无现存规则，因为有时需要删除现有的iptables规则：</strong></p>
+<pre><code>iptables --flush
+或者    
+iptables -F
+</code></pre><h3 id="永久生效"><a href="#永久生效" class="headerlink" title="永久生效"></a>永久生效</h3><p>当你删除、添加规则后，这些更改并不能永久生效，这些规则很有可能在系统重启后恢复原样。为了让配置永久生效，根据平台的不同，具体操作也不同。下面进行简单介绍保存iptables规则</p>
+<pre><code>service iptables save
+</code></pre><p>查看当前规则：</p>
+<pre><code>cat  /etc/sysconfig/iptables
+</code></pre><h2 id="添加规则"><a href="#添加规则" class="headerlink" title="添加规则"></a>添加规则</h2><p><strong>可以使用iptables -A命令追加新规则，其中-A表示Append。因此，新的规则将追加到链尾。<br>一般而言，最后一条规则用于丢弃(DROP)所有数据包。如果你已经有这样的规则了，并且使用-A参数添加新规则，那么就是无用功。</strong></p>
+<h3 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h3><ul>
+<li>-A chain – 指定要追加规则的链</li>
+<li>firewall-rule – 具体的规则参数</li>
+</ul>
+<p><strong>iptables -A chain firewall-rule</strong></p>
+<h3 id="规则基本参数"><a href="#规则基本参数" class="headerlink" title="规则基本参数"></a>规则基本参数</h3><p>以下这些规则参数用于描述数据包的协议、源地址、目的地址、允许经过的网络接口，以及如何处理这些数据包。这些描述是对规则的基本描述。</p>
+<p><strong>-p 协议（protocol）</strong></p>
+<p>指定规则的协议，如tcp, udp, icmp等，可以使用all来指定所有协议。<br>如果不指定-p参数，则默认是all值。这并不明智，请总是明确指定协议名称。<br>可以使用协议名(如tcp)，或者是协议值（比如6代表tcp）来指定协议。映射关系请查看/etc/protocols<br>还可以使用–protocol参数代替-p参数</p>
+<p><strong>-s 源地址（source）</strong></p>
+<p>指定数据包的源地址<br>参数可以使IP地址、网络地址、主机名<br>例如：-s 192.168.1.101指定IP地址<br>例如：-s 192.168.1.10/24指定网络地址<br>如果不指定-s参数，就代表所有地址<br>还可以使用–src或者–source</p>
+<p><strong>-d 目的地址（destination）</strong></p>
+<p>指定目的地址<br>参数和-s相同<br>还可以使用–dst或者–destination</p>
+<p><strong>-j 执行目标（jump to target）</strong></p>
+<p>-j代表”jump to target”<br>-j指定了当与规则(Rule)匹配时如何处理数据包<br>可能的值是ACCEPT, DROP, QUEUE, RETURN<br>还可以指定其他链（Chain）作为目标</p>
+<p><strong>-i 输入接口（input interface）</strong></p>
+<p>-i代表输入接口(input interface)<br>-i指定了要处理来自哪个接口的数据包<br>这些数据包即将进入INPUT, FORWARD, PREROUTE链<br>例如：-i eth0指定了要处理经由eth0进入的数据包<br>如果不指定-i参数，那么将处理进入所有接口的数据包<br>如果出现! -i eth0，那么将处理所有经由eth0以外的接口进入的数据包<br>如果出现-i eth+，那么将处理所有经由eth开头的接口进入的数据包<br>还可以使用–in-interface参数</p>
+<p><strong>-o 输出（out interface）</strong></p>
+<p>-o代表”output interface”<br>-o指定了数据包由哪个接口输出<br>这些数据包即将进入FORWARD, OUTPUT, POSTROUTING链<br>如果不指定-o选项，那么系统上的所有接口都可以作为输出接口<br>如果出现! -o eth0，那么将从eth0以外的接口输出<br>如果出现-i eth+，那么将仅从eth开头的接口输出<br>还可以使用–out-interface参数</p>
+<h4 id="规则拓展参数"><a href="#规则拓展参数" class="headerlink" title="规则拓展参数"></a>规则拓展参数</h4><p>对规则有了一个基本描述之后，有时候我们还希望指定端口、TCP标志、ICMP类型等内容。</p>
+<p><strong>–sport 源端口（source port）针对 -p tcp 或者 -p udp</strong></p>
+<p>缺省情况下，将匹配所有端口<br>可以指定端口号或者端口名称，例如”–sport 22″与”–sport ssh”。<br>/etc/services文件描述了上述映射关系。<br>从性能上讲，使用端口号更好<br>使用冒号可以匹配端口范围，如”–sport 22:100″<br>还可以使用”–source-port”</p>
+<p><strong>–-dport 目的端口（destination port）针对-p tcp 或者 -p udp</strong></p>
+<p>参数和–sport类似<br>还可以使用”–destination-port”</p>
+<p><strong>-–tcp-flags TCP标志 针对-p tcp</strong></p>
+<p>可以指定由逗号分隔的多个参数<br>有效值可以是：SYN, ACK, FIN, RST, URG, PSH<br>可以使用ALL或者NONE</p>
+<p><strong>-–icmp-type ICMP类型 针对-p icmp</strong></p>
+<p>–icmp-type 0 表示Echo Reply<br>–icmp-type 8 表示Echo</p>
+<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><h3 id="IP段配置"><a href="#IP段配置" class="headerlink" title="IP段配置"></a>IP段配置</h3><p>单个IP的命令是</p>
+<pre><code>iptables -I INPUT -s 124.115.0.199 -j DROP
+</code></pre><p>封IP段的命令是</p>
+<pre><code>iptables -I INPUT -s 124.115.0.0/16 -j DROP
+iptables -I INPUT -s 124.115.3.0/16 -j DROP
+iptables -I INPUT -s 124.115.4.0/16 -j DROP
+</code></pre><p>封整个段的命令是</p>
+<pre><code>iptables -I INPUT -s 124.115.0.0/8 -j DROP
+</code></pre><p>封几个段的命令是</p>
+<pre><code>iptables -I INPUT -s 61.37.80.0/24 -j DROP
+iptables -I INPUT -s 61.37.81.0/24 -j DROP
+</code></pre><p><strong>0/24 子网掩码  是网段 不允许这网段访问</strong></p>
+<p><strong>192.168.1.0/16  是192.168以后的网段</strong></p>
+<p><strong>0/26 和0/24差不多</strong></p>
+<h3 id="仅允许SSH服务"><a href="#仅允许SSH服务" class="headerlink" title="仅允许SSH服务"></a>仅允许SSH服务</h3><p>本例实现的规则将仅允许SSH数据包通过本地计算机，其他一切连接（包括ping）都将被拒绝。</p>
+<pre><code># 1.清空所有iptables规则
+iptables -F
+
+# 2.接收目标端口为22的数据包
+iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
+
+# 3.拒绝所有其他数据包
+iptables -A INPUT -j DROP
+</code></pre><h3 id="更改默认策略"><a href="#更改默认策略" class="headerlink" title="更改默认策略"></a>更改默认策略</h3><p>上例的例子仅对接收的数据包过滤，而对于要发送出去的数据包却没有任何限制。本节主要介绍如何更改链策略，以改变链的行为。</p>
+<p><strong>警告：请勿在远程连接的服务器、虚拟机上测试！</strong></p>
+<p>当我们使用-L选项验证当前规则是发现，所有的链旁边都有policy ACCEPT标注，这表明当前链的默认策略为ACCEPT：</p>
+<pre><code># iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             anywhere            tcp dpt:ssh
+DROP       all  --  anywhere             anywhere            
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+</code></pre><p>这种情况下，如果没有明确添加DROP规则，那么默认情况下将采用ACCEPT策略进行过滤。除非：</p>
+<p>a)为以上三个链单独添加DROP规则：</p>
+<pre><code>iptables -A INPUT -j DROP
+iptables -A OUTPUT -j DROP
+iptables -A FORWARD -j DROP
+</code></pre><p>b)更改默认策略：</p>
+<pre><code>iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+iptables -P FORWARD DROP
+</code></pre><p>糟糕！！如果你严格按照上一节的例子配置了iptables，并且现在使用的是SSH进行连接的，那么会话恐怕已经被迫终止了！</p>
+<p>为什么呢？因为我们已经把OUTPUT链策略更改为DROP了。此时虽然服务器能接收数据，但是无法发送数据：</p>
+<h3 id="配置应用程序规则"><a href="#配置应用程序规则" class="headerlink" title="配置应用程序规则"></a>配置应用程序规则</h3><p>以SSH和HTTP所使用的端口为例，教大家如何在默认链策略为DROP的情况下，进行防火墙设置。在这里，我们将引进一种新的参数<strong>-m state</strong>，并检查数据包的状态字段。</p>
+<h4 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h4><pre><code># 1.允许接收远程主机的SSH请求
+iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# 2.允许发送本地主机的SSH响应
+iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre><p>-m state: 启用状态匹配模块（state matching module）</p>
+<p>–-state: 状态匹配模块的参数。当SSH客户端第一个数据包到达服务器时，状态字段为NEW；建立连接后数据包的状态字段都是ESTABLISHED</p>
+<p>–sport 22: sshd监听22端口，同时也通过该端口和客户端建立连接、传送数据。因此对于SSH服务器而言，源端口就是22</p>
+<p>–dport 22: ssh客户端程序可以从本机的随机端口与SSH服务器的22端口建立连接。因此对于SSH客户端而言，目的端口就是22</p>
+<p>如果服务器也需要使用SSH连接其他远程主机，修改对应的链即可。</p>
+<h4 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h4><pre><code># 1.允许接收远程主机的HTTP请求
+iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# 1.允许发送本地主机的HTTP响应
+iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+</code></pre><h4 id="完整的配置"><a href="#完整的配置" class="headerlink" title="完整的配置"></a>完整的配置</h4><pre><code># 1.删除现有规则
+iptables -F
+
+# 2.配置默认链策略
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+
+# 3.允许远程主机进行SSH连接
+iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+
+# 4.允许本地主机进行SSH连接
+iptables -A OUTPUT -o eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+
+# 5.允许HTTP请求
+iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/12/使用tmux/" rel="next" title="使用tmux">
+                <i class="fa fa-chevron-left"></i> 使用tmux
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="ZhanXu" />
+          <p class="site-author-name" itemprop="name">ZhanXu</p>
+           
+              <p class="site-description motion-element" itemprop="description">Long may the sun shine!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ZX19951110" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhan-xu-41/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://619186893.lofter.com/" target="_blank" title="Lofter">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Lofter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iptables-命令初探"><span class="nav-number">1.</span> <span class="nav-text">iptables 命令初探</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">1.1.1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iptables传输数据包的过程"><span class="nav-number">1.1.2.</span> <span class="nav-text">iptables传输数据包的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iptables的构成"><span class="nav-number">1.1.3.</span> <span class="nav-text">iptables的构成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iptables的表与链"><span class="nav-number">1.1.4.</span> <span class="nav-text">iptables的表与链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iptables-规则"><span class="nav-number">1.2.</span> <span class="nav-text">iptables 规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目标值"><span class="nav-number">1.2.1.</span> <span class="nav-text">目标值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清空规则"><span class="nav-number">1.2.2.</span> <span class="nav-text">清空规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#永久生效"><span class="nav-number">1.2.3.</span> <span class="nav-text">永久生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加规则"><span class="nav-number">1.3.</span> <span class="nav-text">添加规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法："><span class="nav-number">1.3.1.</span> <span class="nav-text">语法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则基本参数"><span class="nav-number">1.3.2.</span> <span class="nav-text">规则基本参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#规则拓展参数"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">规则拓展参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用示例"><span class="nav-number">1.4.</span> <span class="nav-text">使用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP段配置"><span class="nav-number">1.4.1.</span> <span class="nav-text">IP段配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#仅允许SSH服务"><span class="nav-number">1.4.2.</span> <span class="nav-text">仅允许SSH服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改默认策略"><span class="nav-number">1.4.3.</span> <span class="nav-text">更改默认策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置应用程序规则"><span class="nav-number">1.4.4.</span> <span class="nav-text">配置应用程序规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">SSH</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整的配置"><span class="nav-number">1.4.4.3.</span> <span class="nav-text">完整的配置</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhanXu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
