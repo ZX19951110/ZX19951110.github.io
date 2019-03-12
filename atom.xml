@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zx19951110.github.io/ZX.github.io/"/>
-  <updated>2018-10-29T13:11:39.409Z</updated>
+  <updated>2019-03-12T14:13:19.586Z</updated>
   <id>https://zx19951110.github.io/ZX.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tmux使用方法</title>
+    <link href="https://zx19951110.github.io/ZX.github.io/2019/03/12/Tmux%E4%BD%BF%E7%94%A8/"/>
+    <id>https://zx19951110.github.io/ZX.github.io/2019/03/12/Tmux使用/</id>
+    <published>2019-03-12T12:32:18.000Z</published>
+    <updated>2019-03-12T14:13:19.586Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Tmux使用方法"><a href="#Tmux使用方法" class="headerlink" title="Tmux使用方法"></a>Tmux使用方法</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Tmux是一个很好用的Linux会话管理软件，常用于新建session与分屏操作。</p><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p><strong>Ctrl + b</strong> 快捷键，之后加<strong>：</strong>可以进入tmux命令行模式进行与tmux交互</p><h3 id="窗口操作"><a href="#窗口操作" class="headerlink" title="窗口操作"></a>窗口操作</h3><ul><li><p>% 左右平分出两个窗格</p></li><li><p>“ 上下平分出两个窗格</p></li><li><p>x 关闭当前窗格</p></li><li><p>{ 当前窗格前移</p></li><li><p>} 当前窗格后移</p></li><li><p>; 选择上次使用的窗格</p></li><li><p>o 选择下一个窗格，也可以使用上下左右方向键来选择</p></li><li><p>space 切换窗格布局，tmux 内置了五种窗格布局，也可以通过 ⌥1  至 ⌥5来切换</p></li><li><p>z 最大化当前窗格，再次执行可恢复原来大小</p></li><li><p>q 显示所有窗格的序号，在序号出现期间按下对应的数字，即可跳转至对应的窗格</p></li></ul><h3 id="窗口操作-1"><a href="#窗口操作-1" class="headerlink" title="窗口操作"></a>窗口操作</h3><p>tmux 除了窗格以外，还有窗口（window） 的概念。依次使用以下快捷键来熟悉 tmux 的窗口操作：</p><ul><li><p>c 新建窗口，此时当前窗口会切换至新窗口，不影响原有窗口的状态</p></li><li><p>p 切换至上一窗口</p></li><li><p>n 切换至下一窗口</p></li><li><p>w 窗口列表选择，注意 macOS 下使用 ⌃p 和 ⌃n 进行上下选择</p></li><li><p>&amp; 关闭当前窗口</p></li><li><p>, 重命名窗口，可以使用中文，重命名后能在 tmux 状态栏更快速的识别窗口 id</p></li><li><p>0 切换至 0 号窗口，使用其他数字 id 切换至对应窗口</p></li><li><p>f 根据窗口名搜索选择窗口，可模糊匹配</p></li></ul><h3 id="会话操作"><a href="#会话操作" class="headerlink" title="会话操作"></a>会话操作</h3><p>如果运行了多次 tmux 命令则会开启多个 tmux 会话（session）。在 tmux 会话中，使用前缀快捷键 ⌃b 配合以下快捷键可操作会话：</p><ul><li><p>$ 重命名当前会话</p></li><li><p>s 选择会话列表</p></li><li><p>d detach 当前会话，运行后将会退出 tmux 进程，返回至 shell 主进程</p></li></ul><p>在 shell 主进程下运行以下命令可以操作 tmux 会话：</p><pre><code>tmux new -s foo # 新建名称为 foo 的会话tmux ls # 列出所有 tmux 会话tmux a # 恢复至上一次的会话tmux a -t foo # 恢复名称为 foo 的会话，会话默认名称为数字tmux kill-session -t foo # 删除名称为 foo 的会话tmux kill-server # 删除所有的会话</code></pre><h3 id="常见配置与问题"><a href="#常见配置与问题" class="headerlink" title="常见配置与问题"></a>常见配置与问题</h3><p>鼠标滚屏<br>tmux 默认配置中最糟糕的体验就是滚屏查看和文本复制（大家可以先试试看）。你需要先使用  ⌃b [ 快捷键进入 copy 模式，然后使用翻页、字符定位来选择需要的字符，效率远没有鼠标选择来的快。<br>因此 tmux 提供了一些个性化配置项来优化这些配置，首先在 shell 中运行 touch ~/.tmux.conf 新建用户配置文件。在文件中增加以下内容：</p><pre><code># 开启鼠标模式set -g mouse on</code></pre><p>配置文件修改完成后，可以 tmux kill-server 重启所有 tmux 进程，或者在 tmux 会话中使用  ⌃b : 进入控制台模式，输入 source-file ~/.tmux.conf 命令重新加载配置。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Tmux使用方法&quot;&gt;&lt;a href=&quot;#Tmux使用方法&quot; class=&quot;headerlink&quot; title=&quot;Tmux使用方法&quot;&gt;&lt;/a&gt;Tmux使用方法&lt;/h1&gt;&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; titl
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="https://zx19951110.github.io/ZX.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="后端" scheme="https://zx19951110.github.io/ZX.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>计算机网络知识点总结</title>
@@ -479,31 +504,6 @@
       
       
         &lt;h1 id=&quot;Nginx-常见应用技术指南&quot;&gt;&lt;a href=&quot;#Nginx-常见应用技术指南&quot; class=&quot;headerlink&quot; title=&quot;Nginx 常见应用技术指南&quot;&gt;&lt;/a&gt;Nginx 常见应用技术指南&lt;/h1&gt;&lt;h2 id=&quot;正则表达式匹配：&quot;&gt;&lt;a href
-      
-    
-    </summary>
-    
-      <category term="技术" scheme="https://zx19951110.github.io/ZX.github.io/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="后端" scheme="https://zx19951110.github.io/ZX.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>windows下配置nginx+mysql+php</title>
-    <link href="https://zx19951110.github.io/ZX.github.io/2017/03/25/windows%E4%B8%8B%E9%85%8D%E7%BD%AEnginx-mysql-php/"/>
-    <id>https://zx19951110.github.io/ZX.github.io/2017/03/25/windows下配置nginx-mysql-php/</id>
-    <published>2017-03-25T12:32:18.000Z</published>
-    <updated>2017-11-20T09:06:25.589Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一般来讲很多开发工作并不是在linux中用vim硬怼，很多人用windows编程然后通过git托管，那么我们可以在windows下面安装nginx和php+Mysql来调试我们的程序</p><h2 id="nginx的安装："><a href="#nginx的安装：" class="headerlink" title="nginx的安装："></a>nginx的安装：</h2><p>方法类似linux下安装nginx，在官网上下载ngxin的windows版，解压然后修改conf/nginx.conf，主要修改如下：</p><pre><code>server {        listen       80;#修改监听端口        server_name  localhost;#修改域名        ······        location / {                    root   html;#网站根目录                    index  index.html index.htm index.php;#配置index                }        ······        location ~ \.php$ {                    root           html;#网站根目录                    fastcgi_pass   127.0.0.1:9000;#Nginx以cgi方式用过tcp协议和php交互，也可配置成套接字交互（.sock）方法参考linux下配置                    fastcgi_index  index.php;                    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;#$document_root指的是web根目录，不配置可能会有No input file specified.错误                    include        fastcgi_params;                }</code></pre><p>附上Nginx的常用命令：</p><pre><code>运行start nginx关闭 nginx -s stop    或者    nginx -s quitstop表示立即停止nginx,不保存相关信息quit表示正常退出nginx,并保存相关信息重启(因为改变了配置,需要重启)nginx -s reload</code></pre><p>然后我们访问localhost，会看到nginx的欢迎界面。</p><h2 id="php的安装"><a href="#php的安装" class="headerlink" title="php的安装:"></a>php的安装:</h2><p>php在windows下面安装方式网上一搜一大堆，整理下就是：</p><ul><li><p>直接解压下载好的php包，把解压出来的文件夹重命名成php5。进入文件夹修改php.ini-recommended文件为php.ini，编辑文件：</p><pre><code>extension_dir = &quot;./ext&quot;</code></pre><p>  更改为</p><pre><code>extension_dir = &quot;D:/wnmp/php5/ext&quot;</code></pre><p>  往下看，再找到</p><pre><code>;extension=php_mysql.dll;extension=php_mysqli.dll</code></pre><p>  前面指定了php的ext路径后，只要把需要的扩展包前面所对应的“;”去掉，就可以了。这里打开php_mysql.dll和php_mysqli.dll，让php支持mysql。</p><p>  到这里，php已经可以支持mysql了。</p><p>  接下来我们来配置php，让php能够与nginx结合。找到</p><pre><code>;cgi.fix_pathinfo=1</code></pre><p>  我们去掉这里的封号。</p><pre><code>cgi.fix_pathinfo=1</code></pre><h5 id="这一步非常重要，这里是php的CGI的设置。"><a href="#这一步非常重要，这里是php的CGI的设置。" class="headerlink" title="这一步非常重要，这里是php的CGI的设置。"></a>这一步非常重要，这里是php的CGI的设置。</h5></li><li><p>输入命令</p><pre><code>php-cgi -b 127.0.0.1:9000 -c $PHP_PATH./php.ini #$PHP_PATH是你php的根目录</code></pre><p>然后利用如下命令：</p><pre><code>netstat -a</code></pre><p>查看9000端口是否已经被php监听，如果是，那么大功告成</p><h3 id="踩过的坑"><a href="#踩过的坑" class="headerlink" title="踩过的坑"></a>踩过的坑</h3><p>php文件访问时会有No input file specified.错误，原因是没有配置</p><p>  fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name; #document_root是根目录<br>这个错误类似404</p></li></ul><h2 id="MySQL的安装："><a href="#MySQL的安装：" class="headerlink" title="MySQL的安装："></a>MySQL的安装：</h2><p>由于是在windows下面安装MySQL，操作自然没有在linux下面那么风骚，接下来以MySQL5.7为例，来聊一聊mysql的安装：</p><ul><li><p>首先下载mysql的windows版本，解压后新建my.ini或者修改my-defalut.ini为my.ini，并添加以下配置：</p><pre><code>[mysql]#设置mysql客户端默认字符集default-character-set=utf8 [mysqld]#设置3306端口port = 3306 #设置mysql的安装目录basedir=D:\Programs\mysql-5.7.17-winx64#设置mysql数据库的数据的存放目录datadir=D:\Programs\mysql-5.7.17-winx64\data #坑注意！#允许最大连接数max_connections=200#服务端使用的字符集默认为8比特编码的latin1字符集character-set-server=utf8#创建新表时将使用的默认存储引擎default-storage-engine=INNODB </code></pre></li><li><p>前方高坑预警：如果你以为这么久可以直接启动服务那就真是naive了，5.7版本的mysql没有data文件夹，所以会导致服务打不开并且不报错，这个问题可以用如下命令解决：<br>   cd到mysql的bin文件夹并且以管理员打开cmd运行下面命令：</p><pre><code>mysqld --initialize --user=mysql --console</code></pre><p>   先执行以上命令, 生成库. 注意有个临时密码, 要记下来.<br>   然后启动服务：</p><pre><code>net start mysql</code></pre><p>   然后再命令行:</p><pre><code>mysql -uroot -p</code></pre><p>   输入密码（生成表命令最后一行）进入mysql：</p><pre><code>set password = password(&apos;root&apos;) #设置密码为root</code></pre><p>   必须修改否则无法使用mysql</p><h3 id="踩过的坑-1"><a href="#踩过的坑-1" class="headerlink" title="踩过的坑"></a>踩过的坑</h3><p>妈个鸡mysql5.7居然没有data文件夹，而且启动服务不报错，找了好久才找到问题，具体的报错可以用下面命令查看：</p><pre><code>mysqld -nt -install #安装并打印日志</code></pre></li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>没啥好总结的，在windows上面要是这些都不会装和咸鱼有什么区别。<br>在linux上面安装和在windows上面大同小异，值得一提的是虽然可以用tcp方式监听9000端口使nginx和php交互，但是利用套接字文件更快（.sock），linux上面启动php需要启动php-fpm.</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;一般来讲很多开发工作并不是在linux中用vim硬怼，很多人用windows编程然后通过git托管，那么我们可以在windows下面安装ng
       
     
     </summary>
