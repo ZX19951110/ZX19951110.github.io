@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zx19951110.github.io/ZX.github.io/"/>
-  <updated>2019-03-12T14:13:19.586Z</updated>
+  <updated>2019-03-12T14:16:31.059Z</updated>
   <id>https://zx19951110.github.io/ZX.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Tmux使用方法</title>
-    <link href="https://zx19951110.github.io/ZX.github.io/2019/03/12/Tmux%E4%BD%BF%E7%94%A8/"/>
-    <id>https://zx19951110.github.io/ZX.github.io/2019/03/12/Tmux使用/</id>
-    <published>2019-03-12T12:32:18.000Z</published>
-    <updated>2019-03-12T14:13:19.586Z</updated>
+    <title>使用tmux</title>
+    <link href="https://zx19951110.github.io/ZX.github.io/2019/03/12/%E4%BD%BF%E7%94%A8tmux/"/>
+    <id>https://zx19951110.github.io/ZX.github.io/2019/03/12/使用tmux/</id>
+    <published>2019-03-12T14:16:00.000Z</published>
+    <updated>2019-03-12T14:16:31.059Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Tmux使用方法"><a href="#Tmux使用方法" class="headerlink" title="Tmux使用方法"></a>Tmux使用方法</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Tmux是一个很好用的Linux会话管理软件，常用于新建session与分屏操作。</p><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p><strong>Ctrl + b</strong> 快捷键，之后加<strong>：</strong>可以进入tmux命令行模式进行与tmux交互</p><h3 id="窗口操作"><a href="#窗口操作" class="headerlink" title="窗口操作"></a>窗口操作</h3><ul><li><p>% 左右平分出两个窗格</p></li><li><p>“ 上下平分出两个窗格</p></li><li><p>x 关闭当前窗格</p></li><li><p>{ 当前窗格前移</p></li><li><p>} 当前窗格后移</p></li><li><p>; 选择上次使用的窗格</p></li><li><p>o 选择下一个窗格，也可以使用上下左右方向键来选择</p></li><li><p>space 切换窗格布局，tmux 内置了五种窗格布局，也可以通过 ⌥1  至 ⌥5来切换</p></li><li><p>z 最大化当前窗格，再次执行可恢复原来大小</p></li><li><p>q 显示所有窗格的序号，在序号出现期间按下对应的数字，即可跳转至对应的窗格</p></li></ul><h3 id="窗口操作-1"><a href="#窗口操作-1" class="headerlink" title="窗口操作"></a>窗口操作</h3><p>tmux 除了窗格以外，还有窗口（window） 的概念。依次使用以下快捷键来熟悉 tmux 的窗口操作：</p><ul><li><p>c 新建窗口，此时当前窗口会切换至新窗口，不影响原有窗口的状态</p></li><li><p>p 切换至上一窗口</p></li><li><p>n 切换至下一窗口</p></li><li><p>w 窗口列表选择，注意 macOS 下使用 ⌃p 和 ⌃n 进行上下选择</p></li><li><p>&amp; 关闭当前窗口</p></li><li><p>, 重命名窗口，可以使用中文，重命名后能在 tmux 状态栏更快速的识别窗口 id</p></li><li><p>0 切换至 0 号窗口，使用其他数字 id 切换至对应窗口</p></li><li><p>f 根据窗口名搜索选择窗口，可模糊匹配</p></li></ul><h3 id="会话操作"><a href="#会话操作" class="headerlink" title="会话操作"></a>会话操作</h3><p>如果运行了多次 tmux 命令则会开启多个 tmux 会话（session）。在 tmux 会话中，使用前缀快捷键 ⌃b 配合以下快捷键可操作会话：</p><ul><li><p>$ 重命名当前会话</p></li><li><p>s 选择会话列表</p></li><li><p>d detach 当前会话，运行后将会退出 tmux 进程，返回至 shell 主进程</p></li></ul><p>在 shell 主进程下运行以下命令可以操作 tmux 会话：</p><pre><code>tmux new -s foo # 新建名称为 foo 的会话tmux ls # 列出所有 tmux 会话tmux a # 恢复至上一次的会话tmux a -t foo # 恢复名称为 foo 的会话，会话默认名称为数字tmux kill-session -t foo # 删除名称为 foo 的会话tmux kill-server # 删除所有的会话</code></pre><h3 id="常见配置与问题"><a href="#常见配置与问题" class="headerlink" title="常见配置与问题"></a>常见配置与问题</h3><p>鼠标滚屏<br>tmux 默认配置中最糟糕的体验就是滚屏查看和文本复制（大家可以先试试看）。你需要先使用  ⌃b [ 快捷键进入 copy 模式，然后使用翻页、字符定位来选择需要的字符，效率远没有鼠标选择来的快。<br>因此 tmux 提供了一些个性化配置项来优化这些配置，首先在 shell 中运行 touch ~/.tmux.conf 新建用户配置文件。在文件中增加以下内容：</p><pre><code># 开启鼠标模式set -g mouse on</code></pre><p>配置文件修改完成后，可以 tmux kill-server 重启所有 tmux 进程，或者在 tmux 会话中使用  ⌃b : 进入控制台模式，输入 source-file ~/.tmux.conf 命令重新加载配置。</p>]]></content>
     
